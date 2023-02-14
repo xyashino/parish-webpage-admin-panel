@@ -9,7 +9,6 @@ export const IntentionsEditTableFoot = ({
   parentId: string;
 }) => {
   const { setIntentions } = useContext(IntentionContext);
-
   const addItemEmptyItem = () => {
     setIntentions((prevState) => {
       const data = prevState.find(({ id: dayId }) => dayId === parentId);

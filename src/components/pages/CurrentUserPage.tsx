@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { MainContainer } from "@components/ui/MainCointaner";
 import { Header } from "@components/ui/Header";
-import { redirect, useLoaderData, useNavigate } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import { Btn } from "@components/ui/Btn";
 import { Divider } from "@components/ui/Divider";
 import { HttpRequest } from "@utils/network/http-request";
@@ -43,7 +43,6 @@ export const CurrentUserPage = () => {
       <Divider />
       <UserChangePassword />
       <Divider />
-
       {showConfirmAlert ? (
         <ConfirmAlert config={confirmConfig} className="w-4/5" />
       ) : null}

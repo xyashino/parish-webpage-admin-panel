@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useContext, useEffect, useState } from "react";
-import { TRANSLATE_INTENTIONS } from "@data/translate-data";
+import { TRANSLATE_INTENTIONS } from "@data/translate-intentions.data";
 import { Day } from "@enums/day.enum";
 import { IntentionContext } from "@context/IntentionContext";
 
@@ -42,7 +42,7 @@ export const IntentionsEditTableHead = ({ day, date, parentId }: Props) => {
           />
         </th>
         <th className={thStyle}>
-          {TRANSLATE_INTENTIONS.get(day as unknown as Day) ?? day}
+          {TRANSLATE_INTENTIONS.get(day as Day) ?? day}
         </th>
       </tr>
 

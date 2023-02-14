@@ -1,17 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import { DayIntentionsResponse } from "@backendTypes";
-import { TRANSLATE_INTENTIONS } from "@data/translate-data";
+import { TRANSLATE_INTENTIONS } from "@data/translate-intentions.data";
 import { Menu } from "@components/ui/Menu";
 import { IntentionContext } from "@context/IntentionContext";
 import { IntentionsEditTable } from "@components/Intentions/edit/IntentionsEditTable";
 import { Header } from "@components/ui/Header";
 import { IntentionsEditWeek } from "@components/Intentions/edit/IntentionsEditWeek";
-import { Divider } from "@components/ui/Divider";
-import { UpdateData } from "@utils/network/update-data";
-import { PageRouter } from "@enums/page-router.enum";
-import { getDataFrom } from "@utils/network/get-data-from";
-import { Btn } from "@components/ui/Btn";
 import { IntentionsButtonSection } from "@components/Intentions/edit/IntentionsEditButtonsSection";
 
 export const IntentionsEditPage = () => {

@@ -1,19 +1,15 @@
-import React, { useContext, useEffect, useState } from "react";
-import { DayIntentionsResponse, IntentionResponse } from "@backendTypes";
+import React from "react";
+import { DayIntentionsResponse } from "@backendTypes";
 import { IntentionsEditTableRow } from "@components/Intentions/edit/IntentionsEditTableRow";
-import { IntentionContext } from "@context/IntentionContext";
 import { IntentionsEditTableHead } from "@components/Intentions/edit/IntentionsEditTableHead";
-import { Trash } from "@icons/Trash";
 import { IntentionsEditTableFoot } from "@components/Intentions/edit/IntentionsEditTableFoot";
 
 interface Props {
   table: DayIntentionsResponse | undefined;
 }
-
-const thStyle = "bg-primary text-xl text-base-100 ";
 export const IntentionsEditTable = ({ table }: Props) => {
   if (!table) return null;
-  const { intentions: tableIntentions, id, dateOfDay, day } = table;
+  const { intentions: tableIntentions, id } = table;
 
   return (
     <table className="overflow-wrap my-4 table w-full">

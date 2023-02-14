@@ -1,10 +1,10 @@
-import { HTMLAttributes } from "react";
+import {InputHTMLAttributes } from "react";
 
-interface Props extends HTMLAttributes<HTMLInputElement> {
+type Props = InputHTMLAttributes<HTMLInputElement> & {
   text: string;
   labelClassName?: string;
   textClassName?: string;
-}
+};
 
 export const MyLabel = ({
   text,
@@ -12,7 +12,7 @@ export const MyLabel = ({
   labelClassName,
   ...props
 }: Props) => {
-  const labelClasses = `w-full p-4 ${labelClassName ? labelClassName : ""}`;
+  const labelClasses = `w-full p-4 ${labelClassName ?? ""}`;
   const spanClasses = `uppercase font-bold ${
     textClassName ? textClassName : ""
   }`;
