@@ -7,7 +7,7 @@ import { PageRouter } from "@enums/page-router.enum";
 import { ErrorAlert } from "@components/alerts/ErrorAlert";
 
 const NEW_EMAIL_NAME = "email";
-const PASSWORD_NAME = "email";
+const PASSWORD_NAME = "password";
 
 export const UserChangeEmail = () => {
   const [data, setData] = useState({
@@ -25,24 +25,24 @@ export const UserChangeEmail = () => {
   });
 
   useEffect(() => {
-    setAreValidData((prevState) => ({
+    setAreValidData(() => ({
       pwd: data.pwd.length >= 8 || data.pwd.length === 0,
       email: data.email.includes("@") || data.email.length === 0,
     }));
   }, [data]);
 
   const clearAlert = () =>
-    setAlert(({ show, message }) => ({ show: false, message }));
+    setAlert(({ message }) => ({ show: false, message }));
 
   const changeData = (e: SyntheticEvent) => {
     e.preventDefault();
     clearAlert();
     const { value, name } = e.target as HTMLInputElement;
     if (name === PASSWORD_NAME) {
-      setData(({ pwd, email }) => ({ email, pwd: value }));
+      setData(({  email }) => ({ email, pwd: value }));
       return;
     }
-    setData(({ pwd, email }) => ({ email: value, pwd }));
+    setData(({ pwd }) => ({ email: value, pwd }));
   };
 
   const changeEmail = async (event: SyntheticEvent) => {
@@ -54,8 +54,8 @@ export const UserChangeEmail = () => {
         email,
         password: pwd,
       });
-    } catch (e) {
-      setAlert(({ show, message }) => ({
+    } catch (e: any) {
+      setAlert(() => ({
         show: true,
         message: e.response.data.message,
       }));

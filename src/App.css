@@ -5,7 +5,6 @@
   text-align: center;
 }
 
-
 .btn , .btn-primary {
   @apply text-base-100;
 }

@@ -30,10 +30,10 @@ export const UserChangePassword = () => {
     message: "",
   });
   const clearAlert = () =>
-    setAlert(({ show, message }) => ({ show: false, message }));
+    setAlert(({  message }) => ({ show: false, message }));
 
   useEffect(() => {
-    setAreValidData((prevState) => {
+    setAreValidData(() => {
       const { newPwd, oldPwd, confirmPwd } = data;
       return {
         oldPwd: oldPwd.length >= 8 || oldPwd.length === 0,
@@ -87,8 +87,8 @@ export const UserChangePassword = () => {
         password: oldPwd,
         newPassword: newPwd,
       });
-    } catch (e) {
-      setAlert(({ show, message }) => ({
+    } catch (e: any) {
+      setAlert(() => ({
         show: true,
         message: e.response.data.message,
       }));
