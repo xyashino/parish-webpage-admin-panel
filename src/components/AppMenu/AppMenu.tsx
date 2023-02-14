@@ -1,55 +1,7 @@
-import { PageRouter } from "@enums/page-router.enum";
+import React from "react";
 import { Logo } from "@icons/Logo";
 import { AppMenuItem } from "@components/AppMenu/AppMenuItem";
-import { Submenu } from "@components/AppMenu/Submenu";
-interface Props {
-  title: string;
-}
-const MENU_STRUCTURE = [
-  {
-    name: "Ogłoszenia",
-    items: [
-      {
-        text: "Podgląd",
-        path: PageRouter.AnnouncementPreview,
-      },
-      {
-        text: "Edytuj",
-        path: PageRouter.AnnouncementEdit,
-      },
-    ],
-  },
-  {
-    name: "Intencje",
-    items: [
-      {
-        text: "Podgląd",
-        path: PageRouter.IntentionsPreview,
-      },
-      {
-        text: "Edytuj",
-        path: PageRouter.IntentionsEdit,
-      },
-    ],
-  },
-  {
-    name: "Konto",
-    items: [
-      // {
-      //   text: "Podgląd",
-      //   path: PageRouter.IntentionsPreview,
-      // },
-      // {
-      //   text: "Edytuj",
-      //   path: PageRouter.IntentionsEdit,
-      // },
-      {
-        text: "Dane",
-        path: PageRouter.UserCurrent,
-      },
-    ],
-  },
-];
+import { MENU_STRUCTURE } from "@data/menu-structure.data";
 
 export const AppMenu = () => {
   return (

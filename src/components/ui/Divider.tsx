@@ -1,12 +1,16 @@
 import React, { HTMLAttributes } from "react";
+
 interface Props extends Omit<HTMLAttributes<HTMLDivElement>, "className"> {
   horizontal?: true;
   value?: string;
   className?: string;
 }
+
 export const Divider = ({ horizontal, value, className, ...props }: Props) => {
-  const tailwindStyles = `divider ${horizontal ? "divider-horizontal" : ""} 
-      ${className ? className : ""}`.trim();
+  const horizontalStyle = horizontal ? "divider-horizontal" : "";
+  const ownClasses = className ? className : "";
+  const tailwindStyles = `divider mb-0 ${horizontalStyle} ${ownClasses}`;
+
   return (
     <div className={tailwindStyles} {...props}>
       {value && ""}

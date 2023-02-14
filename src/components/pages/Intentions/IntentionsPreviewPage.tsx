@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import { DayIntentionsResponse } from "@backendTypes";
 import { MenuItem } from "@frontendTypes/menu-item.interface";
-import { TRANSLATE_INTENTIONS } from "@data/translate-data";
+import { TRANSLATE_INTENTIONS } from "@data/translate-intentions.data";
 import { GridLayoutPage } from "@components/ui/GridLayoutPage";
 import { Menu } from "@components/ui/Menu";
 import { IntentionsPreviewTable } from "@components/Intentions/preview/IntentionsPreviewTable";

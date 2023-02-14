@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, useEffect, useRef, useState } from "react";
+import React, { SyntheticEvent, useLayoutEffect, useState } from "react";
 import { LoginInput } from "@components/Login/LoginInput";
 import { HttpRequest } from "@utils/network/http-request";
 import { useNavigate } from "react-router-dom";
@@ -43,7 +43,7 @@ export const LoginForm = () => {
     setLoginData(({ password, ...rest }) => ({ password: value, ...rest }));
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setValidData(() => {
       const { password, email } = loginData;
       const validEmail = email.length === 0 || email.includes("@");
@@ -56,7 +56,7 @@ export const LoginForm = () => {
     });
   }, [loginData]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const { password, email } = loginData;
     setDisableBtn(() => {
       if (loginData.email.length === 0 || loginData.password.length === 0) {
@@ -82,7 +82,7 @@ export const LoginForm = () => {
     } catch (error) {
       setError(() => ({
         show: true,
-        message: error.response.data.error,
+        message: (error as any).response.data.error,
       }));
     }
   };
@@ -124,7 +124,7 @@ export const LoginForm = () => {
       {error.show ? (
         <ErrorAlert onClick={disableError} message={error.message} />
       ) : null}
-      <a className="link-primary link">Zapomniałem hasła</a>
+      {/*<a className="link-primary link">Zapomniałem hasła</a>*/}
     </form>
   );
 };
