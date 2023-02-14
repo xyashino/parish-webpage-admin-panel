@@ -1,22 +1,18 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { Btn } from "@components/ui/Btn";
 import { Divider } from "@components/ui/Divider";
 import { UpdateData } from "@utils/network/update-data";
 import { PageRouter } from "@enums/page-router.enum";
 import { getDataFrom } from "@utils/network/get-data-from";
-import { ConfirmAlert } from "@components/alerts/ConfirmAlert";
-import { ConfirmConfig } from "@frontendTypes/confirm-config.inteface";
 import { AnnouncementContext } from "@context/AnnouncementContext";
 import { CreateAnnouncementRequest } from "@backendTypes";
-
-const TOOLTIP_INFO = "Ustawia aktualną date na cały tydzień";
+import {useConfirmAlert} from "@hooks/useConfirmAlert";
 
 export const AnnouncementEditBodyItem = () => {
+
   const { announcements, setAnnouncements } = useContext(AnnouncementContext);
-  const [showConfirmAlert, setShowConfirmAlert] = useState(false);
-  const [confirmConfig, setConfirmConfig] = useState<null | ConfirmConfig>(
-    null
-  );
+  const { setConfig , alertElement} = useConfirmAlert();
+
 
   const updateAnnouncements = async () => {
     const {
@@ -25,8 +21,7 @@ export const AnnouncementEditBodyItem = () => {
       title,
       announcements: announcementsArray,
     } = announcements;
-
-    const response = await UpdateData(`${PageRouter.Announcement}/${id}`, {
+    await UpdateData(`${PageRouter.Announcement}/${id}`, {
       title,
       subtitle,
       announcements: announcementsArray.map(({ body, order }) => ({
@@ -34,54 +29,37 @@ export const AnnouncementEditBodyItem = () => {
         order,
       })),
     } as CreateAnnouncementRequest);
-    console.log(response);
-    setShowConfirmAlert(false);
   };
 
-  const hideAlert = () => {
-    setShowConfirmAlert(false);
-  };
 
   const refreshData = async () => {
-    setConfirmConfig({
-      infoText: "Czy na pewno chcesz odświeżyć dane?",
-      confirmClicked: async () => {
-        const [response] = await getDataFrom(PageRouter.Announcement);
-        if (response) {
-          setAnnouncements(response);
-        }
-        setShowConfirmAlert(false);
-      },
-      denyClicked: hideAlert,
-    });
-    setShowConfirmAlert(true);
+    const temp = async () => {
+          const [response] = await getDataFrom(PageRouter.Announcement);
+          if (response) {
+            setAnnouncements(response);
+          }
+    }
+    setConfig("Czy na pewno chcesz odświeżyć dane?",temp);
   };
 
   const updateData = async () => {
-    setConfirmConfig({
-      infoText: "Czy na pewno chcesz zaktualizować dane?",
-      confirmClicked: updateAnnouncements,
-      denyClicked: hideAlert,
-    });
-    setShowConfirmAlert(true);
+    setConfig(
+"Czy na pewno chcesz zaktualizować dane?",
+      updateAnnouncements);
   };
 
   const clearData = async () => {
-    setConfirmConfig({
-      infoText: "Czy na pewno chcesz wyczyścić dane?",
-      confirmClicked: () => {
-        setAnnouncements(({ id }) => ({
-          id,
-          subtitle: "",
-          title: "",
-          announcements: [],
-        }));
-        setShowConfirmAlert(false);
-      },
-      denyClicked: hideAlert,
-    });
-    setShowConfirmAlert(true);
-  };
+        setConfig("Czy na pewno chcesz wyczyścić dane?",
+            () => {
+              setAnnouncements(({id}) => ({
+                id,
+                subtitle: "",
+                title: "",
+                announcements: [],
+              }));
+            })
+      }
+    ;
 
   return (
     <div className="flex  w-full flex-wrap justify-around">
@@ -97,8 +75,7 @@ export const AnnouncementEditBodyItem = () => {
       <Btn className="btn-wide btn" onClick={refreshData}>
         Odśwież Dane
       </Btn>
-
-      {showConfirmAlert ? <ConfirmAlert config={confirmConfig} /> : null}
+        {alertElement}
       <Divider className="w-full" />
     </div>
   );
