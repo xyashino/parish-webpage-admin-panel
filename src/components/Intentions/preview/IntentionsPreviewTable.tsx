@@ -2,7 +2,7 @@ import React from "react";
 import { IntentionsPreviewTableRow } from "./IntentionsPreviewTableRow";
 import { IntentionResponse } from "@backendTypes";
 import { Day } from "@enums/day.enum";
-import { TRANSLATE_INTENTIONS } from "@data/translate-data";
+import { TRANSLATE_INTENTIONS } from "@data/translate-intentions.data";
 interface Props {
   day: string;
   intentionRow: IntentionResponse[];
