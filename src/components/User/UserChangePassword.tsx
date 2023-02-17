@@ -1,144 +1,98 @@
 import { ExpandableContent } from "@components/ui/ExpandableContent";
-import { MyLabel } from "@components/ui/MyLabel";
 import { Btn } from "@components/ui/Btn";
-import { FormEvent, SyntheticEvent, useEffect, useState } from "react";
-import { HttpRequest } from "@utils/network/http-request";
-import { PageRouter } from "@enums/page-router.enum";
-import { ErrorAlert } from "@components/alerts/ErrorAlert";
+import { useLayoutEffect, useRef, useState} from "react";
+
+import {useValidationState} from "@hooks/useValidationState";
+import {LoginInput} from "@components/Login/LoginInput";
 
 const OLD_PASSWORD_NAME = "oldPassword";
 const NEW_PASSWORD_NAME = "newPassword";
 const CONFIRM_PASSWORD_NAME = "confirmPassword";
 
 export const UserChangePassword = () => {
-  const [data, setData] = useState({
-    oldPwd: "",
-    newPwd: "",
-    confirmPwd: "",
+  const newPwdRef = useRef(null)
+
+  const {
+    setValue: setOldPwdValue,
+    value: oldPwdValue,
+    isValid: isOldPwdValid,
+    error: oldPwdError
+  } = useValidationState('Hasło', {
+    min: 8,
+    max: 255,
   });
 
-  const [areValidData, setAreValidData] = useState({
-    oldPwd: true,
-    newPwd: true,
-    confirmPwd: true,
+  const {
+    setValue: setNewPwdValue,
+    value: newPwdValue,
+    isValid: isNewPwdValid,
+    error: newPwdError
+  } = useValidationState('Hasło', {
+    min: 8,
+    max: 255,
   });
 
-  const [btnStyle, setBtnStyle] = useState("btn-disabled");
-
-  const [alert, setAlert] = useState({
-    show: false,
-    message: "",
+  const {
+    setValue: setConfirmPwdValue,
+    value: confirmPwdValue,
+    isValid: isConfirmPwdValid,
+    error: confirmPwdError
+  } = useValidationState('Hasło', {
+    min: 8,
+    max: 255,
+    sameAs: newPwdRef
   });
-  const clearAlert = () =>
-    setAlert(({  message }) => ({ show: false, message }));
 
-  useEffect(() => {
-    setAreValidData(() => {
-      const { newPwd, oldPwd, confirmPwd } = data;
-      return {
-        oldPwd: oldPwd.length >= 8 || oldPwd.length === 0,
-        newPwd: newPwd.length >= 8 || newPwd.length === 0,
-        confirmPwd:
-          (confirmPwd.length >= 8 && confirmPwd === newPwd) ||
-          newPwd.length === 0,
-      };
-    });
-    setBtnStyle(() => enableBtn());
-  }, [data]);
+  const [disableBtn, setDisableBtn] = useState("disabled");
 
-  const enableBtn = (): string => {
-    const { newPwd, oldPwd, confirmPwd } = data;
-    return newPwd.length === 0 || oldPwd.length === 0 || confirmPwd.length === 0
-      ? "btn-disabled"
-      : areValidData.oldPwd && areValidData.confirmPwd && areValidData.newPwd
-      ? "btn-primary"
-      : "btn-disabled";
-  };
-
-  const changeData = (e: FormEvent) => {
-    e.preventDefault();
-    clearAlert();
-    const { value, name } = e.target as HTMLInputElement;
-    if (name === OLD_PASSWORD_NAME) {
-      setData(({ oldPwd, ...rest }) => ({ ...rest, oldPwd: value }));
-      return;
-    }
-    if (name === NEW_PASSWORD_NAME) {
-      setData(({ newPwd, ...rest }) => ({ ...rest, newPwd: value }));
-      return;
-    }
-    setData(({ confirmPwd, ...rest }) => ({ ...rest, confirmPwd: value }));
-  };
-
-  const updatePwd = async (e: SyntheticEvent) => {
-    e.preventDefault();
-    clearAlert();
-    const { newPwd, oldPwd, confirmPwd } = data;
-    if (
-      newPwd.length < 8 ||
-      oldPwd.length < 8 ||
-      confirmPwd.length < 8 ||
-      newPwd !== confirmPwd
-    )
-      return;
-
-    try {
-      await HttpRequest.patch(PageRouter.Current, {
-        password: oldPwd,
-        newPassword: newPwd,
-      });
-    } catch (e: any) {
-      setAlert(() => ({
-        show: true,
-        message: e.response.data.message,
-      }));
-    }
-  };
+  useLayoutEffect(() => {
+    setDisableBtn((isNewPwdValid && isOldPwdValid && isConfirmPwdValid) ? "wide" : "disabled");
+  }, [isNewPwdValid, isOldPwdValid, isConfirmPwdValid])
 
   return (
     <ExpandableContent title="Zmień Hasło">
-      <form className="flex w-full flex-col items-center justify-center bg-accent p-4">
-        <MyLabel
+      <form
+          className="flex w-full flex-col items-center justify-center bg-accent p-4"
+
+          noValidate
+      >
+        <LoginInput
           type="password"
           placeholder="********"
           name={OLD_PASSWORD_NAME}
-          value={data.oldPwd}
-          text="Hasło:"
-          className={`input ${areValidData.oldPwd ? "" : "input-error"}`}
-          textClassName="p-4"
-          labelClassName="flex items-center  justify-center"
-          onChange={(e) => changeData(e)}
+          value={oldPwdValue}
+          labelText="Stare Hasło:"
+          onChange={(e) => setOldPwdValue(e.target.value)}
+          error={oldPwdError}
         />
-        <MyLabel
-          placeholder="********"
-          value={data.newPwd}
-          name={NEW_PASSWORD_NAME}
-          type="password"
-          className={`input ${areValidData.newPwd ? "" : "input-error"}`}
-          text="Nowe Hasło:"
-          textClassName="p-4"
-          onChange={(e) => changeData(e)}
-          labelClassName="flex items-center  justify-center"
-        />
-        <MyLabel
-          type="password"
-          value={data.confirmPwd}
-          name={CONFIRM_PASSWORD_NAME}
-          placeholder="********"
-          text="Powtórz Hasło:"
-          className={`input ${areValidData.confirmPwd ? "" : "input-error"}`}
-          labelClassName="flex items-center  justify-center"
-          textClassName="p-4"
-          onChange={(e) => changeData(e)}
+        <LoginInput
+            ref={newPwdRef}
+            type="password"
+            placeholder="********"
+            name={NEW_PASSWORD_NAME}
+            value={newPwdValue}
+            labelText="Nowe Hasło:"
+            onChange={(e) => setNewPwdValue(e.target.value)}
+            error={newPwdError}
         />
 
-        <Btn className={`btn ${btnStyle}`} onClick={(e) => updatePwd(e)}>
+        <LoginInput
+          type="password"
+          value={confirmPwdValue}
+          name={CONFIRM_PASSWORD_NAME}
+          placeholder="********"
+          labelText="Powtórz Hasło:"
+          onChange={(e) => setConfirmPwdValue(e.target.value)}
+          error={confirmPwdError}
+        />
+
+        <Btn className={`btn btn-${disableBtn}`}>
           Zmień hasło
         </Btn>
 
-        {alert.show ? (
-          <ErrorAlert onClick={clearAlert} message={alert.message} />
-        ) : null}
+        {/*{alert.show ? (*/}
+        {/*  <ErrorAlert onClick={clearAlert} message={alert.message} />*/}
+        {/*) : null}*/}
       </form>
     </ExpandableContent>
   );
