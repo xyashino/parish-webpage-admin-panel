@@ -1,9 +1,10 @@
-import {useLayoutEffect, useState} from "react";
+import {MutableRefObject, useLayoutEffect, useState} from "react";
 
 interface validationData {
     min: number;
     max?: number;
     specialChars?: string[];
+    sameAs?: MutableRefObject<null>;
 }
 
 const checkIsValid = (state: string, name: string, {min, specialChars, max}: validationData): true => {
@@ -22,7 +23,7 @@ export const useValidationState = (inputName: string, validationOptions: validat
     const [value, setValue] = useState('');
     const [isEmpty, setIsEmpty] = useState(value.length === 0);
     const [isValid, setIsValid] = useState(false);
-    const [errorMessage, setErrorMessage] = useState('')
+    const [errorMessage, setErrorMessage] = useState('');
     const [showError, setShowError] = useState(false);
 
     useLayoutEffect(() => {
@@ -34,15 +35,16 @@ export const useValidationState = (inputName: string, validationOptions: validat
         () => {
             if (value.length === 0) {
                 setIsEmpty(true);
-                return
+                return;
             };
             try {
                 setIsEmpty(false);
                 checkIsValid(value, inputName, validationOptions);
                 setIsValid(true);
-            } catch (e) {
-                //@TODO any
-                setErrorMessage((e as any).message)
+            } catch (error) {
+                let message = 'Unknown Error'
+                if (error instanceof Error) message = error.message
+                setErrorMessage(message)
                 setIsValid(false);
             }
         }, [value]
