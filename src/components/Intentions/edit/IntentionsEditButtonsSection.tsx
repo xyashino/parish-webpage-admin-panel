@@ -7,7 +7,7 @@ import { PageRouter } from "@enums/page-router.enum";
 import { getDataFrom } from "@utils/network/get-data-from";
 import {useConfirmAlert} from "@hooks/useConfirmAlert";
 export const IntentionsButtonSection = () => {
-  const { intentions, setIntentions } = useContext(IntentionContext);
+  const {intentions, setIntentions} = useContext(IntentionContext);
   const {alertElement,setConfig} = useConfirmAlert();
   const updateIntentions = async () => {
     for (const { id, dateOfDay, intentions: childIntentions } of intentions) {

@@ -30,11 +30,10 @@ export const useValidationState = (inputName: string, validationOptions: validat
         setShowError(!(isEmpty || isValid));
     }, [isEmpty, isValid])
 
-
     useLayoutEffect(
         () => {
-            setIsEmpty(value.length === 0);
             try {
+                setIsEmpty(value.length === 0);
                 checkIsValid(value, inputName, validationOptions);
                 setIsValid(true);
             } catch (error) {

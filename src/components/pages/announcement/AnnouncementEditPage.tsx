@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useLayoutEffect, useState} from "react";
 import { MainContainer } from "@components/ui/MainCointaner";
 import { Header } from "@components/ui/Header";
 import { useLoaderData } from "react-router-dom";
@@ -15,7 +15,7 @@ export const AnnouncementEditPage = () => {
   const [announcementsList, setAnnouncementsList] = useState(
     data.announcements
   );
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (announcements.announcements) {
       setAnnouncementsList(announcements.announcements);
     }

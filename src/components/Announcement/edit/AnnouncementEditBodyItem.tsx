@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useContext, useEffect, useState } from "react";
+import React, {ChangeEvent, useContext, useLayoutEffect, useState} from "react";
 import { Divider } from "@components/ui/Divider";
 import { AnnouncementsItem } from "@backendTypes";
 import { AnnouncementContext } from "@context/AnnouncementContext";
@@ -15,7 +15,7 @@ export const AnnouncementEditBodyItem = ({ item }: Props) => {
   const [order, setOrder] = useState(orderItem);
   const [body, setBody] = useState(bodyItem);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const { body, order } = item;
     setOrder(order);
     setBody(body);

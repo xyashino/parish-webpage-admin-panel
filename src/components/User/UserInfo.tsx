@@ -1,4 +1,3 @@
-import { MyLabel } from "@components/ui/MyLabel";
 import { ExpandableContent } from "@components/ui/ExpandableContent";
 
 interface Props {

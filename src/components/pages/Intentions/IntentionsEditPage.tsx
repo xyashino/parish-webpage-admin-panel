@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useLayoutEffect, useState} from "react";
 import { useLoaderData } from "react-router-dom";
 import { DayIntentionsResponse } from "@backendTypes";
 import { TRANSLATE_INTENTIONS } from "@data/translate-intentions.data";
@@ -41,7 +41,7 @@ export const IntentionsEditPage = () => {
     });
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const activeId = menu.find(({ active }) => active)?.id;
     if (!activeId) return;
     setActiveTable(() => {
