@@ -7,6 +7,7 @@ import { GridLayoutPage } from "@components/ui/GridLayoutPage";
 import { Menu } from "@components/ui/Menu";
 import { IntentionsPreviewTable } from "@components/Intentions/preview/IntentionsPreviewTable";
 import { Header } from "@components/ui/Header";
+import { DateUtil } from "@utils/date.util";
 
 const weekday = [
   "sunday",
@@ -28,6 +29,9 @@ const activeTable = (intentions: DayIntentionsResponse[], menu: MenuItem[]) => {
 
 export const IntentionsPreviewPage = () => {
   const intentions = useLoaderData() as DayIntentionsResponse[];
+  const startWeek = intentions.at(0)?.dateOfDay;
+  const endWeek = intentions.at(-1)?.dateOfDay;
+
   const [menu, setMenu] = useState<MenuItem[]>(
     intentions.map(({ day, id }) => ({
       title: TRANSLATE_INTENTIONS.get(day) ?? "unknown",
@@ -56,7 +60,7 @@ export const IntentionsPreviewPage = () => {
   const title = (
     <p>
       INTENCJE TYGODNIOWE <br />{" "}
-      {`${intentions.at(0)?.dateOfDay}-${intentions.at(-1)?.dateOfDay}`}
+      {endWeek && startWeek ? DateUtil.createDateRange(startWeek, endWeek) : ""}
     </p>
   );
   const panel = (
@@ -75,6 +79,7 @@ export const IntentionsPreviewPage = () => {
         <IntentionsPreviewTable
           day={table.day}
           intentionRow={table.intentions}
+          dateOfDay={table.dateOfDay}
         />
       </GridLayoutPage>
     </section>

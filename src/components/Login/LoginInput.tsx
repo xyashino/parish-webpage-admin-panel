@@ -1,32 +1,41 @@
 import React, { InputHTMLAttributes } from "react";
-import { Info } from "@icons/Info";
 
 type Props = InputHTMLAttributes<HTMLInputElement> & {
   labelText: string;
   value: string;
-  tooltip: string;
+  ref?: React.Ref<HTMLInputElement>
+  error?: {
+    show: boolean;
+    message: string;
+  };
 };
 
 export const LoginInput = ({
   labelText,
   className,
-  tooltip,
+  error,
   ...props
 }: Props) => {
+
+  const defaultInputClasses = `input-bordered input w-full appearance-none rounded text-black shadow`;
+  const errorInputClass = `${error?.show ? "input-error" : ""}`;
+  const optionalInputClasses = `${className ?? ""}`;
+
+  const errorElement = (
+    <p className="pt-1 text-sm text-error">{error?.message}</p>
+  );
+
+
+
   return (
-    <div className="mb-4 flex w-full items-center">
+    <div className="mb-4 flex w-full flex-col items-center">
       <div className="form-control mr-4">
-        <label className="mb-2 block text-left font-bold">{labelText}</label>
-        <input
-          className={`input-bordered input w-full appearance-none rounded text-black shadow ${
-            className ?? ""
-          }`}
-          {...props}
+        <label className="mb-2 block text-left font-bold">{labelText}</label><input
+            className={`${defaultInputClasses} ${optionalInputClasses} ${errorInputClass}`}
+            {...props}
         />
       </div>
-      <div className="tooltip-hover tooltip tooltip-right" data-tip={tooltip}>
-        <Info className="text-3xl" />
-      </div>
+      {error?.show ? errorElement : null}
     </div>
   );
 };

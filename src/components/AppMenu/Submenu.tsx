@@ -7,7 +7,7 @@ interface Props {
 
 export const Submenu = ({ items }: Props) => {
   return (
-    <ul className=" btn-wide z-40 bg-accent font-bold uppercase">
+    <ul className="btn-wide z-40 border-2 border-l-0 border-base-100 bg-accent font-bold uppercase">
       {items.map(({ path, text }) => {
         return (
           <li key={path}>

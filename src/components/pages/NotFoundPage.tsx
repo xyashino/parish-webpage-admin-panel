@@ -1,5 +1,4 @@
 import React from "react";
-
 import { Link } from "react-router-dom";
 import { PageRouter } from "@enums/page-router.enum";
 
@@ -10,7 +9,7 @@ export const NotFoundPage = () => {
         404
       </h1>
       <div className="absolute rotate-12 rounded bg-secondary px-2 text-sm text-secondary-content">
-        Page Not Found
+        Nie znaleziono strony
       </div>
       <button className="mt-5">
         <Link

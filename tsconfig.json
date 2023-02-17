@@ -26,6 +26,7 @@
       "@context/*": ["./src/context/*"],
       "@enums/*":  ["./src/enums/*"],
       "@frontendTypes/*": ["./src/types/*"],
+      "@hooks/*": ["./src/hooks/*"],
       "@backendTypes": ["../strona-parafialna-back/src/types/"]
     }
   },

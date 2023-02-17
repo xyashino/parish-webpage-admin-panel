@@ -1,7 +1,7 @@
 import React from "react";
 import { IntentionResponse } from "@backendTypes";
 
-export const IntentionsPreviewTableRow = ({
+export const IntentionsTableRow = ({
   hour,
   value,
 }: Omit<IntentionResponse, "id">) => {

@@ -1,89 +1,60 @@
 import React, { SyntheticEvent, useLayoutEffect, useState } from "react";
 import { LoginInput } from "@components/Login/LoginInput";
-import { HttpRequest } from "@utils/network/http-request";
+import { AxiosBase } from "@utils/network/axios-base";
 import { useNavigate } from "react-router-dom";
 import { PageRouter } from "@enums/page-router.enum";
 import { Btn } from "@components/ui/Btn";
-import { ErrorAlert } from "@components/alerts/ErrorAlert";
+import { useValidationState } from "@hooks/useValidationState";
 
 const LOGIN_INPUT_NAME = "email";
 const PASSWORD_INPUT_NAME = "password";
 
 export const LoginForm = () => {
   const navigate = useNavigate();
-
-  const [loginData, setLoginData] = useState({
-    email: "",
-    password: "",
+  const {
+    setValue: setEmailValue,
+    value: emailValue,
+    isValid: isEmailValid,
+    error: emailError,
+  } = useValidationState("Email", {
+    min: 3,
+    max: 255,
+    specialChars: ["@"],
   });
 
-  const [error, setError] = useState({
-    show: false,
-    message: "",
+  const {
+    setValue: setPwdValue,
+    value: pwdValue,
+    isValid: isPwdValid,
+    error: pwdError,
+  } = useValidationState("Hasło", {
+    min: 8,
+    max: 255,
   });
 
-  const [validData, setValidData] = useState({
-    email: true,
-    password: true,
-  });
+  // const [errorMessage, setErrorMessage] = useState({
+  //   email: "",
+  //   message: "",
+  // });
 
-  const [disableBtn, setDisableBtn] = useState(true);
-  const disableError = () => {
-    setError(({ show, ...rest }) => ({ show: false, ...rest }));
-  };
-
-  const handleInput = (e: SyntheticEvent) => {
-    e.preventDefault();
-    disableError();
-    const { name, value } = e.target as HTMLInputElement;
-    if (name === LOGIN_INPUT_NAME) {
-      setLoginData(({ email, ...rest }) => ({ email: value, ...rest }));
-      return;
-    }
-    setLoginData(({ password, ...rest }) => ({ password: value, ...rest }));
-  };
-
+  const [disableBtn, setDisableBtn] = useState("disabled");
   useLayoutEffect(() => {
-    setValidData(() => {
-      const { password, email } = loginData;
-      const validEmail = email.length === 0 || email.includes("@");
-      const validPassword = password.length === 0 || password.length >= 8;
-
-      return {
-        password: validPassword,
-        email: validEmail,
-      };
-    });
-  }, [loginData]);
-
-  useLayoutEffect(() => {
-    const { password, email } = loginData;
-    setDisableBtn(() => {
-      if (loginData.email.length === 0 || loginData.password.length === 0) {
-        return true;
-      }
-      return !(
-        (password.length === 0 || password.length >= 8) &&
-        (email.length === 0 || email.includes("@"))
-      );
-    });
-  }, [validData]);
+    setDisableBtn(isPwdValid && isEmailValid ? "wide" : "disabled");
+  }, [isPwdValid, isEmailValid]);
 
   const logIn = async (e: SyntheticEvent) => {
     e.preventDefault();
-    const { email, password } = loginData;
-    if (!email || !password) return;
+    if (!isEmailValid || !isPwdValid) return;
     try {
-      await HttpRequest.post("/auth/login", {
-        email,
-        password,
+      await AxiosBase.post("/auth/login", {
+        email: emailValue,
+        password: pwdValue,
       });
       navigate(PageRouter.Home);
     } catch (error) {
-      setError(() => ({
-        show: true,
-        message: (error as any).response.data.error,
-      }));
+      let message = 'Unknown Error'
+      if (error instanceof Error) message = error.message
+      console.log(message);
     }
   };
 
@@ -91,39 +62,34 @@ export const LoginForm = () => {
     <form
       className="flex flex-col items-center space-y-4"
       onSubmit={(e) => logIn(e)}
+      noValidate
     >
       <LoginInput
         type="email"
         placeholder="email@test.com"
         labelText="Email:"
         name={LOGIN_INPUT_NAME}
-        value={loginData.email}
-        onChange={(e) => handleInput(e)}
-        className={`${validData.email ? "" : "input-error"}`}
-        tooltip="Email musi posiadać @"
+        value={emailValue}
+        onChange={(e) => setEmailValue(e.target.value)}
+        error={emailError}
       />
       <LoginInput
         type="password"
         placeholder="*********"
         labelText="Hasło:"
         name={PASSWORD_INPUT_NAME}
-        value={loginData.password}
-        onChange={(e) => handleInput(e)}
-        className={`${validData.password ? "" : "input-error"}`}
-        tooltip="Hasło musi posiadać min 8 znaków"
+        value={pwdValue}
+        onChange={(e) => setPwdValue(e.target.value)}
+        error={pwdError}
       />
 
       <div className="form-control mt-6">
-        <Btn
-          className={`btn-wide btn btn-${disableBtn ? "disabled" : "primary"}`}
-        >
-          Zaloguj
-        </Btn>
+        <Btn className={`btn-${disableBtn}`}>Zaloguj</Btn>
       </div>
 
-      {error.show ? (
-        <ErrorAlert onClick={disableError} message={error.message} />
-      ) : null}
+      {/*{error.show ? (*/}
+      {/*  <ErrorAlert onClick={disableError} message={error.message} />*/}
+      {/*) : null}*/}
       {/*<a className="link-primary link">Zapomniałem hasła</a>*/}
     </form>
   );

@@ -11,7 +11,9 @@ export const ExpandableContent = ({ title, children }: Props) => {
       <header className="collapse-title w-full bg-primary text-center text-base-100">
         <h2 className="text-xl font-bold uppercase text-base-100">{title}</h2>
       </header>
-      <div className="collapse-content">{children}</div>
+      <div className="collapse-content transition-all duration-500">
+        {children}
+      </div>
     </div>
   );
 };
