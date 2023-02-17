@@ -1,109 +1,94 @@
-import { SyntheticEvent, useEffect, useState } from "react";
-import { MyLabel } from "@components/ui/MyLabel";
+import {SyntheticEvent, useLayoutEffect, useState} from "react";
 import { ExpandableContent } from "@components/ui/ExpandableContent";
 import { Btn } from "@components/ui/Btn";
 import { HttpRequest } from "@utils/network/http-request";
 import { PageRouter } from "@enums/page-router.enum";
-import { ErrorAlert } from "@components/alerts/ErrorAlert";
+import {useValidationState} from "@hooks/useValidationState";
+import {LoginInput} from "@components/Login/LoginInput";
 
 const NEW_EMAIL_NAME = "email";
 const PASSWORD_NAME = "password";
 
 export const UserChangeEmail = () => {
-  const [data, setData] = useState({
-    pwd: "",
-    email: "",
-  });
-  const [areValidData, setAreValidData] = useState({
-    pwd: true,
-    email: true,
-  });
 
-  const [alert, setAlert] = useState({
-    show: false,
-    message: "",
+  const {
+    setValue: setEmailValue,
+    value: emailValue,
+    isValid: isEmailValid,
+    error: emailError
+  } = useValidationState('Email', {
+    min: 3,
+    max: 255,
+    specialChars: ['@']
   });
 
-  useEffect(() => {
-    setAreValidData(() => ({
-      pwd: data.pwd.length >= 8 || data.pwd.length === 0,
-      email: data.email.includes("@") || data.email.length === 0,
-    }));
-  }, [data]);
+  const {
+    setValue: setPwdValue,
+    value: pwdValue,
+    isValid: isPwdValid,
+    error: pwdError
+  } = useValidationState('Hasło', {
+    min: 8,
+    max: 255,
+  });
 
-  const clearAlert = () =>
-    setAlert(({ message }) => ({ show: false, message }));
 
-  const changeData = (e: SyntheticEvent) => {
-    e.preventDefault();
-    clearAlert();
-    const { value, name } = e.target as HTMLInputElement;
-    if (name === PASSWORD_NAME) {
-      setData(({  email }) => ({ email, pwd: value }));
-      return;
-    }
-    setData(({ pwd }) => ({ email: value, pwd }));
-  };
+  const [disableBtn, setDisableBtn] = useState("disabled");
+
+  useLayoutEffect(() => {
+    setDisableBtn((isPwdValid && isEmailValid) ? "primary" : "disabled");
+  }, [isPwdValid, isEmailValid])
 
   const changeEmail = async (event: SyntheticEvent) => {
     event.preventDefault();
-    const { email, pwd } = data;
-    if (pwd.length < 8 || !email.includes("@")) return;
+    if (!isPwdValid || !isEmailValid) return;
+
     try {
       await HttpRequest.patch(PageRouter.Current, {
-        email,
-        password: pwd,
+        email:emailValue,
+        password: pwdValue,
       });
     } catch (e: any) {
-      setAlert(() => ({
-        show: true,
-        message: e.response.data.message,
-      }));
+      console.log(e.message)
     }
   };
 
+
   return (
     <ExpandableContent title="Zmień E-mail">
-      <form className="flex w-full flex-col items-center justify-center bg-accent p-4">
-        <MyLabel
+      <form
+          className="flex w-full flex-col items-center justify-center bg-accent p-4"
+          onSubmit={(e) => changeEmail(e)}
+          noValidate
+      >
+        <LoginInput
           type="email"
-          value={data.email}
+          value={emailValue}
           name={NEW_EMAIL_NAME}
           placeholder="e-mail"
-          text="Nowy Email:"
-          textClassName="p-4"
-          className={`input ${areValidData.email ? "" : "input-error"}`}
-          labelClassName="flex items-center  justify-center"
-          onChange={(e) => changeData(e)}
+          labelText="Nowy Email:"
+          onChange={(e) => setEmailValue(e.target.value)}
+          error={emailError}
         />
-        <MyLabel
+        <LoginInput
           type="password"
+          value={pwdValue}
           name={PASSWORD_NAME}
-          value={data.pwd}
           placeholder="********"
-          text=" Hasło:"
-          className={`input ${areValidData.pwd ? "" : "input-error"}`}
-          textClassName="p-4"
-          labelClassName="flex items-center  justify-center"
-          onChange={(e) => changeData(e)}
+          labelText="Hasło:"
+          onChange={(e) => setPwdValue(e.target.value)}
+          error={pwdError}
         />
 
         <Btn
-          onClick={(e) => changeEmail(e)}
-          className={`btn mb-8 ${
-            data.pwd.length === 0 || data.email.length === 0
-              ? "btn-disabled"
-              : areValidData.email && areValidData.pwd
-              ? "btn-primary"
-              : "btn-disabled"
-          }`}
+          className={`btn mb-8 btn-${disableBtn}`}
         >
           Zmień E-mail
         </Btn>
 
-        {alert.show ? (
-          <ErrorAlert onClick={clearAlert} message={alert.message} />
-        ) : null}
+        {/*{alert.show ? (*/}
+        {/*  <ErrorAlert onClick={clearAlert} message={alert.message} />*/}
+        {/*) : null}*/}
       </form>
     </ExpandableContent>
   );
