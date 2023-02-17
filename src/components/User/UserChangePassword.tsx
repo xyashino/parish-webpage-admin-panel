@@ -1,16 +1,19 @@
 import { ExpandableContent } from "@components/ui/ExpandableContent";
 import { Btn } from "@components/ui/Btn";
-import { useLayoutEffect, useRef, useState} from "react";
+import {SyntheticEvent, useLayoutEffect, useRef, useState} from "react";
 
 import {useValidationState} from "@hooks/useValidationState";
 import {LoginInput} from "@components/Login/LoginInput";
+import {useConfirmAlert} from "@hooks/useConfirmAlert";
 
 const OLD_PASSWORD_NAME = "oldPassword";
 const NEW_PASSWORD_NAME = "newPassword";
 const CONFIRM_PASSWORD_NAME = "confirmPassword";
 
 export const UserChangePassword = () => {
-  const newPwdRef = useRef(null)
+  const newPwdRef = useRef(null);
+  const {alertElement,setConfig} = useConfirmAlert();
+
 
   const {
     setValue: setOldPwdValue,
@@ -44,16 +47,21 @@ export const UserChangePassword = () => {
   });
 
   const [disableBtn, setDisableBtn] = useState("disabled");
-
   useLayoutEffect(() => {
     setDisableBtn((isNewPwdValid && isOldPwdValid && isConfirmPwdValid) ? "wide" : "disabled");
   }, [isNewPwdValid, isOldPwdValid, isConfirmPwdValid])
+
+
+  const handleSubmit = (e: SyntheticEvent) => {
+    e.preventDefault();
+    setConfig('Czy napewno chcesz zmienic hasło?',()=>{})
+  };
 
   return (
     <ExpandableContent title="Zmień Hasło">
       <form
           className="flex w-full flex-col items-center justify-center bg-accent p-4"
-
+          onSubmit={(e)=> handleSubmit(e)}
           noValidate
       >
         <LoginInput
@@ -89,7 +97,7 @@ export const UserChangePassword = () => {
         <Btn className={`btn btn-${disableBtn}`}>
           Zmień hasło
         </Btn>
-
+        {alertElement}
         {/*{alert.show ? (*/}
         {/*  <ErrorAlert onClick={clearAlert} message={alert.message} />*/}
         {/*) : null}*/}
