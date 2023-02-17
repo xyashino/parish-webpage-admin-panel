@@ -1,6 +1,6 @@
 import React, { SyntheticEvent, useLayoutEffect, useState } from "react";
 import { LoginInput } from "@components/Login/LoginInput";
-import { HttpRequest } from "@utils/network/http-request";
+import { AxiosBase } from "@utils/network/axios-base";
 import { useNavigate } from "react-router-dom";
 import { PageRouter } from "@enums/page-router.enum";
 import { Btn } from "@components/ui/Btn";
@@ -46,7 +46,7 @@ export const LoginForm = () => {
     e.preventDefault();
     if (!isEmailValid || !isPwdValid) return;
     try {
-      await HttpRequest.post("/auth/login", {
+      await AxiosBase.post("/auth/login", {
         email: emailValue,
         password: pwdValue,
       });

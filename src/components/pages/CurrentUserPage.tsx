@@ -4,7 +4,7 @@ import { Header } from "@components/ui/Header";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import { Btn } from "@components/ui/Btn";
 import { Divider } from "@components/ui/Divider";
-import { HttpRequest } from "@utils/network/http-request";
+import { AxiosBase } from "@utils/network/axios-base";
 import { PageRouter } from "@enums/page-router.enum";
 import { ConfirmAlert } from "@components/alerts/ConfirmAlert";
 import { ConfirmConfig } from "@frontendTypes/confirm-config.inteface";
