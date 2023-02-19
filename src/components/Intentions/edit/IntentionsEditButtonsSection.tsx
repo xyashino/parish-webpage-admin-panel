@@ -6,9 +6,10 @@ import { UpdateData } from "@utils/network/update-data";
 import { PageRouter } from "@enums/page-router.enum";
 import { getDataFrom } from "@utils/network/get-data-from";
 import {useConfirmAlert} from "@hooks/useConfirmAlert";
+import {ConfirmAlert} from "@components/alerts/ConfirmAlert";
 export const IntentionsButtonSection = () => {
   const {intentions, setIntentions} = useContext(IntentionContext);
-  const {alertElement,setConfig} = useConfirmAlert();
+  const {alertData,setConfig} = useConfirmAlert();
   const updateIntentions = async () => {
     for (const { id, dateOfDay, intentions: childIntentions } of intentions) {
       const temp = childIntentions
@@ -51,7 +52,9 @@ export const IntentionsButtonSection = () => {
       <Btn className="btn-wide btn" onClick={refreshData}>
         Odśwież Dane
       </Btn>
-      {alertElement}
+        {
+            alertData.show ? <ConfirmAlert config={alertData.config}/> : null
+        }
       <Divider className="w-full" />
     </div>
   );

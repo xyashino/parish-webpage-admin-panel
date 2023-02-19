@@ -7,11 +7,12 @@ import { getDataFrom } from "@utils/network/get-data-from";
 import { AnnouncementContext } from "@context/AnnouncementContext";
 import { CreateAnnouncementRequest } from "@backendTypes";
 import {useConfirmAlert} from "@hooks/useConfirmAlert";
+import {ConfirmAlert} from "@components/alerts/ConfirmAlert";
 
 export const AnnouncementEditBodyItem = () => {
 
   const { announcements, setAnnouncements } = useContext(AnnouncementContext);
-  const { setConfig , alertElement} = useConfirmAlert();
+  const { setConfig , alertData} = useConfirmAlert();
 
 
   const updateAnnouncements = async () => {
@@ -75,7 +76,9 @@ export const AnnouncementEditBodyItem = () => {
       <Btn className="btn-wide btn" onClick={refreshData}>
         Odśwież Dane
       </Btn>
-        {alertElement}
+        {
+            alertData.show ? <ConfirmAlert config={alertData.config}/> : null
+        }
       <Divider className="w-full" />
     </div>
   );

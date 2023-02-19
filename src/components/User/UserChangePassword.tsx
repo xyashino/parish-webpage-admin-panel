@@ -1,10 +1,11 @@
 import { ExpandableContent } from "@components/ui/ExpandableContent";
 import { Btn } from "@components/ui/Btn";
-import {SyntheticEvent, useLayoutEffect, useRef, useState} from "react";
+import React, {SyntheticEvent, useLayoutEffect, useRef, useState} from "react";
 
 import {useValidationState} from "@hooks/useValidationState";
 import {LoginInput} from "@components/Login/LoginInput";
 import {useConfirmAlert} from "@hooks/useConfirmAlert";
+import {ConfirmAlert} from "@components/alerts/ConfirmAlert";
 
 const OLD_PASSWORD_NAME = "oldPassword";
 const NEW_PASSWORD_NAME = "newPassword";
@@ -12,7 +13,7 @@ const CONFIRM_PASSWORD_NAME = "confirmPassword";
 
 export const UserChangePassword = () => {
   const newPwdRef = useRef(null);
-  const {alertElement,setConfig} = useConfirmAlert();
+  const {alertData,setConfig} = useConfirmAlert();
 
 
   const {
@@ -97,10 +98,9 @@ export const UserChangePassword = () => {
         <Btn className={`btn btn-${disableBtn}`}>
           Zmień hasło
         </Btn>
-        {alertElement}
-        {/*{alert.show ? (*/}
-        {/*  <ErrorAlert onClick={clearAlert} message={alert.message} />*/}
-        {/*) : null}*/}
+        {
+          alertData.show ? <ConfirmAlert config={alertData.config}/> : null
+        }
       </form>
     </ExpandableContent>
   );

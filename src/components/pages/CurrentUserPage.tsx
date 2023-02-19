@@ -11,10 +11,11 @@ import { UserChangePassword } from "@components/User/UserChangePassword";
 import { UsersResponse } from "@backendTypes";
 import {useConfirmAlert} from "@hooks/useConfirmAlert";
 import {UserInfo} from "@components/User/UserInfo";
+import {ConfirmAlert} from "@components/alerts/ConfirmAlert";
 export const CurrentUserPage = () => {
     const navigate = useNavigate();
     const data = useLoaderData() as UsersResponse;
-    const {alertElement,setConfig} = useConfirmAlert( 'w-4/5');
+    const {alertData,setConfig} = useConfirmAlert();
 
 
   const logoutUser = async () => {
@@ -40,7 +41,9 @@ export const CurrentUserPage = () => {
       <Btn className="btn-wide btn" onClick={handleLogout}>
         Wyloguj
       </Btn>
-        {alertElement}
+        {
+            alertData.show ? <ConfirmAlert config={alertData.config} className='w-4/5'/> : null
+        }
     </MainContainer>
   );
 };

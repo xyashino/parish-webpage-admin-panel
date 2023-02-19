@@ -1,4 +1,4 @@
-import { SyntheticEvent, useLayoutEffect, useState } from "react";
+import React, { SyntheticEvent, useLayoutEffect, useState } from "react";
 import { ExpandableContent } from "@components/ui/ExpandableContent";
 import { Btn } from "@components/ui/Btn";
 import { AxiosBase } from "@utils/network/axios-base";
@@ -6,12 +6,13 @@ import { PageRouter } from "@enums/page-router.enum";
 import { useValidationState } from "@hooks/useValidationState";
 import { LoginInput } from "@components/Login/LoginInput";
 import { useConfirmAlert } from "@hooks/useConfirmAlert";
+import {ConfirmAlert} from "@components/alerts/ConfirmAlert";
 
 const NEW_EMAIL_NAME = "email";
 const PASSWORD_NAME = "password";
 
 export const UserChangeEmail = () => {
-  const { alertElement, setConfig } = useConfirmAlert();
+  const { alertData, setConfig } = useConfirmAlert();
 
   const {
     setValue: setEmailValue,
@@ -83,7 +84,9 @@ export const UserChangeEmail = () => {
         />
 
         <Btn className={`btn mb-8 btn-${disableBtn}`}>Zmień E-mail</Btn>
-        {alertElement}
+        {
+          alertData.show ? <ConfirmAlert config={alertData.config}/> : null
+        }
       </form>
     </ExpandableContent>
   );
