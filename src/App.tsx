@@ -11,6 +11,7 @@ import { AnnouncementPreviewPage } from "@components/pages/announcement/Announce
 import { checkAuth } from "@utils/network/check-auth";
 import { CurrentUserPage } from "@components/pages/CurrentUserPage";
 import { NotFoundPage } from "@components/pages/NotFoundPage";
+import { ErrorPage } from "@components/pages/ErrorPage";
 
 const routers = createBrowserRouter([
   {
@@ -26,26 +27,31 @@ const routers = createBrowserRouter([
         path: PageRouter.IntentionsPreview,
         element: <IntentionsPreviewPage />,
         loader: () => getDataFrom(PageRouter.Intentions),
+        errorElement: <ErrorPage />,
       },
       {
         path: PageRouter.IntentionsEdit,
         element: <IntentionsEditPage />,
         loader: () => getDataFrom(PageRouter.Intentions),
+        errorElement: <ErrorPage />,
       },
       {
         path: PageRouter.AnnouncementEdit,
         element: <AnnouncementEditPage />,
         loader: () => getDataFrom(PageRouter.Announcement),
+        errorElement: <ErrorPage />,
       },
       {
         path: PageRouter.AnnouncementPreview,
         element: <AnnouncementPreviewPage />,
         loader: () => getDataFrom(PageRouter.Announcement),
+        errorElement: <ErrorPage />,
       },
       {
         path: PageRouter.UserCurrent,
         element: <CurrentUserPage />,
         loader: () => getDataFrom(PageRouter.UserCurrent),
+        errorElement: <ErrorPage />,
       },
     ],
   },
