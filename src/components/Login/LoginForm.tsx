@@ -5,12 +5,14 @@ import { useNavigate } from "react-router-dom";
 import { PageRouter } from "@enums/page-router.enum";
 import { Btn } from "@components/ui/Btn";
 import { useValidationState } from "@hooks/useValidationState";
+import {useErrorAlert} from "@hooks/useErrorAlert";
 
 const LOGIN_INPUT_NAME = "email";
 const PASSWORD_INPUT_NAME = "password";
 
 export const LoginForm = () => {
   const navigate = useNavigate();
+  const {errorElement,showError} = useErrorAlert()
   const {
     setValue: setEmailValue,
     value: emailValue,
@@ -32,10 +34,6 @@ export const LoginForm = () => {
     max: 255,
   });
 
-  // const [errorMessage, setErrorMessage] = useState({
-  //   email: "",
-  //   message: "",
-  // });
 
   const [disableBtn, setDisableBtn] = useState("disabled");
   useLayoutEffect(() => {
@@ -53,8 +51,8 @@ export const LoginForm = () => {
       navigate(PageRouter.Home);
     } catch (error) {
       let message = 'Unknown Error'
-      if (error instanceof Error) message = error.message
-      console.log(message);
+      if (error instanceof Error) message = error.message;
+      showError(message);
     }
   };
 
@@ -84,13 +82,9 @@ export const LoginForm = () => {
       />
 
       <div className="form-control mt-6">
-        <Btn className={`btn-${disableBtn}`}>Zaloguj</Btn>
+        <Btn className={`btn btn-${disableBtn}`}>Zaloguj</Btn>
       </div>
-
-      {/*{error.show ? (*/}
-      {/*  <ErrorAlert onClick={disableError} message={error.message} />*/}
-      {/*) : null}*/}
-      {/*<a className="link-primary link">Zapomniałem hasła</a>*/}
+      {errorElement}
     </form>
   );
 };
