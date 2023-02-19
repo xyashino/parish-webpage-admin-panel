@@ -14,7 +14,7 @@ export const useErrorAlert = (errorClassName?:string) => {
             return;
         }
         setErrorElement(<ErrorAlert message={message} onClick={hideAlert} className={errorClassName ?? ''}/>)
-    },[message]);
+    },[message,showAlert]);
 
     const showError = (message:string) => {
         setShowAlert(true);
