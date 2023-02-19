@@ -3,7 +3,7 @@ import {ConfirmConfig} from "@frontendTypes/confirm-config.inteface";
 import {HTMLAttributes} from "react";
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
-  config: ConfirmConfig;
+  config: ConfirmConfig | null;
   onlyMyClasses?: true;
 }
 
@@ -13,6 +13,7 @@ export const ConfirmAlert = ({
   className,
   ...props
 }: Props) => {
+  if(!config) return;
   const { confirmClicked, denyClicked, infoText } = config;
   const alertClasses = onlyMyClasses ? className : `m-8 shadow-lg ${className}`;
 
