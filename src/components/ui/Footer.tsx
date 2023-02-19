@@ -5,7 +5,12 @@ export const Footer = () => {
       <div className="grid-flow-col items-center">
         <p>Copyright © 2022 - All right reserved</p>
       </div>
-      <div className="grid-flow-col gap-4 md:place-self-center md:justify-self-end"></div>
+      <div className="grid-flow-col gap-4 md:place-self-center md:justify-self-end">
+        Created by
+        <a href="https://github.com/xyashino" className="link">
+          xyashino
+        </a>
+      </div>
     </footer>
   );
 };
