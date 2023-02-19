@@ -13,7 +13,7 @@ export const ConfirmAlert = ({
   className,
   ...props
 }: Props) => {
-  if(!config) return;
+  if(!config) return null;
   const { confirmClicked, denyClicked, infoText } = config;
   const alertClasses = onlyMyClasses ? className : `m-8 shadow-lg ${className}`;
 
