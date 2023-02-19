@@ -10,6 +10,7 @@ export const getDataFrom = async (path: any) => {
       const response = await AxiosBase.get(path);
       return response.data;
     } catch (e) {
+
       return null;
     }
   }

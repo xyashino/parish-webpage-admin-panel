@@ -6,13 +6,14 @@ import { PageRouter } from "@enums/page-router.enum";
 import { Btn } from "@components/ui/Btn";
 import { useValidationState } from "@hooks/useValidationState";
 import {useErrorAlert} from "@hooks/useErrorAlert";
+import {ErrorAlert} from "@components/alerts/ErrorAlert";
 
 const LOGIN_INPUT_NAME = "email";
 const PASSWORD_INPUT_NAME = "password";
 
 export const LoginForm = () => {
   const navigate = useNavigate();
-  const {errorElement,showError} = useErrorAlert()
+  const {errorData,hideError,showError} = useErrorAlert()
   const {
     setValue: setEmailValue,
     value: emailValue,
@@ -84,7 +85,10 @@ export const LoginForm = () => {
       <div className="form-control mt-6">
         <Btn className={`btn btn-${disableBtn}`}>Zaloguj</Btn>
       </div>
-      {errorElement}
+      {
+        errorData.show ?
+            <ErrorAlert onClick={hideError} message={errorData.message}/> : null
+      }
     </form>
   );
 };
