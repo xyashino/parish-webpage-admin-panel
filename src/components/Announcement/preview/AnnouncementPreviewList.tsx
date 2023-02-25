@@ -8,7 +8,14 @@ interface Props {
 
 export const AnnouncementPreviewList = ({ announcements }: Props) => {
   if (announcements.length === 0) {
-    return <h2> Przepraszamy aktualnie nie ma podanych Ogłoszeń</h2>;
+    return (
+      <div>
+        <p className="font-bold">
+          {" "}
+          Przepraszamy aktualnie nie ma podanych Ogłoszeń
+        </p>
+      </div>
+    );
   }
   return (
     <ol className="text-left">

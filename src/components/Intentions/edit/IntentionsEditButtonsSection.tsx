@@ -5,15 +5,15 @@ import { Divider } from "@components/ui/Divider";
 import { UpdateData } from "@utils/network/update-data";
 import { PageRouter } from "@enums/page-router.enum";
 import { getDataFrom } from "@utils/network/get-data-from";
-import {useConfirmAlert} from "@hooks/useConfirmAlert";
-import {ConfirmAlert} from "@components/alerts/ConfirmAlert";
+import { useConfirmAlert } from "@hooks/useConfirmAlert";
+import { ConfirmAlert } from "@components/alerts/ConfirmAlert";
 export const IntentionsButtonSection = () => {
-  const {intentions, setIntentions} = useContext(IntentionContext);
-  const {alertData,setConfig} = useConfirmAlert();
+  const { intentions, setIntentions } = useContext(IntentionContext);
+  const { alertData, setConfig } = useConfirmAlert();
   const updateIntentions = async () => {
     for (const { id, dateOfDay, intentions: childIntentions } of intentions) {
       const temp = childIntentions
-        .map(({value, hour }) => {
+        .map(({ value, hour }) => {
           if (!value || !hour) return false;
           return { value, hour };
         })
@@ -25,22 +25,14 @@ export const IntentionsButtonSection = () => {
     }
   };
 
-
-
   const refreshData = async () => {
-    setConfig(
-     "Czy na pewno chcesz odświeżyć dane?",
-      async () => {
-        setIntentions(await getDataFrom(PageRouter.Intentions));
-      },
-    );
+    setConfig("Czy na pewno chcesz odświeżyć dane?", async () => {
+      setIntentions(await getDataFrom(PageRouter.Intentions));
+    });
   };
 
   const updateData = async () => {
-    setConfig(
-    "Czy na pewno chcesz zaktualizować dane?",
-      updateIntentions,
-    );
+    setConfig("Czy na pewno chcesz zaktualizować dane?", updateIntentions);
   };
 
   return (
@@ -52,9 +44,7 @@ export const IntentionsButtonSection = () => {
       <Btn className="btn-wide btn" onClick={refreshData}>
         Odśwież Dane
       </Btn>
-        {
-            alertData.show ? <ConfirmAlert config={alertData.config}/> : null
-        }
+      {alertData.show ? <ConfirmAlert config={alertData.config} /> : null}
       <Divider className="w-full" />
     </div>
   );

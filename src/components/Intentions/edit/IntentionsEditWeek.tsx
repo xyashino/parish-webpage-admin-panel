@@ -29,7 +29,7 @@ export const IntentionsEditWeek = () => {
   return (
     <div className="flex items-center justify-center p-2 text-base font-bold uppercase">
       <div className="mx-8 space-x-5 text-xl">
-        <span>Tydzień: </span>
+        <span>Tydzień:</span>
         <input
           type="date"
           value={week.start + ""}

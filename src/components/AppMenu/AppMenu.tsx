@@ -6,7 +6,7 @@ import { MENU_STRUCTURE } from "@data/menu-structure.data";
 export const AppMenu = () => {
   return (
     <nav className="flex  w-1/6 flex-col bg-base-100 shadow">
-      <div className="flex items-center bg-primary p-4 text-md font-bold uppercase text-base-100 shadow">
+      <div className="text-md flex items-center bg-primary p-4 font-bold uppercase text-base-100 shadow">
         <Logo className="mr-2 text-3xl" />
         <h2>Parafia Gruszów wielki</h2>
       </div>

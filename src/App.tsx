@@ -8,7 +8,7 @@ import { IntentionsEditPage } from "@components/pages/Intentions/IntentionsEditP
 import { getDataFrom } from "@utils/network/get-data-from";
 import { AnnouncementEditPage } from "@components/pages/announcement/AnnouncementEditPage";
 import { AnnouncementPreviewPage } from "@components/pages/announcement/AnnouncementPreviewPage";
-import { checkAuth } from "@utils/network/check-auth";
+// import { checkAuth } from "@utils/network/check-auth";
 import { CurrentUserPage } from "@components/pages/CurrentUserPage";
 import { NotFoundPage } from "@components/pages/NotFoundPage";
 import { ErrorPage } from "@components/pages/ErrorPage";
@@ -21,7 +21,7 @@ const routers = createBrowserRouter([
   {
     path: "/",
     element: <AppLayout />,
-    loader: checkAuth,
+    // loader: checkAuth,
     children: [
       {
         path: PageRouter.IntentionsPreview,

@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 
 import { Trash } from "@icons/Trash";
 import { IntentionContext } from "@context/IntentionContext";
-
+import {Btn} from "@components/ui/Btn";
 export const IntentionsEditTableFoot = ({
   parentId: parentId,
 }: {
@@ -37,14 +37,16 @@ export const IntentionsEditTableFoot = ({
       <tr>
         <td colSpan={2} className=" bg-base-100">
           <div className="flex w-full items-center justify-around">
-            <button
+            <Btn
               className="btn mx-10 w-1/3 p-4 text-base-100"
               onClick={addItemEmptyItem}
             >
               Dodaj pole
-            </button>
+            </Btn>
 
-            <button className="text-4xl hover:scale-150">
+            <button
+              className="text-4xl hover:scale-150"
+            >
               <Trash onDoubleClick={clearAll} />
             </button>
           </div>

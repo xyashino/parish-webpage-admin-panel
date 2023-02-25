@@ -8,12 +8,12 @@ interface Props {
 
 export const AnnouncementPreviewHeader = ({ title, subtitle }: Props) => {
   return (
-    <header className="prose flex flex w-full items-center justify-center bg-primary p-4">
-      <h2 className="p-4 text-base-100">
+    <header className="prose flex w-full flex-col items-center bg-primary p-2 text-base-100">
+      <h2 className="m-2 break-words uppercase text-base-100">
         Ogłoszenia parafialne
-        <p>{title}</p>
-        <p>{subtitle}</p>
       </h2>
+      <p className="m-2 text-xl font-bold uppercase">{title}</p>
+      <p className="text-md p-0">{subtitle}</p>
     </header>
   );
 };

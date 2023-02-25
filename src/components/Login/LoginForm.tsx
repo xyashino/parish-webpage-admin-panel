@@ -7,6 +7,7 @@ import { Btn } from "@components/ui/Btn";
 import { useValidationState } from "@hooks/useValidationState";
 import {useErrorAlert} from "@hooks/useErrorAlert";
 import {ErrorAlert} from "@components/alerts/ErrorAlert";
+import {AxiosError} from "axios";
 
 const LOGIN_INPUT_NAME = "email";
 const PASSWORD_INPUT_NAME = "password";
@@ -52,7 +53,7 @@ export const LoginForm = () => {
       navigate(PageRouter.Home);
     } catch (error) {
       let message = 'Unknown Error'
-      if (error instanceof Error) message = error.message;
+      if (error instanceof AxiosError) message = error.message;
       showError(message);
     }
   };

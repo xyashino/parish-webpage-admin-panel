@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { DayIntentionsResponse, IntentionResponse } from "@backendTypes";
+import {IntentionResponse } from "@backendTypes";
 import { Close } from "@icons/Close";
 import { IntentionContext } from "@context/IntentionContext";
 
@@ -15,7 +15,7 @@ export const IntentionsEditTableRow = ({ intention, parentId }: Props) => {
   const [inputHour, setHour] = useState(hour);
   const [inputValue, setValue] = useState(value);
 
-  const changeValue = (target: HTMLInputElement) => {
+  const changeValue = (target: HTMLInputElement | HTMLTextAreaElement) => {
     if (target.name === "hour") {
       setHour(target.value);
       return;
@@ -62,7 +62,7 @@ export const IntentionsEditTableRow = ({ intention, parentId }: Props) => {
           name="value"
           value={inputValue}
           className="textarea-primary textarea mx-10 grow appearance-none"
-          onChange={(e) => changeValue(e.target as unknown as HTMLInputElement)}
+          onChange={(e) => changeValue(e.target)}
           onBlur={updateValue}
         />
         <Close
