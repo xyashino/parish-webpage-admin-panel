@@ -13,8 +13,8 @@ export const AppMenu = () => {
         <h2>Parafia Gruszów wielki</h2>
       </Link>
       <ul className="menu bg-base-100">
-        {MENU_STRUCTURE.map(({ name, items }) => (
-          <AppMenuItem name={name} items={items} key={name} />
+        {MENU_STRUCTURE.map((data) => (
+          <AppMenuItem data={data} key={data.name} />
         ))}
       </ul>
     </nav>
