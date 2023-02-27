@@ -1,8 +1,20 @@
-import { PropsWithChildren } from "react";
+import { HTMLAttributes, PropsWithChildren } from "react";
+interface Props extends PropsWithChildren, HTMLAttributes<HTMLElement> {
+  article?: true;
+}
+export const MainContainer = ({
+  children,
+  className,
+  article,
+  ...props
+}: Props) => {
+  let baseStyles =
+    "mb-16 flex h-full w-5/6 flex-col items-center bg-base-100 ";
+  if(article) baseStyles +='prose';
+  if(className) baseStyles+=className;
 
-export const MainContainer = ({ children }: PropsWithChildren) => {
   return (
-    <section className="mb-16 flex h-full w-5/6 flex-col items-center bg-base-100">
+    <section className={baseStyles} {...props}>
       {children}
     </section>
   );
