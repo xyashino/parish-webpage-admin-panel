@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, useLayoutEffect, useState } from "react";
+import React, { SyntheticEvent } from "react";
 import { ExpandableContent } from "@components/ui/ExpandableContent";
 import { Btn } from "@components/ui/Btn";
 import { AxiosBase } from "@utils/network/axios-base";
@@ -6,7 +6,8 @@ import { PageRouter } from "@enums/page-router.enum";
 import { useValidationState } from "@hooks/useValidationState";
 import { LoginInput } from "@components/Login/LoginInput";
 import { useConfirmAlert } from "@hooks/useConfirmAlert";
-import {ConfirmAlert} from "@components/alerts/ConfirmAlert";
+import { ConfirmAlert } from "@components/alerts/ConfirmAlert";
+import { useValidationButton } from "@hooks/useValidationButton";
 
 const NEW_EMAIL_NAME = "email";
 const PASSWORD_NAME = "password";
@@ -35,10 +36,11 @@ export const UserChangeEmail = () => {
     max: 255,
   });
 
-  const [disableBtn, setDisableBtn] = useState("disabled");
-  useLayoutEffect(() => {
-    setDisableBtn(isPwdValid && isEmailValid ? "primary" : "disabled");
-  }, [isPwdValid, isEmailValid]);
+  const { result: btnStyles } = useValidationButton(
+    [isPwdValid, isEmailValid],
+    "",
+    "btn-disabled"
+  );
 
   const changeEmail = async () => {
     if (!isPwdValid || !isEmailValid) return;
@@ -83,10 +85,8 @@ export const UserChangeEmail = () => {
           error={pwdError}
         />
 
-        <Btn className={`btn mb-8 btn-${disableBtn}`}>Zmień E-mail</Btn>
-        {
-          alertData.show ? <ConfirmAlert config={alertData.config}/> : null
-        }
+        <Btn className={`btn-wide btn ${btnStyles}`}>Zmień E-mail</Btn>
+        {alertData.show ? <ConfirmAlert config={alertData.config} /> : null}
       </form>
     </ExpandableContent>
   );
