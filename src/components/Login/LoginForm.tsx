@@ -49,9 +49,8 @@ export const LoginForm = () => {
       });
       navigate(PageRouter.Home);
     } catch (error) {
-      console.log(error)
       let message = 'Unknown Error'
-      if (error instanceof AxiosError) message = error.message;
+      if (error instanceof AxiosError) message = error.request.data.message ?? error.message;
       showError(message);
     }
   };

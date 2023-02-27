@@ -1,12 +1,23 @@
 import {useLoaderData} from "react-router-dom";
 import {UsersResponse} from "@backendTypes";
 import {MainContainer} from "@components/ui/MainContainer";
+import {Header} from "@components/ui/Header";
+import {Divider} from "@components/ui/Divider";
+import {Modal} from "@components/ui/Modal/Modal";
+import {RegisterAdministrator} from "@components/RegisterAdministrator";
+import {UserTable} from "@components/User/UserTable/UserTable";
 
 
 export const UserListPage = ()=>{
     const data = useLoaderData() as UsersResponse[];
     return <MainContainer>
-
-        {data.map(({id,email})=> <p>{id}, {email}</p>)}
+        <Header title='Zarządzaj Admistratorami'/>
+        <Divider/>
+        <Modal btnValue="Dodaj Administratora">
+            <RegisterAdministrator/>
+        </Modal>
+        <Divider/>
+        <h2 className='text-2xl p-2 mb-2 uppercase'>Lista wszytkich administratorów :</h2>
+        <UserTable users={data}/>
     </MainContainer>
 }
