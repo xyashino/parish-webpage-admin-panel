@@ -12,6 +12,7 @@ import { checkAuth } from "@utils/network/check-auth";
 import { CurrentUserPage } from "@components/pages/CurrentUserPage";
 import { NotFoundPage } from "@components/pages/NotFoundPage";
 import { ErrorPage } from "@components/pages/ErrorPage";
+import {HomePage} from "@components/pages/HomePage";
 
 const routers = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ const routers = createBrowserRouter([
     element: <AppLayout />,
     loader: checkAuth,
     children: [
+      {
+        index:true,
+        element:<HomePage/>
+      },
       {
         path: PageRouter.IntentionsPreview,
         element: <IntentionsPreviewPage />,
