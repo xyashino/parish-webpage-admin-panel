@@ -1,5 +1,5 @@
 import React, {useLayoutEffect, useState} from "react";
-import { MainContainer } from "@components/ui/MainCointaner";
+import { MainContainer } from "@components/ui/MainContainer";
 import { Header } from "@components/ui/Header";
 import { useLoaderData } from "react-router-dom";
 import { AnnouncementsResponse } from "@backendTypes";

@@ -1,5 +1,5 @@
 import React from "react";
-import {MainContainer} from "@components/ui/MainCointaner";
+import {MainContainer} from "@components/ui/MainContainer";
 
 
 export const HomePage = ()=>{

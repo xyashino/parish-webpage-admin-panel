@@ -1,5 +1,5 @@
 import React from "react";
-import { MainContainer } from "@components/ui/MainCointaner";
+import { MainContainer } from "@components/ui/MainContainer";
 import { Header } from "@components/ui/Header";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import { Btn } from "@components/ui/Btn";

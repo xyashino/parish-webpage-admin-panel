@@ -1,6 +1,6 @@
 import React from "react";
 import { useLoaderData } from "react-router-dom";
-import { MainContainer } from "@components/ui/MainCointaner";
+import { MainContainer } from "@components/ui/MainContainer";
 import { AnnouncementsResponse } from "@backendTypes";
 import { AnnouncementPreviewList } from "@components/Announcement/preview/AnnouncementPreviewList";
 import {AnnouncementPreviewHeader} from "@components/Announcement/preview/AnnouncementPreviewHeader";
