@@ -13,7 +13,7 @@ export const UserListPage = ()=>{
     return <MainContainer>
         <Header title='Zarządzaj Admistratorami'/>
         <Divider/>
-        <Modal btnValue="Dodaj Administratora">
+        <Modal btnValue="Dodaj Administratora" boxModalClasses='w-2/5'>
             <RegisterAdministrator/>
         </Modal>
         <Divider/>

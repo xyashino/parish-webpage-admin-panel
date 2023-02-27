@@ -8,6 +8,7 @@ import { LoginInput } from "@components/Login/LoginInput";
 import { useConfirmAlert } from "@hooks/useConfirmAlert";
 import { ConfirmAlert } from "@components/alerts/ConfirmAlert";
 import { useValidationButton } from "@hooks/useValidationButton";
+import {AxiosError} from "axios";
 
 const NEW_EMAIL_NAME = "email";
 const PASSWORD_NAME = "password";
@@ -49,8 +50,10 @@ export const UserChangeEmail = () => {
         email: emailValue,
         password: pwdValue,
       });
-    } catch (e: any) {
-      console.log(e.message);
+    } catch (error) {
+      let message = 'Unknown Error'
+      if (error instanceof AxiosError) message = error.request.data.message ?? error.message;
+      console.log(message);
     }
   };
 

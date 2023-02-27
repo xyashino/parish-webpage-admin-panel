@@ -6,9 +6,10 @@ import { Btn } from "@components/ui/Btn";
 
 interface Props extends PropsWithChildren {
   btnValue: string;
+  boxModalClasses?:string;
 }
 
-export const Modal = ({ children, btnValue }: Props) => {
+export const Modal = ({ children, btnValue,boxModalClasses }: Props) => {
   const bodyElement = document.querySelector("body");
   if (!bodyElement) return null;
 
@@ -19,7 +20,7 @@ export const Modal = ({ children, btnValue }: Props) => {
 
   const modal = (
     <ModalBackGround hideModal={hideModal}>
-      <ModalBox hideModal={hideModal}>{children}</ModalBox>
+      <ModalBox hideModal={hideModal} boxModalClasses={boxModalClasses}>{children}</ModalBox>
     </ModalBackGround>
   );
 
