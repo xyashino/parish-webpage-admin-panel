@@ -25,7 +25,7 @@ export const Modal = ({ children, btnValue }: Props) => {
 
   return (
     <>
-      <Btn onClick={displayModal}>{btnValue}</Btn>
+      <Btn onClick={displayModal} className='btn btn-wide'>{btnValue}</Btn>
       {showModal ? createPortal(modal, bodyElement) : null}
     </>
   );

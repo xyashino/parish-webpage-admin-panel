@@ -13,7 +13,7 @@ export const ModalBackGround = ({ children, hideModal }: Props) => {
   };
   return (
     <div
-      className="fixed inset-0 z-40 flex flex-col items-center justify-center bg-accent/20 transition-all"
+      className="fixed inset-0 z-40 flex flex-col items-center justify-center bg-neutral/40 transition-all"
       onClick={handleClick}
       ref={modalRef}
     >

@@ -9,7 +9,7 @@ export const Header = ({ title, children, ...props }: Props) => {
     <header className="w-full">
       <h1
         {...props}
-        className="mb-8 bg-primary p-4 text-4xl font-bold uppercase text-base-100 shadow"
+        className="mb-1 bg-primary p-4 text-4xl font-bold uppercase text-base-100 shadow"
       >
         {title}
       </h1>
