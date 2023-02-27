@@ -1,39 +1,48 @@
-import {PageRouter} from "@enums/page-router.enum";
+import { PageRouter } from "@enums/page-router.enum";
 
-export const MENU_STRUCTURE = [
-    {
-        name: "Ogłoszenia",
-        items: [
-            {
-                text: "Podgląd",
-                path: PageRouter.AnnouncementPreview,
-            },
-            {
-                text: "Edytuj",
-                path: PageRouter.AnnouncementEdit,
-            },
-        ],
-    },
-    {
-        name: "Intencje",
-        items: [
-            {
-                text: "Podgląd",
-                path: PageRouter.IntentionsPreview,
-            },
-            {
-                text: "Edytuj",
-                path: PageRouter.IntentionsEdit,
-            },
-        ],
-    },
-    {
-        name: "Konto",
-        items: [
-            {
-                text: "Zarządzaj",
-                path: PageRouter.UserCurrent,
-            },
-        ],
-    },
+export type MenuItem = {
+  text: string;
+  path: PageRouter;
+};
+
+export type MenuType = {
+  name: string;
+  items: MenuItem[];
+} | MenuItem;
+
+export const MENU_STRUCTURE: MenuType[] = [
+  {
+    name: "Ogłoszenia",
+    items: [
+      {
+        text: "Podgląd",
+        path: PageRouter.AnnouncementPreview,
+      },
+      {
+        text: "Edytuj",
+        path: PageRouter.AnnouncementEdit,
+      },
+    ],
+  },
+  {
+    name: "Intencje",
+    items: [
+      {
+        text: "Podgląd",
+        path: PageRouter.IntentionsPreview,
+      },
+      {
+        text: "Edytuj",
+        path: PageRouter.IntentionsEdit,
+      },
+    ],
+  },
+  {
+    text: "Użytkownicy",
+    path: PageRouter.Users,
+  },
+  {
+    text: "Konto",
+    path: PageRouter.UserCurrent,
+  },
 ];
