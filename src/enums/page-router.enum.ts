@@ -13,6 +13,7 @@ export const enum PageRouter {
     IntentionsPreview = "/intentions/preview",
 
     UserCurrent = "/users/current",
+    Users = "/users",
     Article = "/articles",
     ArticlePreview = "/articles/preview",
     ArticleEdit = "/article/edit",
