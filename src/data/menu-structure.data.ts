@@ -38,7 +38,7 @@ export const MENU_STRUCTURE: MenuType[] = [
     ],
   },
   {
-    text: "Użytkownicy",
+    text: "Administratorzy",
     path: PageRouter.Users,
   },
   {
