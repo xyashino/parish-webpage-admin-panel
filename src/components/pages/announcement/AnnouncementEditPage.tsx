@@ -1,4 +1,4 @@
-import React, {useLayoutEffect, useState} from "react";
+import React, {useState} from "react";
 import { MainContainer } from "@components/ui/MainContainer";
 import { Header } from "@components/ui/Header";
 import { useLoaderData } from "react-router-dom";
@@ -12,14 +12,7 @@ import { AnnouncementEditBodyItem } from "@components/Announcement/edit/Announce
 export const AnnouncementEditPage = () => {
   const [data] = useLoaderData() as AnnouncementsResponse[];
   const [announcements, setAnnouncements] = useState(data);
-  const [announcementsList, setAnnouncementsList] = useState(
-    data.announcements
-  );
-  useLayoutEffect(() => {
-    if (announcements.announcements) {
-      setAnnouncementsList(announcements.announcements);
-    }
-  }, [announcements]);
+
 
   return (
     <AnnouncementContext.Provider value={{ announcements, setAnnouncements }}>
