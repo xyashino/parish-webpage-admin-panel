@@ -1,4 +1,4 @@
-import React, { SyntheticEvent } from "react";
+import React, {SyntheticEvent, useRef} from "react";
 import { useValidationState } from "@hooks/useValidationState";
 import { LoginInput } from "@components/Login/LoginInput";
 import { Btn } from "@components/ui/Btn";
@@ -36,6 +36,7 @@ export const RegisterAdministrator = () => {
   } = useValidationState("Hasło", {
     min: 8,
   });
+  const pwdRef = useRef(pwdValue)
   const {
     value: confirmPwdValue,
     error: confirmPwdError,
@@ -43,6 +44,7 @@ export const RegisterAdministrator = () => {
     isValid: isConfirmPwdValid,
   } = useValidationState("Hasło", {
     min: 8,
+    sameAs:pwdRef,
   });
   const { result: btnStyles } = useValidationButton(
     [isEmailValid, isPwdValid, isConfirmPwdValid],

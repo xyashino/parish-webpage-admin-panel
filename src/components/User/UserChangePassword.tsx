@@ -14,7 +14,6 @@ const INPUT_NAMES = {
   confirmPassword: "confirmPassword",
 };
 export const UserChangePassword = () => {
-  const newPwdRef = useRef(null);
   const { alertData, setConfig } = useConfirmAlert();
 
   const {
@@ -36,6 +35,7 @@ export const UserChangePassword = () => {
     min: 8,
     max: 255,
   });
+  const newPwdRef = useRef<string>(newPwdValue);
 
   const {
     setValue: setConfirmPwdValue,
@@ -75,7 +75,6 @@ export const UserChangePassword = () => {
           error={oldPwdError}
         />
         <LoginInput
-          ref={newPwdRef}
           type="password"
           placeholder="********"
           name={INPUT_NAMES.newPassword}
