@@ -13,6 +13,7 @@ import { CurrentUserPage } from "@components/pages/CurrentUserPage";
 import { NotFoundPage } from "@components/pages/NotFoundPage";
 import { ErrorPage } from "@components/pages/ErrorPage";
 import {HomePage} from "@components/pages/HomePage";
+import {UserListPage} from "@components/pages/users/UserListPage";
 
 const routers = createBrowserRouter([
   {
@@ -56,6 +57,12 @@ const routers = createBrowserRouter([
         path: PageRouter.UserCurrent,
         element: <CurrentUserPage />,
         loader: () => getDataFrom(PageRouter.UserCurrent),
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: PageRouter.Users,
+        element: <UserListPage />,
+        loader: () => getDataFrom(PageRouter.Users),
         errorElement: <ErrorPage />,
       },
     ],
