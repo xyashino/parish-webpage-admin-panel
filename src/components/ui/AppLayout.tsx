@@ -7,7 +7,7 @@ export const AppLayout = () => {
       <div className='min-h-screen flex flex-col'>
           <div className="flex w-screen bg-base-300 grow">
               <AppMenu />
-              <main className="flex grow items-start justify-center  overflow-y-scroll">
+              <main className="flex items-start justify-center overflow-y-scroll  w-5/6">
                   <Outlet />
               </main>
           </div>

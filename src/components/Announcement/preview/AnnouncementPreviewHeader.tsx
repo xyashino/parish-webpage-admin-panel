@@ -12,8 +12,8 @@ export const AnnouncementPreviewHeader = ({ title, subtitle }: Props) => {
       <h2 className="m-2 break-words uppercase text-base-100">
         Ogłoszenia parafialne
       </h2>
-      <p className="m-2 text-xl font-bold uppercase">{title}</p>
-      <p className="text-md p-0">{subtitle}</p>
+      <p className="text-xl font-bold uppercase m-0 p-0">{title}</p>
+      <p className="text-md font-light">{subtitle}</p>
     </header>
   );
 };

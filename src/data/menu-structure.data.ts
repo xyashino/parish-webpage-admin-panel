@@ -31,7 +31,7 @@ export const MENU_STRUCTURE = [
         name: "Konto",
         items: [
             {
-                text: "Dane",
+                text: "Zarządzaj",
                 path: PageRouter.UserCurrent,
             },
         ],
