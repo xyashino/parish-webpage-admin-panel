@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, useLayoutEffect, useState } from "react";
+import React, { SyntheticEvent } from "react";
 import { LoginInput } from "@components/Login/LoginInput";
 import { AxiosBase } from "@utils/network/axios-base";
 import { useNavigate } from "react-router-dom";
@@ -8,6 +8,7 @@ import { useValidationState } from "@hooks/useValidationState";
 import {useErrorAlert} from "@hooks/useErrorAlert";
 import {ErrorAlert} from "@components/alerts/ErrorAlert";
 import {AxiosError} from "axios";
+import {useValidationButton} from "@hooks/useValidationButton";
 
 const LOGIN_INPUT_NAME = "email";
 const PASSWORD_INPUT_NAME = "password";
@@ -36,11 +37,7 @@ export const LoginForm = () => {
     max: 255,
   });
 
-
-  const [disableBtn, setDisableBtn] = useState("disabled");
-  useLayoutEffect(() => {
-    setDisableBtn(isPwdValid && isEmailValid ? "wide" : "disabled");
-  }, [isPwdValid, isEmailValid]);
+  const {result:btnStyles} = useValidationButton([isPwdValid, isEmailValid],"" , "btn-disabled")
 
   const logIn = async (e: SyntheticEvent) => {
     e.preventDefault();
@@ -52,6 +49,7 @@ export const LoginForm = () => {
       });
       navigate(PageRouter.Home);
     } catch (error) {
+      console.log(error)
       let message = 'Unknown Error'
       if (error instanceof AxiosError) message = error.message;
       showError(message);
@@ -84,7 +82,7 @@ export const LoginForm = () => {
       />
 
       <div className="form-control mt-6">
-        <Btn className={`btn btn-${disableBtn}`}>Zaloguj</Btn>
+        <Btn className={`btn btn-wide ${btnStyles}`}>Zaloguj</Btn>
       </div>
       {
         errorData.show ?
