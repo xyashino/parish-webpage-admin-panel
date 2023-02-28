@@ -55,7 +55,7 @@ export const LoginForm = () => {
     } catch (error) {
       let message = "Unknown Error";
       if (error instanceof AxiosError)
-        message = error.response?.data.message ?? error.message;
+        message = error.response?.data.message  ?? error.response?.data.error ?? error.message;
       showError(message);
     }
   };
