@@ -1,28 +1,27 @@
-import { MutableRefObject, useLayoutEffect, useState } from "react";
+import {useLayoutEffect, useState} from "react";
 
 interface validationData {
   min: number;
   max?: number;
   specialChars?: string[];
-  sameAs?: MutableRefObject<string | null>;
+  sameAs?:string;
 }
 
-const checkIsValid = (
-  state: string,
-  name: string,
-  { min, specialChars, max, sameAs }: validationData
-): true => {
+function checkIsValid(state:string, name:string, { min, specialChars, max, sameAs }:validationData) {
   const { length } = state;
-  if (length < min) throw new Error(`${name} musi mieć min. ${min} znaków`);
-  if (max && length > max)
-    throw new Error(`${name} musi mieć max. ${max} znaków`);
-  specialChars?.forEach((char) => {
-    if (!state.includes(char))
-      throw Error(`${name} musi zawierać ${specialChars?.join(",")}`);
-  });
-  if (sameAs && sameAs.current !== state) throw Error(`${name} nie jest same`);
-  return true;
-};
+  switch (true) {
+    case length < min:
+      throw new Error(`${name} musi mieć min. ${min} znaków`);
+    case max && length > max:
+      throw new Error(`${name} musi mieć max. ${max} znaków`);
+    case specialChars?.some(char => !state.includes(char)):
+      throw new Error(`${name} musi zawierać ${specialChars?.join(",")}`);
+    case sameAs && sameAs !== state:
+      throw new Error(`${name} się nie zgadza`);
+    default:
+      return true;
+  }
+}
 
 export const useValidationState = (
   inputName: string,
@@ -33,6 +32,7 @@ export const useValidationState = (
   const [isValid, setIsValid] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [showError, setShowError] = useState(false);
+
 
   useLayoutEffect(() => {
     setShowError(!(isEmpty || isValid));
@@ -49,7 +49,7 @@ export const useValidationState = (
       setErrorMessage(message);
       setIsValid(false);
     }
-  }, [value]);
+  }, [value, validationOptions.sameAs]);
   return {
     value,
     setValue,
