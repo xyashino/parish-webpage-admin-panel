@@ -20,7 +20,7 @@ export const AnnouncementPreviewList = ({ announcements }: Props) => {
   return (
     <ol className="text-left">
       {announcements.map(({ body, id }) => (
-        <AnnouncementPreviewItem body={body} id={id} />
+        <AnnouncementPreviewItem body={body} id={id} key={id}/>
       ))}
     </ol>
   );
