@@ -8,6 +8,11 @@ import { AxiosBase } from "@utils/network/axios-base";
 import { ErrorAlert } from "@components/alerts/ErrorAlert";
 import { useErrorAlert } from "@hooks/useErrorAlert";
 import { AxiosError } from "axios";
+import { useRevalidator } from "react-router-dom";
+
+interface Props {
+  hideModal: (e:SyntheticEvent | undefined) => void;
+}
 
 const INPUT_NAMES = {
   email: "Email",
@@ -15,9 +20,9 @@ const INPUT_NAMES = {
   confirmPassword: "tezrt",
 };
 
-export const RegisterAdministrator = () => {
+export const RegisterAdministrator = ({ hideModal }: Props) => {
   const { errorData, hideError, showError } = useErrorAlert();
-
+  const { revalidate } = useRevalidator();
   const {
     value: emailValue,
     error: emailError,
@@ -66,6 +71,8 @@ export const RegisterAdministrator = () => {
         message = error.request.data.message ?? error.message;
       showError(message);
     }
+    hideModal(e);
+    revalidate();
   };
 
   return (
