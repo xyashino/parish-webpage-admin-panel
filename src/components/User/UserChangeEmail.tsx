@@ -8,7 +8,7 @@ import { LoginInput } from "@components/Login/LoginInput";
 import { useConfirmAlert } from "@hooks/useConfirmAlert";
 import { ConfirmAlert } from "@components/alerts/ConfirmAlert";
 import { useValidationButton } from "@hooks/useValidationButton";
-import {AxiosError} from "axios";
+import { AxiosError } from "axios";
 
 const NEW_EMAIL_NAME = "email";
 const PASSWORD_NAME = "password";
@@ -51,8 +51,9 @@ export const UserChangeEmail = () => {
         password: pwdValue,
       });
     } catch (error) {
-      let message = 'Unknown Error'
-      if (error instanceof AxiosError) message = error.request.data.message ?? error.message;
+      let message = "Unknown Error";
+      if (error instanceof AxiosError)
+        message = error.request.data.message ?? error.message;
       console.log(message);
     }
   };
@@ -79,7 +80,7 @@ export const UserChangeEmail = () => {
           error={emailError}
         />
         <LoginInput
-          type="password"
+          typeCheckbox={["password", "text"]}
           value={pwdValue}
           name={PASSWORD_NAME}
           placeholder="********"
