@@ -5,17 +5,17 @@ import { useNavigate } from "react-router-dom";
 import { PageRouter } from "@enums/page-router.enum";
 import { Btn } from "@components/ui/Btn";
 import { useValidationState } from "@hooks/useValidationState";
-import {useErrorAlert} from "@hooks/useErrorAlert";
-import {ErrorAlert} from "@components/alerts/ErrorAlert";
-import {AxiosError} from "axios";
-import {useValidationButton} from "@hooks/useValidationButton";
+import { useErrorAlert } from "@hooks/useErrorAlert";
+import { ErrorAlert } from "@components/alerts/ErrorAlert";
+import { AxiosError } from "axios";
+import { useValidationButton } from "@hooks/useValidationButton";
 
 const LOGIN_INPUT_NAME = "email";
 const PASSWORD_INPUT_NAME = "password";
 
 export const LoginForm = () => {
   const navigate = useNavigate();
-  const {errorData,hideError,showError} = useErrorAlert()
+  const { errorData, hideError, showError } = useErrorAlert();
   const {
     setValue: setEmailValue,
     value: emailValue,
@@ -37,7 +37,11 @@ export const LoginForm = () => {
     max: 255,
   });
 
-  const {result:btnStyles} = useValidationButton([isPwdValid, isEmailValid],"" , "btn-disabled")
+  const { result: btnStyles } = useValidationButton(
+    [isPwdValid, isEmailValid],
+    "",
+    "btn-disabled"
+  );
 
   const logIn = async (e: SyntheticEvent) => {
     e.preventDefault();
@@ -49,8 +53,9 @@ export const LoginForm = () => {
       });
       navigate(PageRouter.Home);
     } catch (error) {
-      let message = 'Unknown Error'
-      if (error instanceof AxiosError) message = error.request.data.message ?? error.message;
+      let message = "Unknown Error";
+      if (error instanceof AxiosError)
+        message = error.request.data.message ?? error.message;
       showError(message);
     }
   };
@@ -71,7 +76,7 @@ export const LoginForm = () => {
         error={emailError}
       />
       <LoginInput
-        type="password"
+        typeCheckbox={["password", "text"]}
         placeholder="*********"
         labelText="Hasło:"
         name={PASSWORD_INPUT_NAME}
@@ -81,12 +86,11 @@ export const LoginForm = () => {
       />
 
       <div className="form-control mt-6">
-        <Btn className={`btn btn-wide ${btnStyles}`}>Zaloguj</Btn>
+        <Btn className={`btn-wide btn ${btnStyles}`}>Zaloguj</Btn>
       </div>
-      {
-        errorData.show ?
-            <ErrorAlert onClick={hideError} message={errorData.message}/> : null
-      }
+      {errorData.show ? (
+        <ErrorAlert onClick={hideError} message={errorData.message} />
+      ) : null}
     </form>
   );
 };

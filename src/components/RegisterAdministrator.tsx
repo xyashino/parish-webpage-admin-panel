@@ -1,13 +1,13 @@
-import React, {SyntheticEvent, useRef} from "react";
+import React, { SyntheticEvent } from "react";
 import { useValidationState } from "@hooks/useValidationState";
 import { LoginInput } from "@components/Login/LoginInput";
 import { Btn } from "@components/ui/Btn";
 import { useValidationButton } from "@hooks/useValidationButton";
 import { AxiosBase } from "@utils/network/axios-base";
 
-import {ErrorAlert} from "@components/alerts/ErrorAlert";
-import {useErrorAlert} from "@hooks/useErrorAlert";
-import {AxiosError} from "axios";
+import { ErrorAlert } from "@components/alerts/ErrorAlert";
+import { useErrorAlert } from "@hooks/useErrorAlert";
+import { AxiosError } from "axios";
 
 const INPUT_NAMES = {
   email: "Email",
@@ -16,8 +16,7 @@ const INPUT_NAMES = {
 };
 
 export const RegisterAdministrator = () => {
-
-  const {errorData,hideError,showError} = useErrorAlert()
+  const { errorData, hideError, showError } = useErrorAlert();
 
   const {
     value: emailValue,
@@ -36,7 +35,6 @@ export const RegisterAdministrator = () => {
   } = useValidationState("Hasło", {
     min: 8,
   });
-  const pwdRef = useRef(pwdValue)
   const {
     value: confirmPwdValue,
     error: confirmPwdError,
@@ -44,8 +42,9 @@ export const RegisterAdministrator = () => {
     isValid: isConfirmPwdValid,
   } = useValidationState("Hasło", {
     min: 8,
-    sameAs:pwdRef,
+    sameAs: pwdValue,
   });
+
   const { result: btnStyles } = useValidationButton(
     [isEmailValid, isPwdValid, isConfirmPwdValid],
     "",
@@ -62,8 +61,9 @@ export const RegisterAdministrator = () => {
         password: pwdValue,
       });
     } catch (error) {
-      let message = 'Unknown Error'
-      if (error instanceof AxiosError) message = error.request.data.message ?? error.message;
+      let message = "Unknown Error";
+      if (error instanceof AxiosError)
+        message = error.request.data.message ?? error.message;
       showError(message);
     }
   };
@@ -84,7 +84,7 @@ export const RegisterAdministrator = () => {
           name={INPUT_NAMES.email}
         />
         <LoginInput
-          type="password"
+          typeCheckbox={["password", "text"]}
           placeholder="**********"
           value={pwdValue}
           labelText="Hasło:"
@@ -93,21 +93,19 @@ export const RegisterAdministrator = () => {
           name={INPUT_NAMES.password}
         />
         <LoginInput
-          type="password"
           placeholder="********"
           value={confirmPwdValue}
           labelText="Powtórz Hasło:"
           error={confirmPwdError}
           onChange={(e) => setConfirmPwdValue(e.target.value)}
           name={INPUT_NAMES.confirmPassword}
+          typeCheckbox={["password", "text"]}
         />
 
         <Btn className={`btn-wide btn ${btnStyles} my-4`}>Zarejestruj</Btn>
-        {
-          errorData.show ?
-              <ErrorAlert onClick={hideError} message={errorData.message}/> : null
-        }
-
+        {errorData.show ? (
+          <ErrorAlert onClick={hideError} message={errorData.message} />
+        ) : null}
       </form>
     </div>
   );

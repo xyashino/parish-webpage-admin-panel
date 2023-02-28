@@ -1,6 +1,6 @@
 import { ExpandableContent } from "@components/ui/ExpandableContent";
 import { Btn } from "@components/ui/Btn";
-import React, { SyntheticEvent, useRef } from "react";
+import React, { SyntheticEvent } from "react";
 
 import { useValidationState } from "@hooks/useValidationState";
 import { LoginInput } from "@components/Login/LoginInput";
@@ -35,7 +35,6 @@ export const UserChangePassword = () => {
     min: 8,
     max: 255,
   });
-  const newPwdRef = useRef<string>(newPwdValue);
 
   const {
     setValue: setConfirmPwdValue,
@@ -45,7 +44,7 @@ export const UserChangePassword = () => {
   } = useValidationState("Hasło", {
     min: 8,
     max: 255,
-    sameAs: newPwdRef,
+    sameAs: newPwdValue,
   });
   const { result: btnStyles } = useValidationButton(
     [isNewPwdValid, isOldPwdValid, isConfirmPwdValid],
@@ -66,7 +65,7 @@ export const UserChangePassword = () => {
         noValidate
       >
         <LoginInput
-          type="password"
+          typeCheckbox={["password", "text"]}
           placeholder="********"
           name={INPUT_NAMES.oldPassword}
           value={oldPwdValue}
@@ -75,7 +74,7 @@ export const UserChangePassword = () => {
           error={oldPwdError}
         />
         <LoginInput
-          type="password"
+          typeCheckbox={["password", "text"]}
           placeholder="********"
           name={INPUT_NAMES.newPassword}
           value={newPwdValue}
@@ -85,7 +84,7 @@ export const UserChangePassword = () => {
         />
 
         <LoginInput
-          type="password"
+          typeCheckbox={["password", "text"]}
           value={confirmPwdValue}
           name={INPUT_NAMES.confirmPassword}
           placeholder="********"
