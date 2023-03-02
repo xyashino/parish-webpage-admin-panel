@@ -1,21 +1,20 @@
 import React, { SyntheticEvent } from "react";
 import { LoginInput } from "@components/Login/LoginInput";
-import { AxiosBase } from "@utils/network/axios-base";
 import { useNavigate } from "react-router-dom";
 import { PageRouter } from "@enums/page-router.enum";
 import { Btn } from "@components/ui/Btn";
 import { useValidationState } from "@hooks/useValidationState";
-import { useErrorAlert } from "@hooks/useErrorAlert";
 import { ErrorAlert } from "@components/alerts/ErrorAlert";
-import { AxiosError } from "axios";
 import { useValidationButton } from "@hooks/useValidationButton";
+import { useAxios } from "@hooks/useAxios";
 
 const LOGIN_INPUT_NAME = "email";
 const PASSWORD_INPUT_NAME = "password";
 
 export const LoginForm = () => {
   const navigate = useNavigate();
-  const { errorData, hideError, showError } = useErrorAlert();
+  const { loading, err:{data,hideError}, fetchDataUsingAxios } = useAxios();
+
   const {
     setValue: setEmailValue,
     value: emailValue,
@@ -43,21 +42,17 @@ export const LoginForm = () => {
     "btn-disabled"
   );
 
+  const goToHomePage = () => {
+    navigate(PageRouter.Home);
+  };
   const logIn = async (e: SyntheticEvent) => {
     e.preventDefault();
     if (!isEmailValid || !isPwdValid) return;
-    try {
-      await AxiosBase.post("/auth/login", {
-        email: emailValue,
-        password: pwdValue,
-      });
-      navigate(PageRouter.Home);
-    } catch (error) {
-      let message = "Unknown Error";
-      if (error instanceof AxiosError)
-        message = error.response?.data.message  ?? error.response?.data.error ?? error.message;
-      showError(message);
-    }
+    const config = {
+      method: "post",
+      data: { email: emailValue, password: pwdValue },
+    };
+    await fetchDataUsingAxios("/auth/login", config, goToHomePage);
   };
 
   return (
@@ -86,10 +81,10 @@ export const LoginForm = () => {
       />
 
       <div className="form-control mt-6">
-        <Btn className={`btn-wide btn ${btnStyles}`}>Zaloguj</Btn>
+        <Btn className={`btn-wide btn ${btnStyles} ${loading ? 'loading' : ''}`}>Zaloguj</Btn>
       </div>
-      {errorData.show ? (
-        <ErrorAlert onClick={hideError} message={errorData.message} />
+      {data.show ? (
+        <ErrorAlert onClick={hideError} message={data.message} />
       ) : null}
     </form>
   );

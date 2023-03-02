@@ -2,32 +2,40 @@ import React, { useContext } from "react";
 import { IntentionContext } from "@context/IntentionContext";
 import { Btn } from "@components/ui/Btn";
 import { Divider } from "@components/ui/Divider";
-import { UpdateData } from "@utils/network/update-data";
 import { PageRouter } from "@enums/page-router.enum";
-import { getDataFrom } from "@utils/network/get-data-from";
 import { useConfirmAlert } from "@hooks/useConfirmAlert";
 import { ConfirmAlert } from "@components/alerts/ConfirmAlert";
+import { useAxios } from "@hooks/useAxios";
+import { AxiosRequestConfig } from "axios";
+import { ErrorAlert } from "@components/alerts/ErrorAlert";
 export const IntentionsButtonSection = () => {
   const { intentions, setIntentions } = useContext(IntentionContext);
   const { alertData, setConfig } = useConfirmAlert();
+  const {
+    fetchDataUsingAxios,
+    err: { data, hideError },
+  } = useAxios();
   const updateIntentions = async () => {
     for (const { id, dateOfDay, intentions: childIntentions } of intentions) {
-      const temp = childIntentions
-        .map(({ value, hour }) => {
-          if (!value || !hour) return false;
-          return { value, hour };
+      const intentions = childIntentions
+        .filter(({ value, hour }) => {
+          return !(!value || !hour);
         })
-        .filter((el) => el);
-      await UpdateData(`${PageRouter.Intentions}/${id}`, {
-        dateOfDay,
-        intentions: temp,
-      });
+        .map(({ id, ...rest }) => rest);
+      const config: AxiosRequestConfig = {
+        method: "patch",
+        data: {
+          dateOfDay,
+          intentions,
+        },
+      };
+      await fetchDataUsingAxios(`${PageRouter.Intentions}/${id}`, config);
     }
   };
 
   const refreshData = async () => {
     setConfig("Czy na pewno chcesz odświeżyć dane?", async () => {
-      setIntentions(await getDataFrom(PageRouter.Intentions));
+      setIntentions(await fetchDataUsingAxios(PageRouter.Intentions));
     });
   };
 
@@ -45,6 +53,9 @@ export const IntentionsButtonSection = () => {
         Odśwież Dane
       </Btn>
       {alertData.show ? <ConfirmAlert config={alertData.config} /> : null}
+      {data.show ? (
+        <ErrorAlert onClick={hideError} message={data.message} />
+      ) : null}
       <Divider className="w-full" />
     </div>
   );

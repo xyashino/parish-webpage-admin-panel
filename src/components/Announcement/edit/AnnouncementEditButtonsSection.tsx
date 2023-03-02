@@ -1,20 +1,19 @@
 import React, { useContext } from "react";
 import { Btn } from "@components/ui/Btn";
 import { Divider } from "@components/ui/Divider";
-import { UpdateData } from "@utils/network/update-data";
 import { PageRouter } from "@enums/page-router.enum";
-import { getDataFrom } from "@utils/network/get-data-from";
 import { AnnouncementContext } from "@context/AnnouncementContext";
 import { CreateAnnouncementRequest } from "@backendTypes";
 import {useConfirmAlert} from "@hooks/useConfirmAlert";
 import {ConfirmAlert} from "@components/alerts/ConfirmAlert";
+import {useAxios} from "@hooks/useAxios";
+import {ErrorAlert} from "@components/alerts/ErrorAlert";
 
 export const AnnouncementEditBodyItem = () => {
 
   const { announcements, setAnnouncements } = useContext(AnnouncementContext);
   const { setConfig , alertData} = useConfirmAlert();
-
-
+  const { err:{data,hideError}, fetchDataUsingAxios} = useAxios();
   const updateAnnouncements = async () => {
     const {
       id,
@@ -22,20 +21,24 @@ export const AnnouncementEditBodyItem = () => {
       title,
       announcements: announcementsArray,
     } = announcements;
-    await UpdateData(`${PageRouter.Announcement}/${id}`, {
-      title,
-      subtitle,
-      announcements: announcementsArray.map(({ body, order }) => ({
-        body,
-        order,
-      })),
-    } as CreateAnnouncementRequest);
+    const config = {
+        method: 'patch',
+        data: {
+            title,
+            subtitle,
+            announcements: announcementsArray.map(({ body, order }) => ({
+                body,
+                order,
+            })),
+        } as CreateAnnouncementRequest
+    }
+    await fetchDataUsingAxios(`${PageRouter.Announcement}/${id}`, config);
   };
 
 
   const refreshData = async () => {
     const temp = async () => {
-          const [response] = await getDataFrom(PageRouter.Announcement);
+          const [response] = await fetchDataUsingAxios(PageRouter.Announcement);
           if (response) {
             setAnnouncements(response);
           }
@@ -79,6 +82,9 @@ export const AnnouncementEditBodyItem = () => {
         {
             alertData.show ? <ConfirmAlert config={alertData.config}/> : null
         }
+        {data.show ? (
+            <ErrorAlert onClick={hideError} message={data.message} />
+        ) : null}
       <Divider className="w-full" />
     </div>
   );

@@ -1,24 +1,31 @@
 import { Btn } from "@components/ui/Btn";
 import React, { SyntheticEvent, useRef } from "react";
 import { useRevalidator } from "react-router-dom";
-import { AxiosBase } from "@utils/network/axios-base";
 import { PageRouter } from "@enums/page-router.enum";
 import { UsersResponse } from "@backendTypes";
-import { AxiosError } from "axios";
 import { ErrorAlert } from "@components/alerts/ErrorAlert";
-import { useErrorAlert } from "@hooks/useErrorAlert";
+import { useAxios } from "@hooks/useAxios";
 const BASE_DELETE_USER = "delete-user/";
 
 interface Props {
   id: UsersResponse["id"];
   email: UsersResponse["email"];
-  hideModal: (e: any) => void;
+  hideModal: (e?: any) => void;
 }
 
 export const UserRemoveModalBody = ({ email, hideModal, id }: Props) => {
-  const { errorData, hideError, showError } = useErrorAlert();
+  const {
+    loading,
+    err: { hideError, showError, data },
+    fetchDataUsingAxios,
+  } = useAxios();
   const inputRef = useRef<HTMLInputElement>(null);
   const { revalidate } = useRevalidator();
+
+  const runAfterSuccess = () => {
+    hideModal();
+    revalidate();
+  };
   const handleClick = async (e: SyntheticEvent) => {
     e.preventDefault();
     if (
@@ -28,20 +35,17 @@ export const UserRemoveModalBody = ({ email, hideModal, id }: Props) => {
       showError("Przepisałeś zły teskts");
       return;
     }
-
-    try {
-      await AxiosBase.delete(PageRouter.Users + "/" + id);
-    } catch (error) {
-      let message = "Unknown Error";
-      if (error instanceof AxiosError)
-        message = error.response?.data.message ?? error.message;
-      showError(message);
-      return
-    }
-    hideModal(e);
-    revalidate();
+    const config = {
+      method: "delete",
+    };
+    await fetchDataUsingAxios(
+      `${PageRouter.Users}/${id}`,
+      config,
+      runAfterSuccess
+    );
   };
 
+  const handleLoadingStyles = loading ? "loading" : "";
   return (
     <div className="space-y-4 p-4 text-center">
       <p className="text-xl">
@@ -62,11 +66,14 @@ export const UserRemoveModalBody = ({ email, hideModal, id }: Props) => {
           ref={inputRef}
         />
       </label>
-      <Btn addClasses="block btn-wide ml-4" onClick={handleClick}>
+      <Btn
+        addClasses={`block btn-wide ml-4 ${handleLoadingStyles}`}
+        onClick={handleClick}
+      >
         Usuń
       </Btn>
-      {errorData.show ? (
-        <ErrorAlert onClick={hideError} message={errorData.message} />
+      {data.show ? (
+        <ErrorAlert onClick={hideError} message={data.message} />
       ) : null}
     </div>
   );

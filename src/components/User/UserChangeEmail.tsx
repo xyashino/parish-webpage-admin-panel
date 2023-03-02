@@ -1,20 +1,26 @@
 import React, { SyntheticEvent } from "react";
 import { ExpandableContent } from "@components/ui/ExpandableContent";
 import { Btn } from "@components/ui/Btn";
-import { AxiosBase } from "@utils/network/axios-base";
 import { PageRouter } from "@enums/page-router.enum";
 import { useValidationState } from "@hooks/useValidationState";
 import { LoginInput } from "@components/Login/LoginInput";
 import { useConfirmAlert } from "@hooks/useConfirmAlert";
 import { ConfirmAlert } from "@components/alerts/ConfirmAlert";
 import { useValidationButton } from "@hooks/useValidationButton";
-import { AxiosError } from "axios";
+import { useAxios } from "@hooks/useAxios";
+import { ErrorAlert } from "@components/alerts/ErrorAlert";
+import {AxiosRequestConfig} from "axios";
 
 const NEW_EMAIL_NAME = "email";
 const PASSWORD_NAME = "password";
 
 export const UserChangeEmail = () => {
   const { alertData, setConfig } = useConfirmAlert();
+  const {
+    err: { hideError, data },
+    loading,
+    fetchDataUsingAxios,
+  } = useAxios();
 
   const {
     setValue: setEmailValue,
@@ -45,19 +51,17 @@ export const UserChangeEmail = () => {
 
   const changeEmail = async () => {
     if (!isPwdValid || !isEmailValid) return;
-    try {
-      await AxiosBase.patch(PageRouter.Current, {
+    const config:AxiosRequestConfig = {
+      method: "patch",
+      data: {
         email: emailValue,
         password: pwdValue,
-      });
-    } catch (error) {
-      let message = "Unknown Error";
-      if (error instanceof AxiosError)
-        message = error.request.data.message ?? error.message;
-      console.log(message);
-    }
+      },
+    };
+    await fetchDataUsingAxios(PageRouter.Current, config);
   };
 
+  const toggleLoadingClass = loading ? "loading" : "";
   const handleSubmit = (event: SyntheticEvent) => {
     event.preventDefault();
     setConfig("Czy napewno chcesz zmienic e-mail?", changeEmail);
@@ -88,9 +92,12 @@ export const UserChangeEmail = () => {
           onChange={(e) => setPwdValue(e.target.value)}
           error={pwdError}
         />
+        <Btn className={`btn-wide btn ${btnStyles} ${toggleLoadingClass}`}>Zmień E-mail</Btn>
 
-        <Btn className={`btn-wide btn ${btnStyles}`}>Zmień E-mail</Btn>
         {alertData.show ? <ConfirmAlert config={alertData.config} /> : null}
+        {data.show ? (
+          <ErrorAlert onClick={hideError} message={data.message} />
+        ) : null}
       </form>
     </ExpandableContent>
   );

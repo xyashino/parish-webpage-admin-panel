@@ -3,15 +3,14 @@ import { useValidationState } from "@hooks/useValidationState";
 import { LoginInput } from "@components/Login/LoginInput";
 import { Btn } from "@components/ui/Btn";
 import { useValidationButton } from "@hooks/useValidationButton";
-import { AxiosBase } from "@utils/network/axios-base";
 
 import { ErrorAlert } from "@components/alerts/ErrorAlert";
-import { useErrorAlert } from "@hooks/useErrorAlert";
-import { AxiosError } from "axios";
 import { useRevalidator } from "react-router-dom";
+import { useAxios } from "@hooks/useAxios";
+import {AxiosRequestConfig} from "axios";
 
 interface Props {
-  hideModal: (e:SyntheticEvent | undefined) => void;
+  hideModal: (e?: SyntheticEvent) => void;
 }
 
 const INPUT_NAMES = {
@@ -21,8 +20,9 @@ const INPUT_NAMES = {
 };
 
 export const RegisterAdministrator = ({ hideModal }: Props) => {
-  const { errorData, hideError, showError } = useErrorAlert();
   const { revalidate } = useRevalidator();
+  const {loading, err:{hideError,data}, fetchDataUsingAxios } =
+    useAxios();
   const {
     value: emailValue,
     error: emailError,
@@ -56,24 +56,24 @@ export const RegisterAdministrator = ({ hideModal }: Props) => {
     "btn-disabled"
   );
 
+  const runAfterSuccess = ()=> {
+    hideModal();
+    revalidate();
+  }
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
     if (!(isConfirmPwdValid && isEmailValid && isPwdValid)) return;
 
-    try {
-      await AxiosBase.post("/users/register", {
+    const config:AxiosRequestConfig = {
+      method: "post",
+      data: {
         email: emailValue,
         password: pwdValue,
-      });
-    } catch (error) {
-      let message = "Unknown Error";
-      if (error instanceof AxiosError)
-        message = error.request.data.message ?? error.message;
-      showError(message);
-    }
-    hideModal(e);
-    revalidate();
+      },
+    };
+    await fetchDataUsingAxios("/users/register", config , runAfterSuccess);
   };
+  const toggleLoadingStyles = loading ? "loading" : "";
 
   return (
     <div className="flex w-full flex-col justify-center border-b-2">
@@ -108,10 +108,13 @@ export const RegisterAdministrator = ({ hideModal }: Props) => {
           name={INPUT_NAMES.confirmPassword}
           typeCheckbox={["password", "text"]}
         />
-
-        <Btn className={`btn-wide btn ${btnStyles} my-4`}>Zarejestruj</Btn>
-        {errorData.show ? (
-          <ErrorAlert onClick={hideError} message={errorData.message} />
+        <Btn
+          className={`btn-wide btn my-4 ${btnStyles} ${toggleLoadingStyles}`}
+        >
+          Zarejestruj
+        </Btn>
+        {data.show ? (
+          <ErrorAlert onClick={hideError} message={data.message} />
         ) : null}
       </form>
     </div>
