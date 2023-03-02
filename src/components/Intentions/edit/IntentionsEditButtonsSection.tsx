@@ -19,7 +19,7 @@ export const IntentionsButtonSection = () => {
     for (const { id, dateOfDay, intentions: childIntentions } of intentions) {
       const intentions = childIntentions
         .filter(({ value, hour }) => {
-          return !(!value || !hour);
+          return value && hour;
         })
         .map(({ id, ...rest }) => rest);
       const config: AxiosRequestConfig = {
