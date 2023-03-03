@@ -9,7 +9,7 @@ import { getDataFrom } from "@utils/network/get-data-from";
 import { AnnouncementEditPage } from "@components/pages/announcement/AnnouncementEditPage";
 import { AnnouncementPreviewPage } from "@components/pages/announcement/AnnouncementPreviewPage";
 import { checkAuth } from "@utils/network/check-auth";
-import { CurrentUserPage } from "@components/pages/CurrentUserPage";
+import { UserCurrentPage } from "@components/pages/users/UserCurrentPage";
 import { NotFoundPage } from "@components/pages/NotFoundPage";
 import { ErrorPage } from "@components/pages/ErrorPage";
 import {HomePage} from "@components/pages/HomePage";
@@ -55,7 +55,7 @@ const routers = createBrowserRouter([
       },
       {
         path: PageRouter.UserCurrent,
-        element: <CurrentUserPage />,
+        element: <UserCurrentPage />,
         loader: () => getDataFrom(PageRouter.UserCurrent),
         errorElement: <ErrorPage />,
       },
