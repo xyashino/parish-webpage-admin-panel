@@ -21,7 +21,7 @@ export const ErrorAlert = ({
     onClick()
   }
   return (
-    <div className={`alert alert-error ${alertClasses}`} {...props}>
+    <div className={`alert alert-error ${alertClasses} m-2`} {...props}>
       <div>
         <button onClick={clickMethod} type="button">
           <Close className="text-xl hover:scale-150" />

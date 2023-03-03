@@ -18,7 +18,7 @@ export const ConfirmAlert = ({
   const alertClasses = onlyMyClasses ? className : `m-8 shadow-lg ${className}`;
 
   return (
-    <div className={`alert ${alertClasses}`} {...props}>
+    <div className={`alert ${alertClasses} m-2`} {...props}>
       <div>
         <Info className="text-3xl" />
         <span>{infoText}</span>
