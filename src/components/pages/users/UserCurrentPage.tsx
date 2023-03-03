@@ -12,7 +12,7 @@ import { UsersResponse } from "@backendTypes";
 import { useConfirmAlert } from "@hooks/useConfirmAlert";
 import { UserInfo } from "@components/User/UserInfo";
 import { ConfirmAlert } from "@components/alerts/ConfirmAlert";
-export const CurrentUserPage = () => {
+export const UserCurrentPage = () => {
   const navigate = useNavigate();
   const data = useLoaderData() as UsersResponse;
   const { alertData, setConfig } = useConfirmAlert();
