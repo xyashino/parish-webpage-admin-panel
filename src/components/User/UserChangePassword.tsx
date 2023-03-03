@@ -7,6 +7,10 @@ import { LoginInput } from "@components/Login/LoginInput";
 import { useConfirmAlert } from "@hooks/useConfirmAlert";
 import { ConfirmAlert } from "@components/alerts/ConfirmAlert";
 import { useValidationButton } from "@hooks/useValidationButton";
+import { ErrorAlert } from "@components/alerts/ErrorAlert";
+import { useAxios } from "@hooks/useAxios";
+import { PageRouter } from "@enums/page-router.enum";
+import { AxiosRequestConfig } from "axios";
 
 const INPUT_NAMES = {
   oldPassword: "oldPassword",
@@ -15,6 +19,12 @@ const INPUT_NAMES = {
 };
 export const UserChangePassword = () => {
   const { alertData, setConfig } = useConfirmAlert();
+  const {
+    err: { hideError, data },
+    loading,
+    fetchDataUsingAxios,
+  } = useAxios();
+
 
   const {
     setValue: setOldPwdValue,
@@ -52,10 +62,23 @@ export const UserChangePassword = () => {
     "btn-disabled"
   );
 
+  const updatePassword = async () => {
+    const config: AxiosRequestConfig = {
+      method: "patch",
+      data: {
+        password: oldPwdValue,
+        newPassword: newPwdValue,
+      },
+    }
+    await fetchDataUsingAxios(PageRouter.Current, config );
+  };
+
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
-    setConfig("Czy napewno chcesz zmienic hasło?", () => {});
+    setConfig("Czy napewno chcesz zmienic hasło?", updatePassword);
   };
+
+  const toggleLoadingClass = loading ? 'loading' : '';
 
   return (
     <ExpandableContent title="Zmień Hasło">
@@ -93,8 +116,11 @@ export const UserChangePassword = () => {
           error={confirmPwdError}
         />
 
-        <Btn className={`btn-wide  btn ${btnStyles}`}>Zmień hasło</Btn>
+        <Btn className={`btn-wide  btn ${btnStyles} ${toggleLoadingClass}`}>Zmień hasło</Btn>
         {alertData.show ? <ConfirmAlert config={alertData.config} /> : null}
+        {data.show ? (
+          <ErrorAlert onClick={hideError} message={data.message} />
+        ) : null}
       </form>
     </ExpandableContent>
   );

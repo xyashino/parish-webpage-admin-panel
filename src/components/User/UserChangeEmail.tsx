@@ -10,12 +10,15 @@ import { useValidationButton } from "@hooks/useValidationButton";
 import { useAxios } from "@hooks/useAxios";
 import { ErrorAlert } from "@components/alerts/ErrorAlert";
 import {AxiosRequestConfig} from "axios";
+import {useRevalidator} from "react-router-dom";
 
 const NEW_EMAIL_NAME = "email";
 const PASSWORD_NAME = "password";
 
 export const UserChangeEmail = () => {
   const { alertData, setConfig } = useConfirmAlert();
+  const {revalidate} = useRevalidator()
+
   const {
     err: { hideError, data },
     loading,
@@ -58,7 +61,7 @@ export const UserChangeEmail = () => {
         password: pwdValue,
       },
     };
-    await fetchDataUsingAxios(PageRouter.Current, config);
+    await fetchDataUsingAxios(PageRouter.Current, config, ()=> revalidate());
   };
 
   const toggleLoadingClass = loading ? "loading" : "";
