@@ -1,5 +1,5 @@
 import { AlbumTypeResponse } from "@backendTypes";
-import { AlbumTypesTableRow } from "@components/albumTypes/table/AlbumTypesTableRow";
+import { GalleryTypesTableRow } from "@components/galeryTypes/table/GalleryTypesTableRow";
 import { BaseTable } from "@components/ui/Table/BaseTable";
 
 interface Props {
@@ -11,14 +11,14 @@ const EmptyRow = <tr>
   </td>
 </tr>
 
-export const AlbumTypesTable = ({ data }: Props) => {
+export const GalleryTypesTable = ({ data }: Props) => {
   const thColumns = ["id", "nazwa"];
   return (
     <BaseTable thColumns={thColumns}>
       {data.length === 0
         ? EmptyRow
         : data.map((el, i) => (
-            <AlbumTypesTableRow data={el} index={i} key={el.id} />
+            <GalleryTypesTableRow data={el} index={i} key={el.id} />
           ))}
     </BaseTable>
   );

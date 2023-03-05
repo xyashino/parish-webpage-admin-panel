@@ -12,9 +12,10 @@ import { checkAuth } from "@utils/network/check-auth";
 import { UserCurrentPage } from "@components/pages/users/UserCurrentPage";
 import { NotFoundPage } from "@components/pages/NotFoundPage";
 import { ErrorPage } from "@components/pages/ErrorPage";
-import {HomePage} from "@components/pages/HomePage";
-import {UserListPage} from "@components/pages/users/UserListPage";
-import {GalleryTypesPage} from "@components/pages/gallery/GalleryTypesPage";
+import { HomePage } from "@components/pages/HomePage";
+import { UserListPage } from "@components/pages/users/UserListPage";
+import { GalleryTypesPage } from "@components/pages/gallery/GalleryTypesPage";
+import { GalleryPage } from "@components/pages/gallery/GalleryPage";
 
 const routers = createBrowserRouter([
   {
@@ -27,8 +28,8 @@ const routers = createBrowserRouter([
     loader: checkAuth,
     children: [
       {
-        index:true,
-        element:<HomePage/>
+        index: true,
+        element: <HomePage />,
       },
       {
         path: PageRouter.IntentionsPreview,
@@ -70,6 +71,12 @@ const routers = createBrowserRouter([
         path: PageRouter.GalleryTypes,
         element: <GalleryTypesPage />,
         loader: () => getDataFrom(PageRouter.AlbumTypes),
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: PageRouter.GalleryAlbums,
+        element: <GalleryPage />,
+        loader: () => getDataFrom(PageRouter.Albums),
         errorElement: <ErrorPage />,
       },
     ],

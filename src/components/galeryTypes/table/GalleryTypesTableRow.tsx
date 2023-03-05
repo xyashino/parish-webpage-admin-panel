@@ -3,14 +3,14 @@ import React from "react";
 import { BaseTableRow } from "@components/ui/Table/BaseTableRow";
 import { Modal } from "@components/ui/Modal/Modal";
 import { useModal } from "@hooks/useModal";
-import { RemoveGroupType } from "@components/albumTypes/RemoveGroupType";
+import { RemoveGroupType } from "@components/galeryTypes/RemoveGroupType";
 
 interface Props {
   index: number;
   data: AlbumTypeResponse;
 }
 
-export const AlbumTypesTableRow = ({ data, index }: Props) => {
+export const GalleryTypesTableRow = ({ data, index }: Props) => {
   const { hideModal, showModal, displayModal } = useModal();
   const {name,id} = data;
   return (

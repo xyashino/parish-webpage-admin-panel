@@ -24,7 +24,7 @@ export const IntentionsEditTableHead = ({ day, date, parentId }: Props) => {
       let data = prevState.find(({ id }) => id === parentId);
 
       if (!data) return prevState;
-      data.dateOfDay = e.target.value;
+      data.dateOfDay = e.target.value as unknown as Date;
 
       return [...prevState];
     });

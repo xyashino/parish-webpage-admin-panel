@@ -6,10 +6,10 @@ import { AlbumTypeResponse } from "@backendTypes";
 import { InfoAlert } from "@components/alerts/InfoAlert";
 import { Btn } from "@components/ui/Btn";
 import { BorderContainer } from "@components/ui/BorderContainer";
-import { AlbumTypesTable } from "@components/albumTypes/table/AlbumTypesTable";
+import { GalleryTypesTable } from "@components/galeryTypes/table/GalleryTypesTable";
 import { Modal } from "@components/ui/Modal/Modal";
 import { useModal } from "@hooks/useModal";
-import {AddNewGroupType} from "@components/albumTypes/AddNewGroupType";
+import {AddNewGroupType} from "@components/galeryTypes/AddNewGroupType";
 
 export const GalleryTypesPage = () => {
   const data = useLoaderData() as AlbumTypeResponse[];
@@ -18,12 +18,12 @@ export const GalleryTypesPage = () => {
   return (
     <>
       <MainContainer>
-        <Header title="Zarządzaj Typami Albumów" />
+        <Header title="Zarządzaj Typami Galeri" />
         <InfoAlert message="Po tych typach będa grupowane albumy na stronie" />
         <BorderContainer className="m-4 w-5/6 border-y-2">
           <Btn className="btn-wide  btn m-2" onClick={displayModal}>Dodaj nową grupe</Btn>
         </BorderContainer>
-        <AlbumTypesTable data={data} />
+        <GalleryTypesTable data={data} />
       </MainContainer>
       <Modal
         boxModalClasses="w-2/5"

@@ -18,7 +18,7 @@ export const IntentionsEditWeek = () => {
       start: DateUtil.formatDate(weekdays.at(0) as Date),
       end: DateUtil.formatDate(weekdays.at(-1) as Date),
     });
-    setIntentions((prevState) => {
+    setIntentions((prevState:any[]) => {
       const newValue = prevState.map(({ dateOfDay, ...rest }, i) => ({
         ...rest,
         dateOfDay: DateUtil.formatDate(weekdays[i]),
