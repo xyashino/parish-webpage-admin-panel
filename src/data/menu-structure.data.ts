@@ -46,7 +46,7 @@ export const MENU_STRUCTURE: MenuType[] = [
       },
       {
         text: "Albumy",
-        path: PageRouter.IntentionsEdit,
+        path: PageRouter.GalleryAlbums,
       },
       {
         text: "Zdjęcia",

@@ -19,10 +19,12 @@ export const enum PageRouter {
     ArticleEdit = "/article/edit",
     ArticleCreate = "/article/create",
 
+    Albums= '/albums',
+
     AlbumTypes= '/albums/types',
     Gallery = "/gallery",
     GalleryTypes = "/gallery/types",
-
+    GalleryAlbums = "/gallery/albums",
     Parish = "/parish",
     ParishCouncil = "/parish/council",
     ParishOffice = "/parish/office",
