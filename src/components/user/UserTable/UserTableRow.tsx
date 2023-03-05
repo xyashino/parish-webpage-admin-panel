@@ -8,14 +8,16 @@ import { useModal } from "@hooks/useModal";
 interface Props {
   id: UsersResponse["id"];
   email: UsersResponse["email"];
+    index:number;
 }
-export const UserTableRow = ({ id, email }: Props) => {
+export const UserTableRow = ({ id, email ,index}: Props) => {
   const iconStyles = "text-xl m-2 hover:scale-125";
   const { showModal, hideModal, displayModal } = useModal();
 
   return (
     <>
       <tr className="hover cursor-pointer transition-colors">
+          <td>{index + 1}</td>
         <td>{id}</td>
         <td>{email}</td>
         <td className="flex">
