@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, useRef } from "react";
+import React, { SyntheticEvent } from "react";
 import { useRevalidator } from "react-router-dom";
 import { PageRouter } from "@enums/page-router.enum";
 import { UsersResponse } from "@backendTypes";
@@ -18,20 +18,16 @@ export const UserRemoveModalBody = ({ email, hideModal, id }: Props) => {
     err: { hideError, showError, data },
     fetchDataUsingAxios,
   } = useAxios();
-  const inputRef = useRef<HTMLInputElement>(null);
   const { revalidate } = useRevalidator();
 
   const runAfterSuccess = () => {
     hideModal();
     revalidate();
   };
-  const handleClick = async (e: SyntheticEvent) => {
+  const handleClick = async (e: SyntheticEvent, value: string) => {
     e.preventDefault();
-    if (
-      inputRef.current &&
-      BASE_DELETE_USER + email !== inputRef.current.value
-    ) {
-      showError("Przepisałeś zły teskts");
+    if (BASE_DELETE_USER + email !== value) {
+      showError("Podałeś zły teskt !!");
       return;
     }
     const config = {
@@ -44,9 +40,11 @@ export const UserRemoveModalBody = ({ email, hideModal, id }: Props) => {
     );
   };
 
-  const deleteInfoElement = <p>
-    Czy na pewno chcesz usuąć ? <p className='font-bold'>{email}</p>
-  </p>
+  const deleteInfoElement = (
+    <p>
+      Czy na pewno chcesz usuąć ? <p className="font-bold">{email}</p>
+    </p>
+  );
 
   return (
     <ModalBoxRemove

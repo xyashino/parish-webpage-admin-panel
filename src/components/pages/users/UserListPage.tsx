@@ -8,31 +8,33 @@ import { RegisterAdministrator } from "@components/RegisterAdministrator";
 import { UserTable } from "@components/user/UserTable/UserTable";
 import { Btn } from "@components/ui/Btn";
 import { useModal } from "@hooks/useModal";
-import {BorderContainer} from "@components/ui/BorderContainer";
+import { BorderContainer } from "@components/ui/BorderContainer";
 
 export const UserListPage = () => {
   const data = useLoaderData() as UsersResponse[];
   const { showModal, hideModal, displayModal } = useModal();
   return (
-    <MainContainer>
-      <Header title="Zarządzaj Admistratorami" />
+    <>
+      <MainContainer>
+        <Header title="Zarządzaj Admistratorami" />
         <BorderContainer>
-            <Btn className="btn-wide btn m-4" onClick={displayModal}>
-                Dodaj Administratora
-            </Btn>
+          <Btn className="btn-wide btn m-4" onClick={displayModal}>
+            Dodaj Administratora
+          </Btn>
         </BorderContainer>
+        <Divider />
+        <h2 className="mb-2 p-2 text-2xl uppercase">
+          Lista wszytkich administratorów :
+        </h2>
+        <UserTable users={data} />
+      </MainContainer>
       <Modal
         boxModalClasses="w-2/5"
         showModal={showModal}
         hideModal={hideModal}
       >
-        <RegisterAdministrator  hideModal={hideModal}/>
+        <RegisterAdministrator hideModal={hideModal} />
       </Modal>
-      <Divider />
-      <h2 className="mb-2 p-2 text-2xl uppercase">
-        Lista wszytkich administratorów :
-      </h2>
-      <UserTable users={data} />
-    </MainContainer>
+    </>
   );
 };
