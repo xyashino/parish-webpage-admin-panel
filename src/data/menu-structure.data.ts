@@ -42,7 +42,7 @@ export const MENU_STRUCTURE: MenuType[] = [
     items: [
       {
         text: "Grupy",
-        path: PageRouter.IntentionsPreview,
+        path: PageRouter.GalleryTypes,
       },
       {
         text: "Albumy",
