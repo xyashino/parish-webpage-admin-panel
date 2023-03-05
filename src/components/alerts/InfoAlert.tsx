@@ -17,10 +17,12 @@ export const InfoAlert = ({
     : `alert alert-info shadow-lg w-5/6 m-2 ${className}`;
 
   return (
-    <div className={alertClasses} {...props}>
-      <div>
-        <Info />
-        <span>{message}</span>
+    <div className="flex w-full justify-center">
+      <div className={alertClasses} {...props}>
+        <div>
+          <Info />
+          <span>{message}</span>
+        </div>
       </div>
     </div>
   );
