@@ -1,13 +1,13 @@
 import React, { useContext } from "react";
 import { IntentionContext } from "@context/IntentionContext";
 import { Btn } from "@components/ui/Btn";
-import { Divider } from "@components/ui/Divider";
 import { PageRouter } from "@enums/page-router.enum";
 import { useConfirmAlert } from "@hooks/useConfirmAlert";
 import { ConfirmAlert } from "@components/alerts/ConfirmAlert";
 import { useAxios } from "@hooks/useAxios";
 import { AxiosRequestConfig } from "axios";
 import { ErrorAlert } from "@components/alerts/ErrorAlert";
+import { BorderContainer } from "@components/ui/BorderContainer";
 export const IntentionsButtonSection = () => {
   const { intentions, setIntentions } = useContext(IntentionContext);
   const { alertData, setConfig } = useConfirmAlert();
@@ -44,19 +44,19 @@ export const IntentionsButtonSection = () => {
   };
 
   return (
-    <div className="flex  flex-wrap justify-around">
-      <Divider className="w-full" />
-      <Btn className="btn-wide btn" onClick={updateData}>
-        Aktualizuj Dane
-      </Btn>
-      <Btn className="btn-wide btn" onClick={refreshData}>
-        Odśwież Dane
-      </Btn>
+    <div  className='flex flex-col items-center'>
+      <BorderContainer addClasses="flex flex-wrap justify-around w-full space-x-8 p-4">
+        <Btn className="btn-wide btn" onClick={updateData}>
+          Aktualizuj Dane
+        </Btn>
+        <Btn className="btn-wide btn" onClick={refreshData}>
+          Odśwież Dane
+        </Btn>
+      </BorderContainer>
       {alertData.show ? <ConfirmAlert config={alertData.config} /> : null}
       {data.show ? (
         <ErrorAlert onClick={hideError} message={data.message} />
       ) : null}
-      <Divider className="w-full" />
     </div>
   );
 };

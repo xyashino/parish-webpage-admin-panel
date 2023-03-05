@@ -8,6 +8,7 @@ import { RegisterAdministrator } from "@components/RegisterAdministrator";
 import { UserTable } from "@components/user/UserTable/UserTable";
 import { Btn } from "@components/ui/Btn";
 import { useModal } from "@hooks/useModal";
+import {BorderContainer} from "@components/ui/BorderContainer";
 
 export const UserListPage = () => {
   const data = useLoaderData() as UsersResponse[];
@@ -15,10 +16,11 @@ export const UserListPage = () => {
   return (
     <MainContainer>
       <Header title="Zarządzaj Admistratorami" />
-      <Divider />
-      <Btn className="btn-wide btn" onClick={displayModal}>
-        Dodaj Administratora
-      </Btn>
+        <BorderContainer>
+            <Btn className="btn-wide btn m-4" onClick={displayModal}>
+                Dodaj Administratora
+            </Btn>
+        </BorderContainer>
       <Modal
         boxModalClasses="w-2/5"
         showModal={showModal}
