@@ -6,7 +6,7 @@ interface Props extends PropsWithChildren{
 
 export const BaseTable = ({thColumns,children}: Props) => {
   return (
-    <table className="table w-5/6">
+    <table className="table w-5/6 shadow-2xl" >
       <thead>
         <tr>
           <th>Lp.</th>
