@@ -1,9 +1,9 @@
 import React from "react";
 import { UsersResponse } from "@backendTypes";
-import { Trash } from "@icons/Trash";
 import { Modal } from "@components/ui/Modal/Modal";
 import { UserRemoveModalBody } from "@components/user/UserRemoveModalBody";
 import { useModal } from "@hooks/useModal";
+import {BaseTableRow} from "@components/ui/Table/BaseTableRow";
 
 interface Props {
   id: UsersResponse["id"];
@@ -11,19 +11,13 @@ interface Props {
     index:number;
 }
 export const UserTableRow = ({ id, email ,index}: Props) => {
-  const iconStyles = "text-xl m-2 hover:scale-125";
   const { showModal, hideModal, displayModal } = useModal();
-
   return (
     <>
-      <tr className="hover cursor-pointer transition-colors">
-          <td>{index + 1}</td>
-        <td>{id}</td>
-        <td>{email}</td>
-        <td className="flex">
-          <Trash className={iconStyles} onClick={displayModal} />
-        </td>
-      </tr>
+        <BaseTableRow iconClick={displayModal} index={index}>
+            <td>{id}</td>
+            <td>{email}</td>
+        </BaseTableRow>
       <Modal
         hideModal={hideModal}
         showModal={showModal}
