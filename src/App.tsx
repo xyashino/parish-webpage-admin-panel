@@ -3,8 +3,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { AppLayout } from "@components/ui/AppLayout";
 import { LoginPage } from "@components/pages/LoginPage";
 import { PageRouter } from "@enums/page-router.enum";
-import { IntentionsPreviewPage } from "@components/pages/Intentions/IntentionsPreviewPage";
-import { IntentionsEditPage } from "@components/pages/Intentions/IntentionsEditPage";
+import { IntentionsPreviewPage } from "@components/pages/intentions/IntentionsPreviewPage";
+import { IntentionsEditPage } from "@components/pages/intentions/IntentionsEditPage";
 import { getDataFrom } from "@utils/network/get-data-from";
 import { AnnouncementEditPage } from "@components/pages/announcement/AnnouncementEditPage";
 import { AnnouncementPreviewPage } from "@components/pages/announcement/AnnouncementPreviewPage";
@@ -14,7 +14,7 @@ import { NotFoundPage } from "@components/pages/NotFoundPage";
 import { ErrorPage } from "@components/pages/ErrorPage";
 import {HomePage} from "@components/pages/HomePage";
 import {UserListPage} from "@components/pages/users/UserListPage";
-import {GalleryPage} from "@components/pages/GalleryPage";
+import {GalleryTypesPage} from "@components/pages/gallery/GalleryTypesPage";
 
 const routers = createBrowserRouter([
   {
@@ -67,9 +67,9 @@ const routers = createBrowserRouter([
         errorElement: <ErrorPage />,
       },
       {
-        path: PageRouter.Gallery,
-        element: <GalleryPage />,
-        // loader: () => getDataFrom(PageRouter.Users),
+        path: PageRouter.GalleryTypes,
+        element: <GalleryTypesPage />,
+        loader: () => getDataFrom(PageRouter.AlbumTypes),
         errorElement: <ErrorPage />,
       },
     ],
