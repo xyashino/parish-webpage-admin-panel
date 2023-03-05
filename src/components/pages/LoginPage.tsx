@@ -1,5 +1,5 @@
-import { LoginForm } from "@components/Login/LoginForm";
-import { LoginCard } from "@components/Login/LoginCard";
+import { LoginForm } from "@components/login/LoginForm";
+import { LoginCard } from "@components/login/LoginCard";
 
 export const LoginPage = () => {
   return (

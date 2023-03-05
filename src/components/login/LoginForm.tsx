@@ -1,5 +1,5 @@
 import React, { SyntheticEvent } from "react";
-import { LoginInput } from "@components/Login/LoginInput";
+import { LoginInput } from "@components/login/LoginInput";
 import { useNavigate } from "react-router-dom";
 import { PageRouter } from "@enums/page-router.enum";
 import { Btn } from "@components/ui/Btn";
@@ -55,6 +55,8 @@ export const LoginForm = () => {
     await fetchDataUsingAxios("/auth/login", config, goToHomePage);
   };
 
+  const toggleLoadingClass = loading ? 'loading' : ''
+
   return (
     <form
       className="flex flex-col items-center space-y-4"
@@ -81,7 +83,7 @@ export const LoginForm = () => {
       />
 
       <div className="form-control mt-6">
-        <Btn className={`btn-wide btn ${btnStyles} ${loading ? 'loading' : ''}`}>Zaloguj</Btn>
+        <Btn className={`btn-wide btn ${btnStyles} ${toggleLoadingClass} `}>Zaloguj</Btn>
       </div>
       {data.show ? (
         <ErrorAlert onClick={hideError} message={data.message} />

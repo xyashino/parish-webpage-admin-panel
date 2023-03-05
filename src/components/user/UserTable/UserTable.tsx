@@ -1,5 +1,5 @@
 import {UsersResponse} from "@backendTypes";
-import {UserTableRow} from "@components/User/UserTable/UserTableRow";
+import {UserTableRow} from "@components/user/UserTable/UserTableRow";
 
 interface Props {
     users:UsersResponse[];

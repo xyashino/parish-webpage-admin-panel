@@ -1,6 +1,6 @@
 import React from "react";
 import { AnnouncementsResponse } from "@backendTypes";
-import { AnnouncementPreviewItem } from "@components/Announcement/preview/AnnouncementPreviewItem";
+import { AnnouncementPreviewItem } from "@components/announcement/preview/AnnouncementPreviewItem";
 
 interface Props {
   announcements: AnnouncementsResponse["announcements"];

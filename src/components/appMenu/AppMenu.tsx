@@ -1,6 +1,6 @@
 import React from "react";
 import { Logo } from "@icons/Logo";
-import { AppMenuItem } from "@components/AppMenu/AppMenuItem";
+import { AppMenuItem } from "@components/appMenu/AppMenuItem";
 import { MENU_STRUCTURE } from "@data/menu-structure.data";
 import {Link} from "react-router-dom";
 import {PageRouter} from "@enums/page-router.enum";

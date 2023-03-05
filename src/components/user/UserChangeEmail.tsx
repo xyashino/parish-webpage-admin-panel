@@ -3,7 +3,7 @@ import { ExpandableContent } from "@components/ui/ExpandableContent";
 import { Btn } from "@components/ui/Btn";
 import { PageRouter } from "@enums/page-router.enum";
 import { useValidationState } from "@hooks/useValidationState";
-import { LoginInput } from "@components/Login/LoginInput";
+import { LoginInput } from "@components/login/LoginInput";
 import { useConfirmAlert } from "@hooks/useConfirmAlert";
 import { ConfirmAlert } from "@components/alerts/ConfirmAlert";
 import { useValidationButton } from "@hooks/useValidationButton";

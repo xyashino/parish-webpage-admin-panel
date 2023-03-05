@@ -6,11 +6,11 @@ import { Btn } from "@components/ui/Btn";
 import { Divider } from "@components/ui/Divider";
 import { AxiosBase } from "@utils/network/axios-base";
 import { PageRouter } from "@enums/page-router.enum";
-import { UserChangeEmail } from "@components/User/UserChangeEmail";
-import { UserChangePassword } from "@components/User/UserChangePassword";
+import { UserChangeEmail } from "@components/user/UserChangeEmail";
+import { UserChangePassword } from "@components/user/UserChangePassword";
 import { UsersResponse } from "@backendTypes";
 import { useConfirmAlert } from "@hooks/useConfirmAlert";
-import { UserInfo } from "@components/User/UserInfo";
+import { UserInfo } from "@components/user/UserInfo";
 import { ConfirmAlert } from "@components/alerts/ConfirmAlert";
 export const UserCurrentPage = () => {
   const navigate = useNavigate();

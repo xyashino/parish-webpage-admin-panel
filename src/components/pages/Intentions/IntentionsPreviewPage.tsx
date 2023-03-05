@@ -5,7 +5,7 @@ import { MenuItem } from "@frontendTypes/menu-item.interface";
 import { TRANSLATE_INTENTIONS } from "@data/translate-intentions.data";
 import { GridLayoutPage } from "@components/ui/GridLayoutPage";
 import { Menu } from "@components/ui/Menu";
-import { IntentionsPreviewTable } from "@components/Intentions/preview/IntentionsPreviewTable";
+import { IntentionsPreviewTable } from "@components/intentions/preview/IntentionsPreviewTable";
 import { Header } from "@components/ui/Header";
 import { DateUtil } from "@utils/date.util";
 

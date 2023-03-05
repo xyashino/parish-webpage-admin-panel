@@ -1,7 +1,7 @@
 import React from "react";
 import { DayIntentionsResponse, IntentionResponse } from "@backendTypes";
-import { IntentionsTableHead } from "@components/Intentions/preview/IntentionsTableHead";
-import { IntentionsTableBody } from "@components/Intentions/preview/IntentionsTableBody";
+import { IntentionsTableHead } from "@components/intentions/preview/IntentionsTableHead";
+import { IntentionsTableBody } from "@components/intentions/preview/IntentionsTableBody";
 
 interface Props {
   day: DayIntentionsResponse["day"];

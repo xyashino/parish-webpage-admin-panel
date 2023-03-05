@@ -38,6 +38,23 @@ export const MENU_STRUCTURE: MenuType[] = [
     ],
   },
   {
+    name: "Galeria",
+    items: [
+      {
+        text: "Grupy",
+        path: PageRouter.IntentionsPreview,
+      },
+      {
+        text: "Albumy",
+        path: PageRouter.IntentionsEdit,
+      },
+      {
+        text: "Zdjęcia",
+        path: PageRouter.IntentionsEdit,
+      },
+    ],
+  },
+  {
     text: "Administratorzy",
     path: PageRouter.Users,
   },

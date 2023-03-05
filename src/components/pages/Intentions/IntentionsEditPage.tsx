@@ -4,10 +4,10 @@ import { DayIntentionsResponse } from "@backendTypes";
 import { TRANSLATE_INTENTIONS } from "@data/translate-intentions.data";
 import { Menu } from "@components/ui/Menu";
 import { IntentionContext } from "@context/IntentionContext";
-import { IntentionsEditTable } from "@components/Intentions/edit/IntentionsEditTable";
+import { IntentionsEditTable } from "@components/intentions/edit/IntentionsEditTable";
 import { Header } from "@components/ui/Header";
-import { IntentionsEditWeek } from "@components/Intentions/edit/IntentionsEditWeek";
-import { IntentionsButtonSection } from "@components/Intentions/edit/IntentionsEditButtonsSection";
+import { IntentionsEditWeek } from "@components/intentions/edit/IntentionsEditWeek";
+import { IntentionsButtonSection } from "@components/intentions/edit/IntentionsEditButtonsSection";
 
 export const IntentionsEditPage = () => {
   //context&&states

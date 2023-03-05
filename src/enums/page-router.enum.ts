@@ -3,7 +3,7 @@ export const enum PageRouter {
     Current = "/users/current",
     Login = "/login",
     Contact = "/contact",
-    // Intentions = "/intentions",
+    // intentions = "/intentions",
     Announcement = "/announcements",
     AnnouncementPreview = "/announcements/preview",
     AnnouncementEdit = "/announcements/edit",

@@ -5,7 +5,7 @@ import { Header } from "@components/ui/Header";
 import { Divider } from "@components/ui/Divider";
 import { Modal } from "@components/ui/Modal/Modal";
 import { RegisterAdministrator } from "@components/RegisterAdministrator";
-import { UserTable } from "@components/User/UserTable/UserTable";
+import { UserTable } from "@components/user/UserTable/UserTable";
 import { Btn } from "@components/ui/Btn";
 import { useModal } from "@hooks/useModal";
 

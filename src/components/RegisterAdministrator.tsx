@@ -1,6 +1,6 @@
 import React, { SyntheticEvent } from "react";
 import { useValidationState } from "@hooks/useValidationState";
-import { LoginInput } from "@components/Login/LoginInput";
+import { LoginInput } from "@components/login/LoginInput";
 import { Btn } from "@components/ui/Btn";
 import { useValidationButton } from "@hooks/useValidationButton";
 

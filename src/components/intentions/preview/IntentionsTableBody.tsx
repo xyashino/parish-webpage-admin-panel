@@ -1,7 +1,7 @@
 import React from "react";
 import { IntentionResponse } from "@backendTypes";
-import { IntentionsTableRow } from "@components/Intentions/preview/IntentionsTableRow";
-import { IntentionsTableEmptyRow } from "@components/Intentions/preview/IntentionsTableEmptyRow";
+import { IntentionsTableRow } from "@components/intentions/preview/IntentionsTableRow";
+import { IntentionsTableEmptyRow } from "@components/intentions/preview/IntentionsTableEmptyRow";
 
 interface Props {
   intentionRow: IntentionResponse[];

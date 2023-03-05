@@ -1,8 +1,8 @@
 import React from "react";
 import { DayIntentionsResponse } from "@backendTypes";
-import { IntentionsEditTableRow } from "@components/Intentions/edit/IntentionsEditTableRow";
-import { IntentionsEditTableHead } from "@components/Intentions/edit/IntentionsEditTableHead";
-import { IntentionsEditTableFoot } from "@components/Intentions/edit/IntentionsEditTableFoot";
+import { IntentionsEditTableRow } from "@components/intentions/edit/IntentionsEditTableRow";
+import { IntentionsEditTableHead } from "@components/intentions/edit/IntentionsEditTableHead";
+import { IntentionsEditTableFoot } from "@components/intentions/edit/IntentionsEditTableFoot";
 
 interface Props {
   table: DayIntentionsResponse | undefined;

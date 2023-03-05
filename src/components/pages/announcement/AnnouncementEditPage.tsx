@@ -3,11 +3,11 @@ import { MainContainer } from "@components/ui/MainContainer";
 import { Header } from "@components/ui/Header";
 import { useLoaderData } from "react-router-dom";
 import { AnnouncementsResponse } from "@backendTypes";
-import { AnnouncementEditHeader } from "@components/Announcement/edit/AnnouncementEditHeader";
+import { AnnouncementEditHeader } from "@components/announcement/edit/AnnouncementEditHeader";
 import { AnnouncementContext } from "@context/AnnouncementContext";
-import { AnnouncementEditBody } from "@components/Announcement/edit/AnnouncementEditBody";
-import { AnnouncementEditFooter } from "@components/Announcement/edit/AnnouncementEditFooter";
-import { AnnouncementEditBodyItem } from "@components/Announcement/edit/AnnouncementEditButtonsSection";
+import { AnnouncementEditBody } from "@components/announcement/edit/AnnouncementEditBody";
+import { AnnouncementEditFooter } from "@components/announcement/edit/AnnouncementEditFooter";
+import { AnnouncementEditBodyItem } from "@components/announcement/edit/AnnouncementEditButtonsSection";
 
 export const AnnouncementEditPage = () => {
   const [data] = useLoaderData() as AnnouncementsResponse[];

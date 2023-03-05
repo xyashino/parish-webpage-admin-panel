@@ -1,5 +1,5 @@
 import React from "react";
-import { Submenu } from "@components/AppMenu/Submenu";
+import { Submenu } from "@components/appMenu/Submenu";
 import { MenuType, MenuItem } from "@data/menu-structure.data";
 import {Link} from "react-router-dom";
 

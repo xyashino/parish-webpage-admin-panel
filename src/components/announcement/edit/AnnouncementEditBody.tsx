@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { AnnouncementEditBodyItem } from "@components/Announcement/edit/AnnouncementEditBodyItem";
+import { AnnouncementEditBodyItem } from "@components/announcement/edit/AnnouncementEditBodyItem";
 import { AnnouncementContext } from "@context/AnnouncementContext";
 
 export const AnnouncementEditBody = () => {

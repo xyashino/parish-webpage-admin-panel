@@ -2,7 +2,7 @@ import React from "react";
 import { UsersResponse } from "@backendTypes";
 import { Trash } from "@icons/Trash";
 import { Modal } from "@components/ui/Modal/Modal";
-import { UserRemoveModalBody } from "@components/User/UserRemoveModalBody";
+import { UserRemoveModalBody } from "@components/user/UserRemoveModalBody";
 import { useModal } from "@hooks/useModal";
 
 interface Props {

@@ -14,6 +14,7 @@ import { NotFoundPage } from "@components/pages/NotFoundPage";
 import { ErrorPage } from "@components/pages/ErrorPage";
 import {HomePage} from "@components/pages/HomePage";
 import {UserListPage} from "@components/pages/users/UserListPage";
+import {GalleryPage} from "@components/pages/GalleryPage";
 
 const routers = createBrowserRouter([
   {
@@ -63,6 +64,12 @@ const routers = createBrowserRouter([
         path: PageRouter.Users,
         element: <UserListPage />,
         loader: () => getDataFrom(PageRouter.Users),
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: PageRouter.Gallery,
+        element: <GalleryPage />,
+        // loader: () => getDataFrom(PageRouter.Users),
         errorElement: <ErrorPage />,
       },
     ],

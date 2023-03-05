@@ -2,8 +2,8 @@ import React from "react";
 import { useLoaderData } from "react-router-dom";
 import { MainContainer } from "@components/ui/MainContainer";
 import { AnnouncementsResponse } from "@backendTypes";
-import { AnnouncementPreviewList } from "@components/Announcement/preview/AnnouncementPreviewList";
-import {AnnouncementPreviewHeader} from "@components/Announcement/preview/AnnouncementPreviewHeader";
+import { AnnouncementPreviewList } from "@components/announcement/preview/AnnouncementPreviewList";
+import {AnnouncementPreviewHeader} from "@components/announcement/preview/AnnouncementPreviewHeader";
 
 export const AnnouncementPreviewPage = () => {
   const [{ announcements, title, subtitle }] =
