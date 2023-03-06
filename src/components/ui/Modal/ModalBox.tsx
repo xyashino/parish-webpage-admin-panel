@@ -7,7 +7,7 @@ interface Props extends PropsWithChildren {
 }
 
 export const ModalBox = ({ children, hideModal, boxModalClasses }: Props) => {
-  const boxModalStyles = `min-h-1/3 bg-white bas flex flex-col justify-center rounded ${boxModalClasses}`;
+  const boxModalStyles = `min-h-1/3 w-5/6 bg-white bas flex flex-col justify-center rounded ${boxModalClasses}`;
   return (
     <div className={boxModalStyles}>
       <header className="flex w-full flex-row-reverse px-8 pt-4">
