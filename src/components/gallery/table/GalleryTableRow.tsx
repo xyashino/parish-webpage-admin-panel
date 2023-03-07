@@ -8,17 +8,17 @@ interface Props {
   index: number;
   title: string;
   id: string;
-  subtitle: string | undefined;
+    name: string | undefined;
 }
 
-export const GalleryTableRow = ({ index, id, title, subtitle }: Props) => {
+export const GalleryTableRow = ({ index, id, title, name }: Props) => {
   const {hideModal,showModal,displayModal} = useModal()
   return (
     <>
       <BaseTableRow index={index} iconClick={displayModal}>
         <td className="truncate">{id}</td>
         <td>{title}</td>
-        <td>{subtitle ?? "BRAK"}</td>
+        <td>{name ?? "BRAK"}</td>
       </BaseTableRow>
       <Modal
           hideModal={hideModal}

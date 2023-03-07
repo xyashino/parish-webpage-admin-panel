@@ -7,17 +7,17 @@ interface Props {
 }
 
 export const GalleryTable = ({ data }: Props) => {
-  const thColumns = ["id", "title", "podtytuł"];
+  const thColumns = ["id", "title", "typ"];
   console.log(data);
   return (
     <BaseTable thColumns={thColumns}>
-      {data.map(({ title, subtitle, id }, index) => (
+      {data.map(({ title, id,type }, index) => (
         <GalleryTableRow
           index={index}
           title={title}
           id={id}
           key={id}
-          subtitle={subtitle}
+          name={type?.name}
         />
       ))}
     </BaseTable>
