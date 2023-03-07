@@ -10,21 +10,20 @@ interface Props extends HTMLAttributes<HTMLSelectElement> {
 export const GalleryTypeSelect = ({ ...props }: Props) => {
   const { data, loading } = useDataFrom<AlbumType[]>(PageRouter.AlbumTypes);
 
-  if (loading) {
-    return (
-      <select className="select  select-sm w-full" {...props}>
-        <option disabled selected>
-          Wczytywanie
-        </option>
-      </select>
-    );
-  }
-  return (
-    <select className="select  select-sm w-full" {...props}>
+  const loadingElement = (
+    <select className="select  select-md w-full" {...props}>
       <option disabled selected>
-        Wybierz grupe
+        Wczytywanie
       </option>
-      <option value="">Brak</option>
+    </select>
+  );
+
+  const selectElement = (
+    <select
+      className="select select-md w-full font-medium uppercase"
+      {...props}
+    >
+      <option selected>Brak</option>
       {!data
         ? null
         : data.map((el) => (
@@ -33,5 +32,14 @@ export const GalleryTypeSelect = ({ ...props }: Props) => {
             </option>
           ))}
     </select>
+  );
+
+  return (
+    <div className="form-control w-full max-w-xs">
+      <label className="label">
+        <span className="label-text uppercase">Wybierz grupe</span>
+      </label>
+      {loading ? loadingElement : selectElement}
+    </div>
   );
 };
