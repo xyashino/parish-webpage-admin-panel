@@ -1,15 +1,15 @@
-import React, {PropsWithChildren} from "react";
+import React, {HTMLAttributes, PropsWithChildren} from "react";
 import {Trash} from "@icons/Trash";
 
-interface Props extends PropsWithChildren{
+interface Props extends PropsWithChildren, HTMLAttributes<HTMLTableRowElement>{
   index: number;
   iconClick:(e?:any)=>void;
 }
 
-export const BaseTableRow = ({index,iconClick,children}: Props) => {
+export const BaseTableRow = ({index,iconClick,children, ...props}: Props) => {
     const iconStyles = "text-xl m-2 hover:scale-125";
     return (
-      <tr className="hover cursor-pointer transition-colors">
+      <tr className="hover cursor-pointer transition-colors" {...props}>
           <td>{index + 1}</td>
           {children}
           <td className="flex">
