@@ -13,7 +13,6 @@ import {AddGallery} from "@components/gallery/add/AddGallery";
 export const GalleryPage = () => {
     const data = useLoaderData() as Album[];
     const {showModal,hideModal,displayModal}= useModal();
-    console.log(data)
     return (
        <>
            <MainContainer>

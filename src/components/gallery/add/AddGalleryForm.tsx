@@ -53,7 +53,7 @@ export const AddGalleryForm = ({ inputs, children, hideModal }: Props) => {
   return (
     <form className="flex flex-wrap justify-around" onSubmit={handleSubmit}>
       {children}
-      <div className="mx-10 flex w-full justify-center border-t-2 p-4">
+      <div className="mx-10 flex w-full justify-center border-t-2 p-4 mt-8">
         <Btn className={`btn-wide btn ${toggleLoadingClass}`}>Dodaj Album</Btn>
       </div>
       {errorElement}

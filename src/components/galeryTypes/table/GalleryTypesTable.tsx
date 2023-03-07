@@ -12,7 +12,7 @@ const EmptyRow = <tr>
 </tr>
 
 export const GalleryTypesTable = ({ data }: Props) => {
-  const thColumns = ["id", "nazwa"];
+  const thColumns = ["id", "nazwa",''];
   return (
     <BaseTable thColumns={thColumns}>
       {data.length === 0
