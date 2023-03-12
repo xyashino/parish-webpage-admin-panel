@@ -76,7 +76,7 @@ export const RegisterAdministrator = ({ hideModal }: Props) => {
   const toggleLoadingStyles = loading ? "loading" : "";
 
   return (
-    <div className="flex w-full flex-col justify-center border-b-2">
+    <div className="flex w-full flex-col justify-center ">
       <h2 className="w-full p-2 text-center text-xl font-semibold uppercase">
         Dodaj Nowego Administratora:
       </h2>
