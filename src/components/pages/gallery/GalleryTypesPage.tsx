@@ -6,10 +6,10 @@ import { AlbumTypeResponse } from "@backendTypes";
 import { InfoAlert } from "@components/alerts/InfoAlert";
 import { Btn } from "@components/ui/Btn";
 import { BorderContainer } from "@components/ui/BorderContainer";
-import { GalleryTypesTable } from "@components/galeryTypes/table/GalleryTypesTable";
+import { GalleryTypesTable } from "@components/galery-types/GalleryTypesTable";
 import { Modal } from "@components/ui/Modal/Modal";
 import { useModal } from "@hooks/useModal";
-import {AddNewGroupType} from "@components/galeryTypes/AddNewGroupType";
+import {AddNewGroupType} from "@components/galery-types/AddNewGroupType";
 
 export const GalleryTypesPage = () => {
   const data = useLoaderData() as AlbumTypeResponse[];

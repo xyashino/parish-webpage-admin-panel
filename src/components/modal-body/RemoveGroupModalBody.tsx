@@ -12,7 +12,7 @@ interface Props {
   id: string;
 }
 
-export const RemoveGroupType = ({ hideModal, name, id }: Props) => {
+export const RemoveGroupModalBody = ({ hideModal, name, id }: Props) => {
   const {
     loading,
     err: { data, hideError,showError },

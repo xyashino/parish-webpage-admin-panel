@@ -1,5 +1,5 @@
 import { AlbumTypeResponse } from "@backendTypes";
-import { GalleryTypesTableRow } from "@components/galeryTypes/table/GalleryTypesTableRow";
+import { GalleryTypesTableRow } from "@components/galery-types/GalleryTypesTableRow";
 import { BaseTable } from "@components/ui/Table/BaseTable";
 
 interface Props {

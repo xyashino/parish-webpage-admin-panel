@@ -1,7 +1,7 @@
 import React from "react";
 import { UsersResponse } from "@backendTypes";
 import { Modal } from "@components/ui/Modal/Modal";
-import { UserRemoveModalBody } from "@components/user/UserRemoveModalBody";
+import { UserRemoveModalBody } from "@components/modal-body/UserRemoveModalBody";
 import { useModal } from "@hooks/useModal";
 import {BaseTableRow} from "@components/ui/Table/BaseTableRow";
 

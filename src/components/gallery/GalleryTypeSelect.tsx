@@ -5,11 +5,11 @@ import { useDataFrom } from "@hooks/useDataFrom";
 
 interface Props extends HTMLAttributes<HTMLSelectElement> {
   name: string;
+  url?:string;
 }
 
-export const GalleryTypeSelect = ({ ...props }: Props) => {
-  const { data, loading } = useDataFrom<AlbumType[]>(PageRouter.AlbumTypes);
-
+export const GalleryTypeSelect = ({...props }: Props) => {
+  const { data, loading } = useDataFrom<AlbumType[]>( PageRouter.AlbumTypes);
   const loadingElement = (
     <select className="select  select-md w-full" {...props}>
       <option disabled selected>
@@ -26,7 +26,7 @@ export const GalleryTypeSelect = ({ ...props }: Props) => {
       <option selected>Brak</option>
       {!data
         ? null
-        : data.map((el) => (
+        : data?.map((el) => (
             <option value={el.id} key={el.id}>
               {el.name}
             </option>

@@ -3,7 +3,8 @@ import React from "react";
 import { BaseTableRow } from "@components/ui/Table/BaseTableRow";
 import { Modal } from "@components/ui/Modal/Modal";
 import { useModal } from "@hooks/useModal";
-import { RemoveGroupType } from "@components/galeryTypes/RemoveGroupType";
+import { RemoveGroupModalBody } from "@components/modal-body/RemoveGroupModalBody";
+import {Edit} from "@icons/Edit";
 
 interface Props {
   index: number;
@@ -15,16 +16,19 @@ export const GalleryTypesTableRow = ({ data, index }: Props) => {
   const {name,id} = data;
   return (
     <>
-      <BaseTableRow index={index} iconClick={displayModal}>
+      <BaseTableRow index={index} iconClick={displayModal}  onClick={()=>console.log('click')}>
         <td className="truncate">{id}</td>
         <td>{name}</td>
+          <td>
+              <Edit className='hover:scale-125' onClick={()=>console.log('click')}/>
+          </td>
       </BaseTableRow>
       <Modal
         hideModal={hideModal}
         showModal={showModal}
         boxModalClasses="w-2/5"
       >
-        <RemoveGroupType id={id} name={name} hideModal={hideModal} />
+        <RemoveGroupModalBody id={id} name={name} hideModal={hideModal} />
       </Modal>
     </>
   );

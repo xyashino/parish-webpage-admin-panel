@@ -1,4 +1,4 @@
-import { AppMenu } from "@components/appMenu/AppMenu";
+import { AppMenu } from "@components/app-menu/AppMenu";
 import { Outlet } from "react-router-dom";
 import {Footer} from "@components/ui/Footer";
 
