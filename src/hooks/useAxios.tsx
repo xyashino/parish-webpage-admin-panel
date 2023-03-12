@@ -1,22 +1,18 @@
 import { useState } from "react";
-import { AxiosRequestConfig, isAxiosError } from "axios";
+import { AxiosRequestConfig, AxiosResponse, isAxiosError } from "axios";
 import { AxiosBase } from "@utils/network/axios-base";
+import {useErrorAlert} from "@hooks/useErrorAlert";
 export const useAxios = () => {
-  const baseError = { show: false, message: "Unknown" };
-  const [data, setData] = useState(baseError);
   const [loading, setLoading] = useState(false);
+  const {showError,hideError,errorData} = useErrorAlert();
 
-  const hideError = () => setData(baseError);
-  const showError = (message: string) =>
-    setData({ show: true, message: message });
-  const fetchDataUsingAxios = async (
-    url: string,
-    config?: AxiosRequestConfig,
-    afterSuccessMethod?: () => void
+  const requestLogic = async (
+    requestMethod: () => Promise<AxiosResponse<any, any>>,
+    afterSuccessMethod?: () => void,
   ) => {
     try {
       setLoading(true);
-      const res = await AxiosBase(url, config);
+      const res = await requestMethod();
       setLoading(false);
       hideError();
       if (afterSuccessMethod) afterSuccessMethod();
@@ -30,12 +26,20 @@ export const useAxios = () => {
           error.message;
       }
       setLoading(false);
-      setData({ show: true, message: message });
+       showError(message);
     }
   };
+  const fetchDataUsingAxios = async (
+    url: string,
+    config?: AxiosRequestConfig,
+    afterSuccessMethod?: () => void,
+  ) => {
+    return requestLogic(() => AxiosBase(url, config), afterSuccessMethod);
+  };
+
   return {
     err: {
-      data,
+      data:errorData,
       showError,
       hideError,
     },
