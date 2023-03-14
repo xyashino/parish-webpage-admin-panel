@@ -1,15 +1,27 @@
 import React, { HTMLAttributes, PropsWithChildren } from "react";
 
+type InputType =
+    | "email"
+    | "password"
+    | "text"
+    | "number"
+    | "date"
+    | "checkbox"
+    | "radio"
+    | "file";
+
 interface Props extends HTMLAttributes<HTMLInputElement>, PropsWithChildren {
   labelName: string;
   value: string;
   name?: string;
+  type?:InputType;
 }
 
 export const InputLabel = ({
   labelName,
   className,
   children,
+    type,
   ...props
 }: Props) => {
   const baseClasses =
@@ -21,7 +33,7 @@ export const InputLabel = ({
       <label className="label">
         <span className="label-text uppercase font-bold">{labelName}</span>
       </label>
-      <input type="text" className={baseClasses} {...props} />
+      <input type={type || "text"} className={baseClasses} {...props} />
     </div>
   );
 };
