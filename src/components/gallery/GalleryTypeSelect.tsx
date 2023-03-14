@@ -6,6 +6,7 @@ import { useDataFrom } from "@hooks/useDataFrom";
 interface Props extends HTMLAttributes<HTMLSelectElement> {
   name: string;
   url?: string;
+  value?:string;
 }
 
 export const GalleryTypeSelect = ({ ...props }: Props) => {
