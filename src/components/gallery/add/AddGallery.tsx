@@ -3,7 +3,7 @@ import { InputLabel } from "@components/ui/InputLabel";
 import { GalleryTypeSelect } from "@components/gallery/GalleryTypeSelect";
 import { AddGalleryForm } from "@components/gallery/add/AddGalleryForm";
 
-enum INPUT_NAMES {
+enum INPUT_NAME {
   title = "title",
   subtitle = "subtitle",
   type = "type",
@@ -14,11 +14,11 @@ interface Props {
 }
 
 export const AddGallery = ({ hideModal }: Props) => {
-  const arrayFromEnum = Object.keys(INPUT_NAMES);
+  const arrayFromEnum = Object.keys(INPUT_NAME);
   const [inputsValue, setInputsValue] = useState({
-    [INPUT_NAMES.title]: "",
-    [INPUT_NAMES.subtitle]: "",
-    [INPUT_NAMES.type]: "",
+    [INPUT_NAME.title]: "",
+    [INPUT_NAME.subtitle]: "",
+    [INPUT_NAME.type]: "",
   });
   const handleInputChange = (
     e: FormEvent<HTMLInputElement | HTMLSelectElement>
@@ -39,23 +39,23 @@ export const AddGallery = ({ hideModal }: Props) => {
         <div className="w-1/2">
           <InputLabel
             labelName="Tytuł albumu : "
-            value={inputsValue[INPUT_NAMES.title]}
+            value={inputsValue[INPUT_NAME.title]}
             onChange={handleInputChange}
             placeholder="WYMAGANE"
-            name={INPUT_NAMES.title}
+            name={INPUT_NAME.title}
           />
           <InputLabel
             labelName="Podtytuł : "
-            value={inputsValue[INPUT_NAMES.subtitle]}
+            value={inputsValue[INPUT_NAME.subtitle]}
             onChange={handleInputChange}
             placeholder="OPCJONALNE"
-            name={INPUT_NAMES.subtitle}
+            name={INPUT_NAME.subtitle}
           />
         </div>
         <div className="w-1/3 p-2">
           <GalleryTypeSelect
             onChange={handleInputChange}
-            name={INPUT_NAMES.type}
+            name={INPUT_NAME.type}
           />
         </div>
       </AddGalleryForm>
