@@ -12,7 +12,7 @@ export const BaseTableRow = ({index,iconClick,children, ...props}: Props) => {
     const handleClick = (e:SyntheticEvent) => {
         e.preventDefault();
         e.stopPropagation();
-        iconClick()
+        iconClick(e)
     }
     return (
       <tr className="hover cursor-pointer transition-colors" {...props}>
