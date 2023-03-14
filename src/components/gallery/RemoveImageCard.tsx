@@ -3,7 +3,7 @@ import {Btn} from "@components/ui/Btn";
 import {Image} from "@backendTypes";
 import {useAxios} from "@hooks/useAxios";
 
-const {VITE_API_URL} = import.meta.env;
+const {VITE_GALLERY_URL} = import.meta.env;
 interface Props {
     image:Image,
     index:number,
@@ -27,7 +27,7 @@ export const RemoveImageCard = ({ image,index ,setImages}: Props) => {
 
     return (
         <div className="card w-96 glass overflow-hidden">
-            <figure><img src={`${VITE_API_URL}${url}`} alt="Album Image"/></figure>
+            <figure><img src={`${VITE_GALLERY_URL}${url}`} alt="Album Image"/></figure>
             <div className="card-body">
                 <h2 className="card-title">{oldName}</h2>
                 <div className="card-actions justify-end">
