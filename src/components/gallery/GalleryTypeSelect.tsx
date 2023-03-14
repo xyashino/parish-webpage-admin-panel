@@ -5,11 +5,11 @@ import { useDataFrom } from "@hooks/useDataFrom";
 
 interface Props extends HTMLAttributes<HTMLSelectElement> {
   name: string;
-  url?:string;
+  url?: string;
 }
 
-export const GalleryTypeSelect = ({...props }: Props) => {
-  const { data, loading } = useDataFrom<AlbumType[]>( PageRouter.AlbumTypes);
+export const GalleryTypeSelect = ({ ...props }: Props) => {
+  const { data, loading } = useDataFrom<AlbumType[]>(PageRouter.AlbumTypes);
   const loadingElement = (
     <select className="select  select-md w-full" {...props}>
       <option disabled selected>
@@ -23,21 +23,19 @@ export const GalleryTypeSelect = ({...props }: Props) => {
       className="select select-md w-full font-medium uppercase"
       {...props}
     >
-      <option selected>Brak</option>
-      {!data
-        ? null
-        : data?.map((el) => (
-            <option value={el.id} key={el.id}>
-              {el.name}
-            </option>
-          ))}
+      <option value="">Brak</option>
+      {data?.map((el) => (
+        <option value={el.id} key={el.id}>
+          {el.name}
+        </option>
+      )) || null}
     </select>
   );
 
   return (
     <div className="form-control w-full max-w-xs">
       <label className="label">
-        <span className="label-text uppercase">Wybierz grupe</span>
+        <span className="label-text font-bold uppercase">Wybierz grupe: </span>
       </label>
       {loading ? loadingElement : selectElement}
     </div>
