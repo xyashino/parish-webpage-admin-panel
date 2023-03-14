@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, useState } from "react";
+import React, { FormEvent, SyntheticEvent, useState } from "react";
 import { Btn } from "@components/ui/Btn";
 import { useAxios } from "@hooks/useAxios";
 import { ErrorAlert } from "@components/alerts/ErrorAlert";
@@ -7,33 +7,52 @@ import { useRevalidator } from "react-router-dom";
 import { CreateAlbumType } from "@backendTypes";
 import { InputLabel } from "@components/ui/InputLabel";
 
+enum InputName {
+  name = "name",
+  order = "order",
+}
 interface Props {
   hideModal: (e?: any) => void;
 }
 
 export const AddNewGroupType = ({ hideModal }: Props) => {
-  const [value, setValue] = useState("");
+  const [inputsValues, setInputsValues] = useState({
+    name: "",
+    order: "-1",
+  });
   const {
     loading,
     err: { data, hideError },
     fetchDataUsingAxios,
   } = useAxios();
   const { revalidate } = useRevalidator();
+
   const toggleClasses =
-    value === "" ? "btn-disabled" : loading ? "loading" : "";
+    inputsValues.name === "" ? "btn-disabled" : loading ? "loading" : "";
 
   const runAfterSuccess = () => {
     hideModal();
     revalidate();
-    setValue("");
   };
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
-    const config = { method: "POST", data: { name: value } as CreateAlbumType };
+    const { order, name } = inputsValues;
+    const config = {
+      method: "POST",
+      data: { name, order: +order } as CreateAlbumType,
+    };
     await fetchDataUsingAxios(PageRouter.AlbumTypes, config, runAfterSuccess);
   };
-  const handleInputChange = (e: SyntheticEvent) =>
-    setValue((e.target as HTMLInputElement).value);
+
+  const handleInputChange = (e: FormEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    const { value, name } = e.target as HTMLInputElement;
+    if (name === InputName.name)
+      setInputsValues(({ name, ...rest }) => ({ ...rest, name: value }));
+    if (name === InputName.order && +value <= 100 && +value >= -100)
+      setInputsValues(({ order, ...rest }) => ({ ...rest, order: value }));
+  };
+
   const ErrorElement = data.show ? (
     <ErrorAlert onClick={hideError} message={data.message} />
   ) : null;
@@ -49,8 +68,16 @@ export const AddNewGroupType = ({ hideModal }: Props) => {
       </div>
       <InputLabel
         labelName="Nazwa : "
-        value={value}
+        value={inputsValues.name}
         onChange={handleInputChange}
+        name={InputName.name}
+      />
+      <InputLabel
+        labelName="Order: "
+        value={inputsValues.order}
+        onChange={handleInputChange}
+        type="number"
+        name={InputName.order}
       />
       <Btn className={`btn-wide btn ${toggleClasses}`}>Dodaj</Btn>
       {ErrorElement}
