@@ -16,9 +16,9 @@ export const GalleryPage = () => {
     return (
        <>
            <MainContainer>
-               <Header title='Zarządzaj galerią'/>
+               <Header title='Zarządzaj Albumami'/>
                <BorderContainer>
-                   <Btn className='btn-wide btn m-4' onClick={displayModal} >Dodaj Galerie</Btn>
+                   <Btn className='btn-wide btn m-4' onClick={displayModal} >Dodaj Album</Btn>
                </BorderContainer>
                <GalleryTable data={data}/>
            </MainContainer>
