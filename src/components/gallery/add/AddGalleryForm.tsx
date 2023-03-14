@@ -42,7 +42,7 @@ export const AddGalleryForm = ({ inputs, children, hideModal }: Props) => {
         ...(subtitle.length === 0 ? {} : { subtitle }),
       } as CreateAlbumRequestInterface,
     };
-    await fetchDataUsingAxios(PageRouter.Albums, config, runAfterSuccess);
+    await fetchDataUsingAxios(`${PageRouter.Albums}/`, config, runAfterSuccess);
   };
   const toggleLoadingClass = loading ? "loading" : "";
 

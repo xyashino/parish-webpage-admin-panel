@@ -13,12 +13,13 @@ interface Props {
 
 export const GalleryTypesTableRow = ({ data, index }: Props) => {
   const { hideModal, showModal, displayModal } = useModal();
-  const {name,id} = data;
+  const {name,id,order} = data;
   return (
     <>
       <BaseTableRow index={index} iconClick={displayModal}  onClick={()=>console.log('click')}>
         <td className="truncate">{id}</td>
-        <td>{name}</td>
+          <td>{order}</td>
+          <td>{name}</td>
           <td>
               <Edit className='hover:scale-125' onClick={()=>console.log('click')}/>
           </td>

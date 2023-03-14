@@ -17,14 +17,14 @@ export const ChangeImageModalBody = ({ data }: Props) => {
       <h3 className='text-2xl p-2' >Aktualne tło:</h3>
 
       <img
-        src={`${VITE_API_URL}/${backgroundImage}`}
-        alt={`${bgcImg}`}
+        src={`${VITE_API_URL}${bgcImg}`}
+        alt='Album cover img'
         className='object-cover rounded-box shadow-lg  w-1/3'
       />
         <Divider/>
       <div className="rounded-box mt-4 flex w-full flex-wrap space-y-4 p-4 justify-around  mt-6">
         {images.map((img) => (
-          <ChangeImageCard src={`${VITE_API_URL}/${img.url}`} key={img.id} image={img} albumId={data.id} setBgcImg={setBgcImg}/>
+          <ChangeImageCard src={`${VITE_API_URL}${img.url}`} key={img.id} image={img} albumId={data.id} setBgcImg={setBgcImg}/>
         ))}
       </div>
     </div>

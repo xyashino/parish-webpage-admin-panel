@@ -10,11 +10,11 @@ interface Props {
 }
 
 export const ChangeImageCard = ({ image, albumId, src,setBgcImg }: Props) => {
-  const { url } = image;
+  const { url ,oldName} = image;
   const { fetchDataUsingAxios } = useAxios();
   const handleClick = async (e: SyntheticEvent) => {
     e.preventDefault();
-    await fetchDataUsingAxios(`albums/${albumId}`, {
+    await fetchDataUsingAxios(`albums/${albumId}/`, {
       method: "PATCH",
       data: {
         backgroundImage: url,
@@ -27,7 +27,7 @@ export const ChangeImageCard = ({ image, albumId, src,setBgcImg }: Props) => {
     <img
       src={src}
       onClick={handleClick}
-      alt={`${url}`}
+      alt={`Album img - old name: ${oldName}`}
       className="rounded-box w-96 cursor-pointer  object-cover shadow-lg transition-transform hover:scale-125"
     />
   );
