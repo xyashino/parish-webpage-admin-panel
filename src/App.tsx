@@ -16,6 +16,7 @@ import { HomePage } from "@components/pages/HomePage";
 import { UserListPage } from "@components/pages/users/UserListPage";
 import { GalleryTypesPage } from "@components/pages/gallery/GalleryTypesPage";
 import { GalleryPage } from "@components/pages/gallery/GalleryPage";
+import {GalleryEditPage} from "@components/pages/gallery/GalleryEditPage";
 
 const routers = createBrowserRouter([
   {
@@ -77,6 +78,12 @@ const routers = createBrowserRouter([
         path: PageRouter.GalleryAlbums,
         element: <GalleryPage />,
         loader: () => getDataFrom(PageRouter.Albums),
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: `${PageRouter.Albums}/:id`,
+        element: <GalleryEditPage />,
+        loader: ({params}) => getDataFrom(`${PageRouter.Albums}/${params.id}`),
         errorElement: <ErrorPage />,
       },
     ],
