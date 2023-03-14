@@ -3,11 +3,11 @@ import { checkAuth } from "@utils/network/check-auth";
 import { redirect } from "react-router-dom";
 import { PageRouter } from "@enums/page-router.enum";
 
-export const getDataFrom = async (path: any) => {
+export const getDataFrom = async (path: string) => {
   const data = await checkAuth();
   if (data) {
     try {
-      const response = await AxiosBase.get(path);
+      const response = await AxiosBase.get(`${path}/`);
       return response.data;
     } catch (e) {
 
