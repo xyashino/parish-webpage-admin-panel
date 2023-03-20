@@ -1,41 +1,29 @@
-import React, { useContext } from "react";
-import { Btn } from "@components/ui/Btn";
-import { AnnouncementContext } from "@context/AnnouncementContext";
+import React, {useContext} from "react";
+import {Btn} from "@components/ui/Btn";
+import {AnnouncementContext} from "@context/AnnouncementContext";
+import {Modal} from "@components/ui/Modal/Modal";
+import {useModal} from "@hooks/useModal";
+import {AddAnnouncementModalBody} from "@components/modal-body/AddAnnouncementModalBody";
+import {AnnouncementsAction} from "@enums/announcements-action.enum";
 
 export const AnnouncementEditFooter = () => {
-  const { setAnnouncements } = useContext(AnnouncementContext);
-  const addEmptyField = () => {
-    setAnnouncements((prevState) => {
-      const { announcements } = prevState;
-      const lastOrder = announcements.at(-1)?.order;
-      announcements.push({
-        id: lastOrder ? `${+lastOrder + 1}` : crypto.randomUUID(),
-        body: "",
-        order: lastOrder ? +lastOrder + 1 : 1,
-      });
-      return { ...prevState };
-    });
+  const { dispatchAnnouncements } = useContext(AnnouncementContext);
+  const { showModal, hideModal, displayModal } = useModal();
+  const addEmptyField = (body: string) => {
+    dispatchAnnouncements({type:AnnouncementsAction.ADD, payload:{body}});
   };
 
-  const numerateColumns = () => {
-    setAnnouncements((prevState) => {
-      const { announcements } = prevState;
-      prevState.announcements = announcements.map(({ order, ...rest }, i) => ({
-        order: i + 1,
-        ...rest,
-      }));
-      return { ...prevState };
-    });
-  };
 
   return (
-    <div className="flex justify-around py-4">
-      <Btn className="btn " onClick={() => addEmptyField()}>
-        Dodaj puste pole
-      </Btn>
-      <Btn className="btn" onClick={numerateColumns}>
-        Autonumeruj Kolumny
-      </Btn>
-    </div>
+    <>
+      <div className="flex justify-around py-4">
+        <Btn className="btn " onClick={displayModal}>
+          Dodaj Ogłoszenie
+        </Btn>
+      </div>
+      <Modal hideModal={hideModal} showModal={showModal}>
+        <AddAnnouncementModalBody addField={addEmptyField} hideModal={hideModal} />
+      </Modal>
+    </>
   );
 };
