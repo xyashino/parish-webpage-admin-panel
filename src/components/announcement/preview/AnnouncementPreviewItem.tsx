@@ -1,7 +1,7 @@
 import { Divider } from "@components/ui/Divider";
 import React from "react";
 import { AnnouncementsItem } from "@backendTypes";
-
+import parse from 'html-react-parser';
 interface Props {
   id: AnnouncementsItem["id"];
   body: AnnouncementsItem["body"];
@@ -9,9 +9,9 @@ interface Props {
 
 export const AnnouncementPreviewItem = ({ id, body }: Props) => {
   return (
-    <div key={id}>
-      <li>{body}</li>
-      <Divider />
-    </div>
+        <li key={id}>
+            {parse(body)}
+            <Divider />
+        </li>
   );
 };
