@@ -1,34 +1,31 @@
-import React, { useContext } from "react";
-import { Btn } from "@components/ui/Btn";
-import { PageRouter } from "@enums/page-router.enum";
-import { AnnouncementContext } from "@context/AnnouncementContext";
-import { CreateAnnouncementRequest } from "@backendTypes";
-import { useConfirmAlert } from "@hooks/useConfirmAlert";
-import { ConfirmAlert } from "@components/alerts/ConfirmAlert";
-import { useAxios } from "@hooks/useAxios";
-import { ErrorAlert } from "@components/alerts/ErrorAlert";
-import { BorderContainer } from "@components/ui/BorderContainer";
+import React, {useContext} from "react";
+import {Btn} from "@components/ui/Btn";
+import {PageRouter} from "@enums/page-router.enum";
+import {AnnouncementContext} from "@context/AnnouncementContext";
+import {CreateAnnouncementRequest} from "@backendTypes";
+import {useConfirmAlert} from "@hooks/useConfirmAlert";
+import {ConfirmAlert} from "@components/alerts/ConfirmAlert";
+import {useAxios} from "@hooks/useAxios";
+import {ErrorAlert} from "@components/alerts/ErrorAlert";
+import {BorderContainer} from "@components/ui/BorderContainer";
+import {useRevalidator} from "react-router-dom";
+import {AnnouncementsAction} from "@enums/announcements-action.enum";
 
 export const AnnouncementEditBodyItem = () => {
-  const { announcements, setAnnouncements } = useContext(AnnouncementContext);
+  const { announcements,restAnnouncement, setRestAnnouncement , dispatchAnnouncements } = useContext(AnnouncementContext);
   const { setConfig, alertData } = useConfirmAlert();
+  const {revalidate} = useRevalidator();
   const {
     err: { data, hideError },
     fetchDataUsingAxios,
   } = useAxios();
   const updateAnnouncements = async () => {
-    const {
-      id,
-      subtitle,
-      title,
-      announcements: announcementsArray,
-    } = announcements;
+    const {id,...rest}=restAnnouncement;
     const config = {
       method: "patch",
       data: {
-        title,
-        subtitle,
-        announcements: announcementsArray.map(({ body, order }) => ({
+        ...rest,
+        announcements: announcements.map(({ body, order }) => ({
           body,
           order,
         })),
@@ -38,13 +35,7 @@ export const AnnouncementEditBodyItem = () => {
   };
 
   const refreshData = async () => {
-    const temp = async () => {
-      const [response] = await fetchDataUsingAxios(PageRouter.Announcement);
-      if (response) {
-        setAnnouncements(response);
-      }
-    };
-    setConfig("Czy na pewno chcesz odświeżyć dane?", temp);
+    setConfig("Czy na pewno chcesz odświeżyć dane?", ()=>revalidate());
   };
 
   const updateData = async () => {
@@ -53,11 +44,11 @@ export const AnnouncementEditBodyItem = () => {
 
   const clearData = async () => {
     setConfig("Czy na pewno chcesz wyczyścić dane?", () => {
-      setAnnouncements(({ id }) => ({
+      dispatchAnnouncements({type:AnnouncementsAction.CLEAR,payload:{}})
+      setRestAnnouncement(({id}) => ({
         id,
         subtitle: "",
         title: "",
-        announcements: [],
       }));
     });
   };
