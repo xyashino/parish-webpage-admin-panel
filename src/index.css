@@ -13,3 +13,7 @@
 * {
   box-sizing: border-box;
 }
+
+div[aria-selected="true"] {
+  background-color: #4b5563;
+}
