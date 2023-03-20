@@ -4,12 +4,12 @@ import { AnnouncementContext } from "@context/AnnouncementContext";
 
 export const AnnouncementEditBody = () => {
   const {
-    announcements: { announcements },
+    announcements
   } = useContext(AnnouncementContext);
 
   return (
-    <div className="text-left">
-      {announcements.map((value) => (
+    <div className="text-left mx-10">
+      {announcements.sort((a, b) => a.order-b.order).map((value) => (
         <AnnouncementEditBodyItem item={value} key={value.id} />
       ))}
     </div>
