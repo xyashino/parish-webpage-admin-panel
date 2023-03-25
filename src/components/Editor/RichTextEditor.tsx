@@ -1,16 +1,12 @@
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import {
-  forwardRef,
-  useImperativeHandle,
-  useState,
-} from "react";
+import { forwardRef, useImperativeHandle, useState } from "react";
 import { EditorState } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
 import { stateToHTML } from "draft-js-export-html";
 import { stateFromHTML } from "draft-js-import-html";
 
-interface Props  {
-    defaultValue?: string;
+interface Props {
+  defaultValue?: string;
 }
 export interface EditorComponentRef {
   getRawHtml: () => string;
@@ -30,13 +26,13 @@ let options = {
   },
 };
 
-export const RichTextEditor = forwardRef<EditorComponentRef ,Props>(
+export const RichTextEditor = forwardRef<EditorComponentRef, Props>(
   ({ defaultValue }: Props, ref) => {
-    const state = defaultValue
-      ? () => EditorState.createWithContent(stateFromHTML(defaultValue))
-      : () => EditorState.createEmpty();
-
-    const [editorState, setEditorState] = useState(state);
+    const [editorState, setEditorState] = useState(
+      defaultValue
+        ? () => EditorState.createWithContent(stateFromHTML(defaultValue))
+        : () => EditorState.createEmpty()
+    );
 
     const getRawHtml = () => {
       return stateToHTML(editorState.getCurrentContent(), options);
@@ -55,7 +51,13 @@ export const RichTextEditor = forwardRef<EditorComponentRef ,Props>(
           options: ["inline", "history", "list"],
           inline: {
             className: "p-4 bg-primary rounded-box mx-4",
-              options:['bold','italic','underline','strikethrough','monospace'],
+            options: [
+              "bold",
+              "italic",
+              "underline",
+              "strikethrough",
+              "monospace",
+            ],
             bold: {
               className: iconClassName,
             },
@@ -83,7 +85,7 @@ export const RichTextEditor = forwardRef<EditorComponentRef ,Props>(
           },
           list: {
             className: "p-4 bg-primary rounded-box mx-4",
-            options:['unordered','ordered','indent','outdent'],
+            options: ["unordered", "ordered", "indent", "outdent"],
             unordered: {
               className: iconClassName,
             },
@@ -99,8 +101,8 @@ export const RichTextEditor = forwardRef<EditorComponentRef ,Props>(
           },
         }}
         onEditorStateChange={setEditorState}
-        wrapperClassName="border-2 rounded-box m-8 shadow w-full prose"
-        editorClassName="p-4 min-h-[200px] prose"
+        wrapperClassName="border-2 rounded-box m-8 shadow w-full prose bg-base-100"
+        editorClassName="p-4 min-h-[200px] prose bg-base-100 m-2"
         toolbarClassName="rounded-box p-4 z-50  flex flex-wrap justify-around"
       />
     );
