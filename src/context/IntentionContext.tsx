@@ -1,14 +1,15 @@
-import { createContext, Dispatch, SetStateAction } from "react";
+import { createContext, Dispatch } from "react";
 import { DayIntentionsResponse } from "@backendTypes";
+import {IntentionsActionData} from "@frontendTypes/intentions-action-data";
 
 interface InitialValue {
   intentions: [] | DayIntentionsResponse[];
-  setIntentions: Dispatch<SetStateAction<DayIntentionsResponse[]>>;
+  dispatchIntentions: Dispatch<IntentionsActionData>;
 }
 
 const initialValue = {
   intentions: [],
-  setIntentions: () => {},
+  dispatchIntentions: () => {},
 };
 
 export const IntentionContext = createContext<InitialValue>(initialValue);
