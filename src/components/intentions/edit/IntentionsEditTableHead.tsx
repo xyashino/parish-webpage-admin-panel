@@ -1,7 +1,9 @@
-import React, { ChangeEvent, useContext, useEffect, useState } from "react";
+import React, { ChangeEvent, useContext } from "react";
 import { TRANSLATE_INTENTIONS } from "@data/translate-intentions.data";
 import { Day } from "@enums/day.enum";
 import { IntentionContext } from "@context/IntentionContext";
+import { IntentionsAction } from "@enums/intentions-action.enum";
+import { DateUtil } from "@utils/date.util";
 
 interface Props {
   day: string | Day;
@@ -12,24 +14,16 @@ interface Props {
 const thStyle = "bg-primary text-xl text-base-100 ";
 
 export const IntentionsEditTableHead = ({ day, date, parentId }: Props) => {
-  const [dayDate, setDayDate] = useState(date);
-  const { setIntentions } = useContext(IntentionContext);
-
-  useEffect(() => {
-    setDayDate(date);
-  }, [date]);
+  const { dispatchIntentions } = useContext(IntentionContext);
   const updateDay = (e: ChangeEvent<HTMLInputElement>) => {
-    setDayDate(e.target.value);
-    setIntentions((prevState) => {
-      let data = prevState.find(({ id }) => id === parentId);
-
-      if (!data) return prevState;
-      data.dateOfDay = e.target.value as unknown as Date;
-
-      return [...prevState];
+    const dateOfDay = DateUtil.formatDate(
+      new Date(e.target.value)
+    ) as unknown as Date;
+    dispatchIntentions({
+      type: IntentionsAction.UpdateDay,
+      payload: { dayId: parentId, dateOfDay },
     });
   };
-
   return (
     <thead>
       <tr className="bg-neutral text-center">
@@ -37,7 +31,7 @@ export const IntentionsEditTableHead = ({ day, date, parentId }: Props) => {
           <input
             className="h-full bg-transparent text-xl text-base-100"
             type="date"
-            value={dayDate + ""}
+            value={date + ""}
             onChange={(e) => updateDay(e)}
           />
         </th>
