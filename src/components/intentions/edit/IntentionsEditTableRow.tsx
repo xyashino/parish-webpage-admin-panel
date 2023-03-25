@@ -1,7 +1,13 @@
-import React, { useContext, useState } from "react";
-import {IntentionResponse } from "@backendTypes";
+import React, { useContext } from "react";
+import { IntentionResponse } from "@backendTypes";
 import { Close } from "@icons/Close";
 import { IntentionContext } from "@context/IntentionContext";
+import { IntentionsAction } from "@enums/intentions-action.enum";
+import parse from "html-react-parser";
+import { Edit } from "@icons/Edit";
+import { useModal } from "@hooks/useModal";
+import { Modal } from "@components/ui/Modal/Modal";
+import { IntentionModalBody } from "@components/modal-body/IntentionModalBody";
 
 interface Props {
   intention: IntentionResponse;
@@ -9,67 +15,48 @@ interface Props {
 }
 
 export const IntentionsEditTableRow = ({ intention, parentId }: Props) => {
-  const { setIntentions } = useContext(IntentionContext);
-
+  const { dispatchIntentions } = useContext(IntentionContext);
+  const { displayModal, showModal, hideModal } = useModal();
   const { id, hour, value } = intention;
-  const [inputHour, setHour] = useState(hour);
-  const [inputValue, setValue] = useState(value);
-
-  const changeValue = (target: HTMLInputElement | HTMLTextAreaElement) => {
-    if (target.name === "hour") {
-      setHour(target.value);
-      return;
-    }
-    setValue(target.value);
-  };
-  const updateValue = () => {
-    setIntentions((prevState) => {
-      const data = prevState.find(({ id: dayId }) => dayId === parentId);
-      if (!data) return prevState;
-      const itemIndex = data.intentions.findIndex(
-        ({ id: intentionId }) => intentionId === id
-      );
-      data.intentions[itemIndex] = { id, hour: inputHour, value: inputValue };
-      return [...prevState];
+  const updateValue = (hour: string, value: string) => {
+    dispatchIntentions({
+      type: IntentionsAction.UpdateIntention,
+      payload: { dayId: parentId, id, hour, value },
     });
   };
 
   const removeItem = () => {
-    setIntentions((prevState) => {
-      const data = prevState.find(({ id: dayId }) => dayId === parentId);
-      if (!data) return prevState;
-      data.intentions = data.intentions.filter(
-        ({ id: intentionId }) => intentionId !== id
-      );
-      return [...prevState];
+    dispatchIntentions({
+      type: IntentionsAction.DeleteIntention,
+      payload: { dayId: parentId, id },
     });
   };
 
   return (
-    <tr className="text-xl ">
-      <td className="border-r-1 text-center font-bold">
-        <input
-          name="hour"
-          type="text"
-          value={inputHour}
-          className="input-primary input w-full  appearance-none"
-          onChange={(e) => changeValue(e.target)}
-          onBlur={updateValue}
+    <>
+      <tr className="p-4 text-xl">
+        <td className="border-r-1 text-center font-bold">{hour}</td>
+        <td className="flex items-center justify-around">
+          <div className="prose w-3/4 p-4">{parse(value)}</div>
+          <Edit
+            className="mr-10 text-3xl hover:scale-150"
+            onClick={displayModal}
+          />
+          <Close
+            className="mr-10 text-3xl hover:scale-150"
+            onClick={removeItem}
+          />
+        </td>
+      </tr>
+      <Modal hideModal={hideModal} showModal={showModal}>
+        <IntentionModalBody
+          addField={updateValue}
+          hideModal={hideModal}
+          baseValue={{ defaultEditorValue: value, hour }}
+          title="Edytuj Intencje:"
+          btnValue="Zapisz"
         />
-      </td>
-      <td className="flex items-center justify-around">
-        <textarea
-          name="value"
-          value={inputValue}
-          className="textarea-primary textarea mx-10 grow appearance-none"
-          onChange={(e) => changeValue(e.target)}
-          onBlur={updateValue}
-        />
-        <Close
-          className="mr-10 text-3xl text-primary hover:scale-150"
-          onClick={removeItem}
-        />
-      </td>
-    </tr>
+      </Modal>
+    </>
   );
 };
