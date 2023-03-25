@@ -1,12 +1,13 @@
-import React, { useContext, useState } from "react";
-import { IntentionContext } from "@context/IntentionContext";
-import { DateUtil } from "@utils/date.util";
-import { Btn } from "@components/ui/Btn";
+import React, {useContext, useState} from "react";
+import {IntentionContext} from "@context/IntentionContext";
+import {DateUtil} from "@utils/date.util";
+import {Btn} from "@components/ui/Btn";
+import {IntentionsAction} from "@enums/intentions-action.enum";
 
 const TOOLTIP_INFO = "Ustawia aktualną date na cały tydzień";
 
 export const IntentionsEditWeek = () => {
-  const { intentions, setIntentions } = useContext(IntentionContext);
+  const { intentions, dispatchIntentions } = useContext(IntentionContext);
 
   const [week, setWeek] = useState({
     start: intentions.at(0)?.dateOfDay ?? "0000-00-00",
@@ -18,13 +19,7 @@ export const IntentionsEditWeek = () => {
       start: DateUtil.formatDate(weekdays.at(0) as Date),
       end: DateUtil.formatDate(weekdays.at(-1) as Date),
     });
-    setIntentions((prevState:any[]) => {
-      const newValue = prevState.map(({ dateOfDay, ...rest }, i) => ({
-        ...rest,
-        dateOfDay: DateUtil.formatDate(weekdays[i]),
-      }));
-      return [...newValue];
-    });
+    dispatchIntentions({type:IntentionsAction.UpdateWeek,payload:{weekdays}});
   };
   return (
     <div className="flex items-center justify-center p-2 text-base font-bold uppercase">
