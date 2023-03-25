@@ -1,4 +1,4 @@
-import React, {useLayoutEffect, useState} from "react";
+import React, { useLayoutEffect, useReducer, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import { DayIntentionsResponse } from "@backendTypes";
 import { TRANSLATE_INTENTIONS } from "@data/translate-intentions.data";
@@ -8,11 +8,15 @@ import { IntentionsEditTable } from "@components/intentions/edit/IntentionsEditT
 import { Header } from "@components/ui/Header";
 import { IntentionsEditWeek } from "@components/intentions/edit/IntentionsEditWeek";
 import { IntentionsButtonSection } from "@components/intentions/edit/IntentionsEditButtonsSection";
+import { intentionsReducer } from "@components/intentions/IntentionsReducer";
 
 export const IntentionsEditPage = () => {
-  //context&&states
   const intentionsResponse = useLoaderData() as DayIntentionsResponse[];
-  const [intentions, setIntentions] = useState(intentionsResponse);
+
+  const [intentions, dispatchIntentions] = useReducer(
+    intentionsReducer,
+    intentionsResponse
+  );
 
   const [activeTable, setActiveTable] = useState<
     DayIntentionsResponse | undefined
@@ -28,17 +32,14 @@ export const IntentionsEditPage = () => {
   );
   //handling states
   const changeActiveMenuItem = (clickedType: string) => {
-    setMenu((prevState) => {
-      return prevState.map(({ type, active, ...rest }) => ({
+    setMenu((prevState) =>
+      prevState.map(({ type, active, ...rest }) => ({
         type,
         active: type === clickedType,
         ...rest,
-      }));
-    });
-
-    setActiveTable(() => {
-      return intentions.find(({ day }) => day === clickedType);
-    });
+      }))
+    );
+    setActiveTable(() => intentions.find(({ day }) => day === clickedType));
   };
 
   useLayoutEffect(() => {
@@ -49,18 +50,15 @@ export const IntentionsEditPage = () => {
     });
   }, [intentions]);
 
-  if (!activeTable) {
-    return null;
-  }
+  if (!activeTable) return null;
 
   return (
-    <IntentionContext.Provider value={{ intentions, setIntentions }}>
+    <IntentionContext.Provider value={{ intentions, dispatchIntentions }}>
       <section className="w-5/6 bg-base-100">
         <Header
           className="mb-10 p-4 text-4xl font-bold uppercase text-base-100 shadow"
           title="Edytuj Intencje"
         />
-
         <IntentionsEditWeek />
         <IntentionsButtonSection />
         <Menu items={menu} onClick={changeActiveMenuItem} />
