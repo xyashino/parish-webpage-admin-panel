@@ -8,8 +8,10 @@ import { useAxios } from "@hooks/useAxios";
 import { AxiosRequestConfig } from "axios";
 import { ErrorAlert } from "@components/alerts/ErrorAlert";
 import { BorderContainer } from "@components/ui/BorderContainer";
+import {useRevalidator} from "react-router-dom";
 export const IntentionsButtonSection = () => {
-  const { intentions, setIntentions } = useContext(IntentionContext);
+  const { intentions } = useContext(IntentionContext);
+  const {revalidate} = useRevalidator();
   const { alertData, setConfig } = useConfirmAlert();
   const {
     fetchDataUsingAxios,
@@ -35,7 +37,7 @@ export const IntentionsButtonSection = () => {
 
   const refreshData = async () => {
     setConfig("Czy na pewno chcesz odświeżyć dane?", async () => {
-      setIntentions(await fetchDataUsingAxios(PageRouter.Intentions));
+      revalidate()
     });
   };
 
