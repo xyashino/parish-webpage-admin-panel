@@ -8,7 +8,7 @@ interface Props {
 }
 
 export const IntentionsTableBody = ({ intentionRow }: Props) => {
-  if (intentionRow) {
+  if (intentionRow.length !== 0) {
     return (
       <tbody>
         {intentionRow.map(({ hour, value, id }) => (
