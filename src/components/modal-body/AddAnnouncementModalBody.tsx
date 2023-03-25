@@ -22,9 +22,9 @@ export const AddAnnouncementModalBody = ({ addField, hideModal }: Props) => {
   return (
     <div className="flex flex-col items-center justify-center p-6">
       <h2 className="mx-4 text-3xl font-bold uppercase">Dodaj Ogłoszenie :</h2>
-      <div className="w-4/5">
-        <RichTextEditor ref={editorRef} />
-      </div>
+        <div className="w-4/5  p-8 rounded-box flex items-center justify-center m-4">
+            <RichTextEditor ref={editorRef} />
+        </div>
       <Btn className="btn-wide btn" onClick={handleClick}>
         Dodaj
       </Btn>
