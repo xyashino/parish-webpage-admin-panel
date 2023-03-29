@@ -6,7 +6,7 @@ import { PageRouter } from "@enums/page-router.enum";
 import { IntentionsPreviewPage } from "@components/pages/intentions/IntentionsPreviewPage";
 import { IntentionsEditPage } from "@components/pages/intentions/IntentionsEditPage";
 import { getDataFrom } from "@utils/network/get-data-from";
-import { AnnouncementEditPage } from "@components/pages/announcement/AnnouncementEditPage";
+import { AnnouncementModifyPage } from "@components/pages/announcement/AnnouncementModifyPage";
 import { AnnouncementPreviewPage } from "@components/pages/announcement/AnnouncementPreviewPage";
 import { checkAuth } from "@utils/network/check-auth";
 import { UserCurrentPage } from "@components/pages/users/UserCurrentPage";
@@ -17,6 +17,8 @@ import { UserListPage } from "@components/pages/users/UserListPage";
 import { GalleryTypesPage } from "@components/pages/gallery/GalleryTypesPage";
 import { GalleryPage } from "@components/pages/gallery/GalleryPage";
 import {GalleryEditPage} from "@components/pages/gallery/GalleryEditPage";
+import {AnnouncementPage} from "@components/pages/announcement/AnnouncementPage";
+import {AnnouncementsResponse} from "@backendTypes";
 
 const routers = createBrowserRouter([
   {
@@ -45,15 +47,26 @@ const routers = createBrowserRouter([
         errorElement: <ErrorPage />,
       },
       {
-        path: PageRouter.AnnouncementEdit,
-        element: <AnnouncementEditPage />,
+        path: PageRouter.Announcement,
+        element: <AnnouncementPage />,
         loader: () => getDataFrom(PageRouter.Announcement),
         errorElement: <ErrorPage />,
       },
       {
-        path: PageRouter.AnnouncementPreview,
+        path: `${PageRouter.Announcement}create`,
+        element: <AnnouncementModifyPage />,
+        loader: ():Omit<AnnouncementsResponse, 'id'> => ({announcements:[],title:'',subtitle:''}),
+      },
+      {
+        path: `${PageRouter.Announcement}:id`,
+        element: <AnnouncementModifyPage />,
+        loader: ({params}) => getDataFrom(`${PageRouter.Announcement}${params.id}`),
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: `${PageRouter.Announcement}/:id/preview`,
         element: <AnnouncementPreviewPage />,
-        loader: () => getDataFrom(PageRouter.Announcement),
+        loader: ({params}) => getDataFrom(`${PageRouter.Announcement}${params.id}`),
         errorElement: <ErrorPage />,
       },
       {
@@ -83,7 +96,7 @@ const routers = createBrowserRouter([
       {
         path: `${PageRouter.Albums}/:id`,
         element: <GalleryEditPage />,
-        loader: ({params}) => getDataFrom(`${PageRouter.Albums}/${params.id}`),
+        loader: ({params}) => getDataFrom(`${PageRouter.Albums}${params.id}`),
         errorElement: <ErrorPage />,
       },
     ],
