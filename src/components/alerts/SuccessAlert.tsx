@@ -21,7 +21,7 @@ export const SuccessAlert = ({
   }, []);
 
   return (
-    <div className="alert alert-success shadow-lg">
+    <div className="alert alert-success shadow-lg mx-8 w-5/6">
       <div {...props}>
         <Success/>
         <span>{text}</span>
