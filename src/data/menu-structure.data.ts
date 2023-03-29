@@ -5,24 +5,17 @@ export type MenuItem = {
   path: PageRouter;
 };
 
-export type MenuType = {
-  name: string;
-  items: MenuItem[];
-} | MenuItem;
+export type MenuType =
+  | {
+      name: string;
+      items: MenuItem[];
+    }
+  | MenuItem;
 
 export const MENU_STRUCTURE: MenuType[] = [
   {
-    name: "Ogłoszenia",
-    items: [
-      {
-        text: "Podgląd",
-        path: PageRouter.AnnouncementPreview,
-      },
-      {
-        text: "Edytuj",
-        path: PageRouter.AnnouncementEdit,
-      },
-    ],
+    text: "Ogłoszenia",
+    path: PageRouter.Announcement,
   },
   {
     name: "Intencje",
