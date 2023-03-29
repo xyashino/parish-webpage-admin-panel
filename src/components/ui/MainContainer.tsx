@@ -9,7 +9,7 @@ export const MainContainer = ({
   ...props
 }: Props) => {
   let baseStyles =
-    "mb-16 flex h-full w-5/6 flex-col items-center bg-base-100 ";
+    "flex h-full w-5/6 flex-col items-center bg-base-100 ";
   if(article) baseStyles +='prose';
   if(className) baseStyles+=className;
 
