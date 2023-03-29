@@ -2,11 +2,11 @@ import {createContext, Dispatch, SetStateAction} from "react";
 import {AnnouncementsItem, AnnouncementsResponse} from "@backendTypes";
 import {AnnouncementsActionData} from "@frontendTypes/announcements-action-data";
 
-type RestAnnouncement = Omit<AnnouncementsResponse, 'announcements'>
+type RestAnnouncement = Omit<AnnouncementsResponse, 'announcements' | 'id'> & {id?:string};
 interface InitialValue {
     announcements: AnnouncementsItem[];
     dispatchAnnouncements: Dispatch<AnnouncementsActionData>;
-    restAnnouncement: RestAnnouncement;
+    restAnnouncement: RestAnnouncement ;
     setRestAnnouncement: Dispatch<SetStateAction<RestAnnouncement>>;
 }
 
