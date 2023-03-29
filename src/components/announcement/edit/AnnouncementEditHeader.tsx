@@ -1,13 +1,14 @@
-import React, { ChangeEvent, useContext } from "react";
+import React, { FormEvent, useContext } from "react";
 import { AnnouncementContext } from "@context/AnnouncementContext";
+import { SelectStatus } from "@components/SelectStatus";
 
 export const AnnouncementEditHeader = () => {
   const { restAnnouncement, setRestAnnouncement } =
     useContext(AnnouncementContext);
 
-  const updateData = (e: ChangeEvent<HTMLInputElement>) => {
+  const updateData = (e: FormEvent<HTMLInputElement | HTMLSelectElement>) => {
     e.preventDefault();
-    const { value, name } = e.target;
+    const { value, name } = e.target as HTMLInputElement;
     setRestAnnouncement((prevState) => ({ ...prevState, [name]: value }));
   };
 
@@ -31,6 +32,15 @@ export const AnnouncementEditHeader = () => {
           name="subtitle"
           value={restAnnouncement.subtitle}
           onChange={updateData}
+        />
+      </label>
+      <label className="flex w-3/4 grow items-center justify-center space-x-4 border-b-2 p-2">
+        <span className="mr-8 text-2xl">Status :</span>
+        <SelectStatus
+          name="status"
+          defaultValue={restAnnouncement.status ?? ""}
+          onChange={updateData}
+          value={restAnnouncement.status ?? ""}
         />
       </label>
     </header>
