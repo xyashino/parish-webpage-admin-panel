@@ -7,7 +7,7 @@ export const getDataFrom = async (path: string) => {
   const data = await checkAuth();
   if (data) {
     try {
-      const response = await AxiosBase.get(`${path}/`);
+      const response = await AxiosBase.get(`${path}`);
       return response.data;
     } catch (e) {
 
