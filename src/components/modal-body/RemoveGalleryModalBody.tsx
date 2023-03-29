@@ -1,4 +1,4 @@
-import React, { SyntheticEvent } from "react";
+import React from "react";
 import { useAxios } from "@hooks/useAxios";
 import { PageRouter } from "@enums/page-router.enum";
 import { useRevalidator } from "react-router-dom";
@@ -12,7 +12,7 @@ interface Props {
   id: string;
 }
 
-export const RemoveGallery = ({ hideModal, name, id }: Props) => {
+export const RemoveGalleryModalBody = ({ hideModal, name, id }: Props) => {
   const {
     loading,
     err: { data, hideError, showError },
@@ -23,15 +23,10 @@ export const RemoveGallery = ({ hideModal, name, id }: Props) => {
     hideModal();
     revalidate();
   };
-  const handleClick = async (e: SyntheticEvent, inputValue: string) => {
-    e.preventDefault();
-    if (inputValue !== BASE_DELETE_GROUP + id) {
-      showError("Podałeś zły teskt!");
-      return;
-    }
+  const removeMethod = async () => {
     const config: AxiosRequestConfig = { method: "DELETE" };
     await fetchDataUsingAxios(
-      `${PageRouter.Albums}/${id}`,
+      `${PageRouter.Albums}${id}`,
       config,
       runAfterSuccess
     );
@@ -45,8 +40,9 @@ export const RemoveGallery = ({ hideModal, name, id }: Props) => {
   return (
     <ModalBoxRemove
       hideModal={hideModal}
-      btnClick={handleClick}
-      showError={data.show}
+      removeMethod={removeMethod}
+      showError={showError}
+      isError={data.show}
       hideError={hideError}
       deleteInfoElement={deleteInfoElement}
       errorMessage={data.message}

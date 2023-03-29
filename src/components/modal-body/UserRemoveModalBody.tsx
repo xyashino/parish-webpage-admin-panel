@@ -1,4 +1,4 @@
-import React, { SyntheticEvent } from "react";
+import React from "react";
 import { useRevalidator } from "react-router-dom";
 import { PageRouter } from "@enums/page-router.enum";
 import { UsersResponse } from "@backendTypes";
@@ -24,17 +24,12 @@ export const UserRemoveModalBody = ({ email, hideModal, id }: Props) => {
     hideModal();
     revalidate();
   };
-  const handleClick = async (e: SyntheticEvent, value: string) => {
-    e.preventDefault();
-    if (BASE_DELETE_USER + email !== value) {
-      showError("Podałeś zły teskt !!");
-      return;
-    }
+  const removeMethod = async () => {
     const config = {
       method: "delete",
     };
     await fetchDataUsingAxios(
-      `${PageRouter.Users}/${id}`,
+      `${PageRouter.Users}${id}`,
       config,
       runAfterSuccess
     );
@@ -49,8 +44,9 @@ export const UserRemoveModalBody = ({ email, hideModal, id }: Props) => {
   return (
     <ModalBoxRemove
       hideModal={hideModal}
-      btnClick={handleClick}
-      showError={data.show}
+      removeMethod={removeMethod}
+      showError={showError}
+      isError={data.show}
       hideError={hideError}
       deleteInfoElement={deleteInfoElement}
       errorMessage={data.message}
