@@ -9,9 +9,9 @@ interface Props {
 }
 
 export const ModalBoxRemoveLabel = ({ inputValue, setValue }: Props) => {
-  const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-    setValue(e.target.value);
+    setValue(e.target.value.trim());
   };
   return (
     <label className="p-2 text-xl">
@@ -20,7 +20,7 @@ export const ModalBoxRemoveLabel = ({ inputValue, setValue }: Props) => {
         placeholder="Type here"
         className="input"
         value={inputValue}
-        onChange={(e) => handleInput(e)}
+        onChange={(e) => handleChange(e)}
       />
     </label>
   );
