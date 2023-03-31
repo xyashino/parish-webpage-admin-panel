@@ -3,9 +3,9 @@ import React, { SyntheticEvent, useState } from "react";
 import { BaseTableRow } from "@components/ui/Table/BaseTableRow";
 import { Modal } from "@components/ui/Modal/Modal";
 import { useModal } from "@hooks/useModal";
-import { RemoveGroupModalBody } from "@components/modal-body/RemoveGroupModalBody";
 import { Edit } from "@icons/Edit";
-import { EditGroupModalBody } from "@components/modal-body/EditGroupModalBody";
+import {EditGroupModalBody} from "@components/modal-body/group/EditGroupModalBody";
+import {RemoveGroupModalBody} from "@components/modal-body/group/RemoveGroupModalBody";
 
 enum ModalBody {
   remove = "remove",

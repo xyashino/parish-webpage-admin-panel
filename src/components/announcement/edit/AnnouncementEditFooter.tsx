@@ -3,8 +3,8 @@ import {Btn} from "@components/ui/Btn";
 import {AnnouncementContext} from "@context/AnnouncementContext";
 import {Modal} from "@components/ui/Modal/Modal";
 import {useModal} from "@hooks/useModal";
-import {AddAnnouncementModalBody} from "@components/modal-body/AddAnnouncementModalBody";
 import {AnnouncementsAction} from "@enums/announcements-action.enum";
+import {AddAnnouncementModalBody} from "@components/modal-body/announcement/AddAnnouncementModalBody";
 
 export const AnnouncementEditFooter = () => {
   const { dispatchAnnouncements } = useContext(AnnouncementContext);

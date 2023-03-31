@@ -1,6 +1,6 @@
 import { Album } from "@backendTypes";
 import { BaseTable } from "@components/ui/Table/BaseTable";
-import { GalleryTableRow } from "@components/gallery/table/GalleryTableRow";
+import {GalleryTableRow} from "@components/table/gallery/GalleryTableRow";
 
 interface Props {
   data: Album[];

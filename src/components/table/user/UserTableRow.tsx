@@ -1,7 +1,7 @@
 import React from "react";
 import { UsersResponse } from "@backendTypes";
 import { Modal } from "@components/ui/Modal/Modal";
-import { UserRemoveModalBody } from "@components/modal-body/UserRemoveModalBody";
+import { RemoveUserModalBody } from "@components/modal-body/RemoveUserModalBody";
 import { useModal } from "@hooks/useModal";
 import {BaseTableRow} from "@components/ui/Table/BaseTableRow";
 
@@ -23,7 +23,7 @@ export const UserTableRow = ({ id, email ,index}: Props) => {
         showModal={showModal}
         boxModalClasses="w-2/5"
       >
-        <UserRemoveModalBody email={email} hideModal={hideModal} id={id}/>
+        <RemoveUserModalBody email={email} hideModal={hideModal} id={id}/>
       </Modal>
     </>
   );

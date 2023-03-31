@@ -3,9 +3,9 @@ import { BaseTableRow } from "@components/ui/Table/BaseTableRow";
 import React, {SyntheticEvent} from "react";
 import { Modal } from "@components/ui/Modal/Modal";
 import { useModal } from "@hooks/useModal";
-import { RemoveAnnouncementModalBody } from "@components/modal-body/RemoveAnnouncementModalBody";
 import {useNavigate} from "react-router-dom";
 import {PageRouter} from "@enums/page-router.enum";
+import {RemoveAnnouncementModalBody} from "@components/modal-body/announcement/RemoveAnnouncementModalBody";
 
 interface Props {
   data: Omit<AnnouncementsResponse, "announcements">;

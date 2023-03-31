@@ -12,7 +12,7 @@ interface Props {
   hideModal: (e?: any) => void;
 }
 
-export const UserRemoveModalBody = ({ email, hideModal, id }: Props) => {
+export const RemoveUserModalBody = ({ email, hideModal, id }: Props) => {
   const {
     loading,
     err: { hideError, showError, data },

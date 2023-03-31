@@ -5,10 +5,10 @@ import { Header } from "@components/ui/Header";
 import { Divider } from "@components/ui/Divider";
 import { Modal } from "@components/ui/Modal/Modal";
 import { RegisterAdministrator } from "@components/RegisterAdministrator";
-import { UserTable } from "@components/user/UserTable/UserTable";
 import { Btn } from "@components/ui/Btn";
 import { useModal } from "@hooks/useModal";
 import { BorderContainer } from "@components/ui/BorderContainer";
+import { UserTable } from "@components/table/user/UserTable";
 
 export const UserListPage = () => {
   const data = useLoaderData() as UsersResponse[];

@@ -8,7 +8,7 @@ import { AnnouncementsAction } from "@enums/announcements-action.enum";
 import { Edit } from "@icons/Edit";
 import { useModal } from "@hooks/useModal";
 import {Modal} from "@components/ui/Modal/Modal";
-import {EditAnnouncementModalBody} from "@components/modal-body/EditAnnouncementModalBody";
+import {EditAnnouncementModalBody} from "@components/modal-body/announcement/EditAnnouncementModalBody";
 
 interface Props {
   item: AnnouncementsItem;

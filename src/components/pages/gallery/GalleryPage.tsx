@@ -5,10 +5,10 @@ import {Btn} from "@components/ui/Btn";
 import {useLoaderData} from "react-router-dom";
 import {BorderContainer} from "@components/ui/BorderContainer";
 import {Album} from "@backendTypes";
-import {GalleryTable} from "@components/gallery/table/GalleryTable";
 import {Modal} from "@components/ui/Modal/Modal";
 import {useModal} from "@hooks/useModal";
 import {AddGallery} from "@components/gallery/add/AddGallery";
+import {GalleryTable} from "@components/table/gallery/GalleryTable";
 
 export const GalleryPage = () => {
     const data = useLoaderData() as Album[];

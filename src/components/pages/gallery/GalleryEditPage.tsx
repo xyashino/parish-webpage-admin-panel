@@ -7,9 +7,9 @@ import { GalleryEditForm } from "@components/gallery/GalleryEditForm";
 import { Btn } from "@components/ui/Btn";
 import { useModal } from "@hooks/useModal";
 import { Modal } from "@components/ui/Modal/Modal";
-import { UploadImageModalBody } from "@components/modal-body/UploadImageModalBody";
-import { RemoveImageModalBody } from "@components/modal-body/RemoveImageModalBody";
-import { ChangeImageModalBody } from "@components/modal-body/ChangeImageModalBody";
+import {UploadImageModalBody} from "@components/modal-body/image/UploadImageModalBody";
+import {RemoveImageModalBody} from "@components/modal-body/image/RemoveImageModalBody";
+import {ChangeImageModalBody} from "@components/modal-body/image/ChangeImageModalBody";
 
 enum ModalBody {
   uploadImg,
