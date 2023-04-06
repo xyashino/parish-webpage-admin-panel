@@ -25,7 +25,6 @@ export const UserChangePassword = () => {
     fetchDataUsingAxios,
   } = useAxios();
 
-
   const {
     setValue: setOldPwdValue,
     value: oldPwdValue,
@@ -69,8 +68,8 @@ export const UserChangePassword = () => {
         password: oldPwdValue,
         newPassword: newPwdValue,
       },
-    }
-    await fetchDataUsingAxios(PageRouter.Current, config );
+    };
+    await fetchDataUsingAxios(PageRouter.UserCurrent, config);
   };
 
   const handleSubmit = (e: SyntheticEvent) => {
@@ -78,7 +77,7 @@ export const UserChangePassword = () => {
     configureAlert("Czy napewno chcesz zmienic hasło?", updatePassword);
   };
 
-  const toggleLoadingClass = loading ? 'loading' : '';
+  const toggleLoadingClass = loading ? "loading" : "";
 
   return (
     <ExpandableContent title="Zmień Hasło">
@@ -116,10 +115,17 @@ export const UserChangePassword = () => {
           error={confirmPwdError}
         />
 
-        <Btn className={`btn-wide  btn ${btnStyles} ${toggleLoadingClass}`}>Zmień hasło</Btn>
-        {alertData.isVisible ? <CustomConfirmAlert confirmConfig={alertData.config} /> : null}
+        <Btn className={`btn-wide  btn ${btnStyles} ${toggleLoadingClass}`}>
+          Zmień hasło
+        </Btn>
+        {alertData.isVisible ? (
+          <CustomConfirmAlert confirmConfig={alertData.config} />
+        ) : null}
         {data.show ? (
-          <CustomErrorAlert errorMessage={data.message} handleClick={hideError}/>
+          <CustomErrorAlert
+            errorMessage={data.message}
+            handleClick={hideError}
+          />
         ) : null}
       </form>
     </ExpandableContent>

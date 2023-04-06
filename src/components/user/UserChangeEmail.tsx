@@ -9,15 +9,15 @@ import { CustomConfirmAlert } from "@components/alerts/CustomConfirmAlert";
 import { useValidationButton } from "@hooks/useValidationButton";
 import { useAxios } from "@hooks/useAxios";
 import { CustomErrorAlert } from "@components/alerts/CustomErrorAlert";
-import {AxiosRequestConfig} from "axios";
-import {useRevalidator} from "react-router-dom";
+import { AxiosRequestConfig } from "axios";
+import { useRevalidator } from "react-router-dom";
 
 const NEW_EMAIL_NAME = "email";
 const PASSWORD_NAME = "password";
 
 export const UserChangeEmail = () => {
   const { alertData, configureAlert } = useCustomConfirmAlert();
-  const {revalidate} = useRevalidator()
+  const { revalidate } = useRevalidator();
 
   const {
     err: { hideError, data },
@@ -54,14 +54,16 @@ export const UserChangeEmail = () => {
 
   const changeEmail = async () => {
     if (!isPwdValid || !isEmailValid) return;
-    const config:AxiosRequestConfig = {
+    const config: AxiosRequestConfig = {
       method: "patch",
       data: {
         email: emailValue,
         password: pwdValue,
       },
     };
-    await fetchDataUsingAxios(PageRouter.Current, config, ()=> revalidate());
+    await fetchDataUsingAxios(PageRouter.UserCurrent, config, () =>
+      revalidate()
+    );
   };
 
   const toggleLoadingClass = loading ? "loading" : "";
@@ -95,11 +97,18 @@ export const UserChangeEmail = () => {
           onChange={(e) => setPwdValue(e.target.value)}
           error={pwdError}
         />
-        <Btn className={`btn-wide btn ${btnStyles} ${toggleLoadingClass}`}>Zmień E-mail</Btn>
+        <Btn className={`btn-wide btn ${btnStyles} ${toggleLoadingClass}`}>
+          Zmień E-mail
+        </Btn>
 
-        {alertData.isVisible ? <CustomConfirmAlert confirmConfig={alertData.config} /> : null}
+        {alertData.isVisible ? (
+          <CustomConfirmAlert confirmConfig={alertData.config} />
+        ) : null}
         {data.show ? (
-          <CustomErrorAlert handleClick={hideError} errorMessage={data.message} />
+          <CustomErrorAlert
+            handleClick={hideError}
+            errorMessage={data.message}
+          />
         ) : null}
       </form>
     </ExpandableContent>
