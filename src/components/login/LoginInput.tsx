@@ -1,5 +1,5 @@
 import React, {InputHTMLAttributes, Ref, useState} from "react";
-import { CheckBox } from "@components/ui/CheckBox";
+import {CheckBoxEye} from "@components/ui/ChexboxEye";
 
 type InputType =
   | "email"
@@ -36,31 +36,36 @@ export const LoginInput = ({
   const [toggleType, setToggleType] = useState(false);
 
   const errorElement = (
-    <p className="pt-1 text-sm text-error">{error?.message}</p>
+    <p className="pt-1 text-sm text-error font-bold">{error?.message}</p>
   );
 
-  const inputElement = (
+  let inputElement = (
     <input
       className={`${defaultInputClasses} ${optionalInputClasses} ${errorInputClass}`}
-      type={toggleType && typeCheckbox ? typeCheckbox[1] : props.type}
       {...props}
     />
   );
 
-  const labelElement = (
-    <label className="mb-2 block text-left font-bold">{labelText}</label>
-  );
+  if (typeCheckbox) {
+     inputElement = (
+        <input
+            className={`${defaultInputClasses} ${optionalInputClasses} ${errorInputClass}`}
+            type={toggleType ? typeCheckbox.at(-1) : typeCheckbox.at(0)}
+            {...props}
+        />
+    );}
+
 
   return (
-    <div className="mb-4 flex w-full flex-col items-center">
+    <div className="mb-4 flex flex-col w-full items-center">
       <div className="form-control mr-4">
-        {labelElement}
-        {inputElement}
+        <label className="mb-2 block text-left font-bold">{labelText}</label>
+        <div className='flex items-center relative'>
+          {inputElement}
+          {typeCheckbox ? <CheckBoxEye onToggleActive={setToggleType}/> :null}
+        </div>
       </div>
       {error?.show ? errorElement : null}
-      {typeCheckbox ? (
-        <CheckBox text="Pokaż" onToggleActive={setToggleType} />
-      ) : null}
     </div>
   );
 };
