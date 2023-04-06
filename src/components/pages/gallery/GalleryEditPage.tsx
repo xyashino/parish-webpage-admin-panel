@@ -10,6 +10,7 @@ import { UploadImageModalBody } from "@components/modal-body/image/UploadImageMo
 import { RemoveImageModalBody } from "@components/modal-body/image/RemoveImageModalBody";
 import { ChangeImageModalBody } from "@components/modal-body/image/ChangeImageModalBody";
 import {HeaderWithPreviousArrow} from "@components/ui/HeaderWithPreviousArrow";
+import {PageRouter} from "@enums/page-router.enum";
 
 enum ModalBody {
   uploadImg,
@@ -51,7 +52,7 @@ export const GalleryEditPage = () => {
   return (
       <>
         <MainContainer>
-          <HeaderWithPreviousArrow title="Zarządzaj albumem" />
+          <HeaderWithPreviousArrow title="Zarządzaj albumem" navigateRoute={PageRouter.GalleryAlbums}/>
           <GalleryEditForm data={data} />
           <div className="m-4 flex w-full flex-wrap justify-around">
             <Btn

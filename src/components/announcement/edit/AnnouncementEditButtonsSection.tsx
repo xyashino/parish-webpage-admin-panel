@@ -69,7 +69,7 @@ export const AnnouncementEditButtonsSection = () => {
   const clearData = async () => {
     configureAlert("Czy na pewno chcesz wyczyścić dane?", () => {
       dispatchAnnouncements({ type: AnnouncementsAction.CLEAR, payload: {} });
-      setRestAnnouncement(({ id }) => ({ id, subtitle: "", title: "" }));
+      setRestAnnouncement(({ id }) => ({ id, subtitle: "", title: "",status:null }));
     });
   };
 

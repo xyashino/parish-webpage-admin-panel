@@ -67,6 +67,7 @@ const routers = createBrowserRouter([
               announcements: [],
               title: "",
               subtitle: "",
+              status:null
             }),
           },
           {
