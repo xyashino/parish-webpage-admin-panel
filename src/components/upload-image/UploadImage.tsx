@@ -3,9 +3,9 @@ import { Btn } from "@components/ui/Btn";
 import { DragAndDropFile } from "@components/upload-image/DragAndDropFile";
 import { ImageContainer } from "@components/upload-image/ImageContainer";
 import { ProgressBar } from "@components/ui/ProgressBar";
-import { ErrorAlert } from "@components/alerts/ErrorAlert";
+import { CustomErrorAlert } from "@components/alerts/CustomErrorAlert";
 import { AxiosBase } from "@utils/network/axios-base";
-import { useErrorAlert } from "@hooks/useErrorAlert";
+import { useCustomErrorAlert } from "@hooks/useCustomErrorAlert";
 import { isAxiosError } from "axios";
 
 const config = {
@@ -21,7 +21,7 @@ const removeFirstArrElement = <T extends {}>(arr: T[]): T[] => {
 };
 export const UploadImage = ({ id }: { id: string }) => {
   const [images, setImages] = useState<File[]>([]);
-  const { hideError, showError, errorData } = useErrorAlert();
+  const { hideError, showError, errorData } = useCustomErrorAlert();
   const [loading, setLoading] = useState({
     show: false,
     value: 0,
@@ -69,9 +69,9 @@ export const UploadImage = ({ id }: { id: string }) => {
     </div>
   ) : null;
   const errorElement = errorData.show ? (
-    <ErrorAlert
-      onClick={hideError}
-      message={errorData.message}
+    <CustomErrorAlert
+      handleClick={hideError}
+      errorMessage={errorData.message}
       className="w-5/6"
     />
   ) : null;

@@ -1,7 +1,7 @@
 import React, { FormEvent, SyntheticEvent, useState } from "react";
 import { Btn } from "@components/ui/Btn";
 import { useAxios } from "@hooks/useAxios";
-import { ErrorAlert } from "@components/alerts/ErrorAlert";
+import { CustomErrorAlert } from "@components/alerts/CustomErrorAlert";
 import { PageRouter } from "@enums/page-router.enum";
 import { useRevalidator } from "react-router-dom";
 import { CreateAlbumType } from "@backendTypes";
@@ -54,7 +54,7 @@ export const AddNewGroupType = ({ hideModal }: Props) => {
   };
 
   const ErrorElement = data.show ? (
-    <ErrorAlert onClick={hideError} message={data.message} />
+    <CustomErrorAlert handleClick={hideError} errorMessage={data.message} />
   ) : null;
 
   return (

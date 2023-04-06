@@ -9,13 +9,13 @@ import { PageRouter } from "@enums/page-router.enum";
 import { UserChangeEmail } from "@components/user/UserChangeEmail";
 import { UserChangePassword } from "@components/user/UserChangePassword";
 import { UsersResponse } from "@backendTypes";
-import { useConfirmAlert } from "@hooks/useConfirmAlert";
+import { useCustomConfirmAlert } from "@hooks/useCustomConfirmAlert";
 import { UserInfo } from "@components/user/UserInfo";
-import { ConfirmAlert } from "@components/alerts/ConfirmAlert";
+import { CustomConfirmAlert } from "@components/alerts/CustomConfirmAlert";
 export const UserCurrentPage = () => {
   const navigate = useNavigate();
   const data = useLoaderData() as UsersResponse;
-  const { alertData, setConfig } = useConfirmAlert();
+  const { alertData, configureAlert } = useCustomConfirmAlert();
 
   const logoutUser = async () => {
     await AxiosBase.get("/auth/logout");
@@ -23,7 +23,7 @@ export const UserCurrentPage = () => {
   };
 
   const handleLogout = () => {
-    setConfig("Czy na pewno chcesz się wylogwać? ", logoutUser);
+    configureAlert("Czy na pewno chcesz się wylogwać? ", logoutUser);
   };
 
   return (
@@ -35,11 +35,11 @@ export const UserCurrentPage = () => {
       <Divider />
       <UserChangePassword />
       <Divider />
-      <Btn className="btn-wide btn" onClick={handleLogout}>
+      <Btn className="btn-wide btn mb-8" onClick={handleLogout}>
         Wyloguj
       </Btn>
-      {alertData.show ? (
-        <ConfirmAlert config={alertData.config} className="w-4/5" />
+      {alertData.isVisible ? (
+        <CustomConfirmAlert confirmConfig={alertData.config} className="w-4/5" />
       ) : null}
     </MainContainer>
   );

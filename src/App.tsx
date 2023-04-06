@@ -16,9 +16,9 @@ import { HomePage } from "@components/pages/HomePage";
 import { UserListPage } from "@components/pages/users/UserListPage";
 import { GalleryTypesPage } from "@components/pages/gallery/GalleryTypesPage";
 import { GalleryPage } from "@components/pages/gallery/GalleryPage";
-import {GalleryEditPage} from "@components/pages/gallery/GalleryEditPage";
-import {AnnouncementPage} from "@components/pages/announcement/AnnouncementPage";
-import {AnnouncementsResponse} from "@backendTypes";
+import { GalleryEditPage } from "@components/pages/gallery/GalleryEditPage";
+import { AnnouncementPage } from "@components/pages/announcement/AnnouncementPage";
+import { AnnouncementsResponse } from "@backendTypes";
 
 const routers = createBrowserRouter([
   {
@@ -35,68 +35,96 @@ const routers = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: PageRouter.IntentionsPreview,
-        element: <IntentionsPreviewPage />,
-        loader: () => getDataFrom(PageRouter.Intentions),
-        errorElement: <ErrorPage />,
-      },
-      {
-        path: PageRouter.IntentionsEdit,
-        element: <IntentionsEditPage />,
-        loader: () => getDataFrom(PageRouter.Intentions),
-        errorElement: <ErrorPage />,
+        path: PageRouter.Intentions,
+        children: [
+          {
+            path: PageRouter.IntentionsPreview,
+            element: <IntentionsPreviewPage />,
+            loader: () => getDataFrom(PageRouter.Intentions),
+            errorElement: <ErrorPage />,
+          },
+          {
+            path: PageRouter.IntentionsEdit,
+            element: <IntentionsEditPage />,
+            loader: () => getDataFrom(PageRouter.Intentions),
+            errorElement: <ErrorPage />,
+          },
+        ],
       },
       {
         path: PageRouter.Announcement,
-        element: <AnnouncementPage />,
-        loader: () => getDataFrom(PageRouter.Announcement),
-        errorElement: <ErrorPage />,
+        children: [
+          {
+            index: true,
+            element: <AnnouncementPage />,
+            loader: () => getDataFrom(PageRouter.Announcement),
+            errorElement: <ErrorPage />,
+          },
+          {
+            path: PageRouter.AnnouncementCreate,
+            element: <AnnouncementModifyPage />,
+            loader: (): Omit<AnnouncementsResponse, "id"> => ({
+              announcements: [],
+              title: "",
+              subtitle: "",
+            }),
+          },
+          {
+            path: `${PageRouter.Announcement}:id`,
+            element: <AnnouncementModifyPage />,
+            loader: ({ params }) =>
+              getDataFrom(`${PageRouter.Announcement}${params.id}`),
+            errorElement: <ErrorPage />,
+          },
+          {
+            path: `${PageRouter.Announcement}/:id/preview`,
+            element: <AnnouncementPreviewPage />,
+            loader: ({ params }) =>
+              getDataFrom(`${PageRouter.Announcement}${params.id}`),
+            errorElement: <ErrorPage />,
+          },
+        ],
       },
-      {
-        path: `${PageRouter.Announcement}create`,
-        element: <AnnouncementModifyPage />,
-        loader: ():Omit<AnnouncementsResponse, 'id'> => ({announcements:[],title:'',subtitle:''}),
-      },
-      {
-        path: `${PageRouter.Announcement}:id`,
-        element: <AnnouncementModifyPage />,
-        loader: ({params}) => getDataFrom(`${PageRouter.Announcement}${params.id}`),
-        errorElement: <ErrorPage />,
-      },
-      {
-        path: `${PageRouter.Announcement}/:id/preview`,
-        element: <AnnouncementPreviewPage />,
-        loader: ({params}) => getDataFrom(`${PageRouter.Announcement}${params.id}`),
-        errorElement: <ErrorPage />,
-      },
-      {
-        path: PageRouter.UserCurrent,
-        element: <UserCurrentPage />,
-        loader: () => getDataFrom(PageRouter.UserCurrent),
-        errorElement: <ErrorPage />,
-      },
+
       {
         path: PageRouter.Users,
-        element: <UserListPage />,
-        loader: () => getDataFrom(PageRouter.Users),
-        errorElement: <ErrorPage />,
+        children: [
+          {
+            index: true,
+            element: <UserListPage />,
+            loader: () => getDataFrom(PageRouter.Users),
+            errorElement: <ErrorPage />,
+          },
+          {
+            path: PageRouter.UserCurrent,
+            element: <UserCurrentPage />,
+            loader: () => getDataFrom(PageRouter.UserCurrent),
+            errorElement: <ErrorPage />,
+          },
+        ],
       },
       {
-        path: PageRouter.GalleryTypes,
-        element: <GalleryTypesPage />,
-        loader: () => getDataFrom(PageRouter.AlbumTypes),
-        errorElement: <ErrorPage />,
+        path: PageRouter.Gallery,
+        children: [
+          {
+            path: PageRouter.GalleryTypes,
+            element: <GalleryTypesPage />,
+            loader: () => getDataFrom(PageRouter.AlbumTypes),
+            errorElement: <ErrorPage />,
+          },
+          {
+            path: PageRouter.GalleryAlbums,
+            element: <GalleryPage />,
+            loader: () => getDataFrom(PageRouter.Albums),
+            errorElement: <ErrorPage />,
+          },
+        ],
       },
-      {
-        path: PageRouter.GalleryAlbums,
-        element: <GalleryPage />,
-        loader: () => getDataFrom(PageRouter.Albums),
-        errorElement: <ErrorPage />,
-      },
+
       {
         path: `${PageRouter.Albums}/:id`,
         element: <GalleryEditPage />,
-        loader: ({params}) => getDataFrom(`${PageRouter.Albums}${params.id}`),
+        loader: ({ params }) => getDataFrom(`${PageRouter.Albums}${params.id}`),
         errorElement: <ErrorPage />,
       },
     ],

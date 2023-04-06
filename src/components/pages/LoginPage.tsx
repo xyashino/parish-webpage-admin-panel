@@ -6,7 +6,7 @@ export const LoginPage = () => {
     <div className="flex h-screen w-screen items-center justify-center bg-base-200">
       <LoginCard
         title="Witamy ponownie"
-        text="Na stronie Parafi Gruszów Wielki !!"
+        description="Na stronie Parafi Gruszów Wielki !!"
       >
         <LoginForm />
       </LoginCard>

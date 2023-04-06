@@ -4,11 +4,11 @@ import React, { FormEvent, SyntheticEvent, useState } from "react";
 import { InputLabel } from "@components/ui/InputLabel";
 import { useAxios } from "@hooks/useAxios";
 import { PageRouter } from "@enums/page-router.enum";
-import { ErrorAlert } from "@components/alerts/ErrorAlert";
+import {  CustomErrorAlert } from "@components/alerts/CustomErrorAlert";
 import { AxiosRequestConfig } from "axios";
 import { useRevalidator } from "react-router-dom";
 import { GalleryTypeSelect } from "@components/gallery/GalleryTypeSelect";
-import { SuccessAlert } from "@components/alerts/SuccessAlert";
+import { CustomSuccessAlert } from "@components/alerts/CustomSuccessAlert";
 
 enum InputName {
   title = "title",
@@ -59,7 +59,7 @@ export const GalleryEditForm = ({ data }: Props) => {
         ...(select === "" ? {} : {type: select}),
       } as unknown as Partial<Album>,
     };
-    await fetchDataUsingAxios(`${PageRouter.Albums}/${data.id}`, config);
+    await fetchDataUsingAxios(`${PageRouter.Albums}${data.id}`, config);
     revalidate();
     setIsSuccess(true);
   };
@@ -67,14 +67,14 @@ export const GalleryEditForm = ({ data }: Props) => {
   const toggleLoadingClass = loading ? "loading" : "";
 
   const errorElement = errorData.show ? (
-    <ErrorAlert onClick={hideError} message={errorData.message} />
+    <CustomErrorAlert handleClick={hideError} errorMessage={errorData.message} />
   ) : null;
 
   const successElement = isSuccess ? (
-    <SuccessAlert
-      text="Udało się zmienić dane"
+    <CustomSuccessAlert
+      message="Udało się zmienić dane"
       hideAfterMs={2500}
-      hideMethod={hideSuccess}
+      onHide={hideSuccess}
     />
   ) : null;
   return (

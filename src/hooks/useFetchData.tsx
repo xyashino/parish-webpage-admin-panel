@@ -2,11 +2,12 @@ import { useLayoutEffect, useState } from "react";
 import { AxiosBase } from "@utils/network/axios-base";
 import { isAxiosError } from "axios";
 
-export const useDataFrom = <T extends {}>(url: string) => {
+export const useFetchData = <T extends {}>(url: string) => {
   const [data, setData] = useState<T | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState({ show: false, message: "" });
-  const getDataFrom = async () => {
+
+  const fetchData = async () => {
     setLoading(true);
     setError({ show: false, message: "" });
 
@@ -15,11 +16,11 @@ export const useDataFrom = <T extends {}>(url: string) => {
       setData(response.data);
     } catch (e) {
       let message = "Unknown Error";
-      if (isAxiosError(error)) {
+      if (isAxiosError(e)) {
         message =
-          error.response?.data.message ??
-          error.response?.data.error ??
-          error.message;
+            e.response?.data.message ??
+            e.response?.data.error ??
+            e.message;
       }
       setError({ show: true, message });
     }
@@ -27,7 +28,7 @@ export const useDataFrom = <T extends {}>(url: string) => {
   };
 
   useLayoutEffect(() => {
-    getDataFrom();
+    fetchData();
   }, [url]);
 
   return { data, error, loading };

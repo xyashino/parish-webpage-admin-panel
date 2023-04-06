@@ -1,7 +1,8 @@
-import React, { Dispatch, SetStateAction, SyntheticEvent } from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import { Btn } from "@components/ui/Btn";
 
 const MB = 1000000;
+
 interface Props {
   data: File;
   index: number;
@@ -11,7 +12,7 @@ interface Props {
 export const Image = ({ data, index, setImages }: Props) => {
   const { name, size, type } = data;
 
-  const handleClick = (e: SyntheticEvent) => {
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setImages((prevState) => {
       const newState = [...prevState];
@@ -34,7 +35,9 @@ export const Image = ({ data, index, setImages }: Props) => {
           <span className="font-bold">Type:</span> {type}
         </p>
         <div className="card-actions justify-end">
-          <Btn onClick={handleClick}>Usuń</Btn>
+          <Btn onClick={handleClick} aria-label={`Remove image ${index}`}>
+            Usuń
+          </Btn>
         </div>
       </div>
     </div>

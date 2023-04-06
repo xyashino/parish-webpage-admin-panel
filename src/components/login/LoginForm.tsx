@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { PageRouter } from "@enums/page-router.enum";
 import { Btn } from "@components/ui/Btn";
 import { useValidationState } from "@hooks/useValidationState";
-import { ErrorAlert } from "@components/alerts/ErrorAlert";
+import { CustomErrorAlert } from "@components/alerts/CustomErrorAlert";
 import { useValidationButton } from "@hooks/useValidationButton";
 import { useAxios } from "@hooks/useAxios";
 
@@ -13,54 +13,58 @@ const PASSWORD_INPUT_NAME = "password";
 
 export const LoginForm = () => {
   const navigate = useNavigate();
-  const { loading, err:{data,hideError}, fetchDataUsingAxios } = useAxios();
+  const {
+    loading,
+    err: { data, hideError },
+    fetchDataUsingAxios,
+  } = useAxios();
 
   const {
-    setValue: setEmailValue,
-    value: emailValue,
+    setValue: setEmail,
+    value: email,
     isValid: isEmailValid,
     error: emailError,
   } = useValidationState("Email", {
-    min: 3,
-    max: 255,
+    minLength: 3,
+    maxLength: 255,
     specialChars: ["@"],
   });
 
   const {
-    setValue: setPwdValue,
-    value: pwdValue,
-    isValid: isPwdValid,
-    error: pwdError,
+    setValue: setPassword,
+    value: password,
+    isValid: isPasswordValid,
+    error: passwordError,
   } = useValidationState("Hasło", {
-    min: 8,
-    max: 255,
+    minLength: 8,
+    maxLength: 255,
   });
 
-  const { result: btnStyles } = useValidationButton(
-    [isPwdValid, isEmailValid],
+  const { result: buttonStyles } = useValidationButton(
+    [isPasswordValid, isEmailValid],
     "",
     "btn-disabled"
   );
 
-  const goToHomePage = () => {
+  const navigateToHomePage = () => {
     navigate(PageRouter.Home);
   };
-  const logIn = async (e: SyntheticEvent) => {
+  const handleLogin = async (e: SyntheticEvent) => {
     e.preventDefault();
-    if (!isEmailValid || !isPwdValid) return;
+    if (!isEmailValid || !isPasswordValid) return;
     const config = {
       method: "post",
-      data: { email: emailValue, password: pwdValue },
+      data: { email: email, password: password },
     };
-    await fetchDataUsingAxios("/auth/login", config, goToHomePage);
+    await fetchDataUsingAxios("/auth/login", config, navigateToHomePage);
   };
 
-  const toggleLoadingClass = loading ? 'loading' : ''
+  const loadingClass = loading ? "loading" : "";
 
   return (
     <form
       className="flex flex-col items-center space-y-4"
-      onSubmit={(e) => logIn(e)}
+      onSubmit={(e) => handleLogin(e)}
       noValidate
     >
       <LoginInput
@@ -68,8 +72,8 @@ export const LoginForm = () => {
         placeholder="email@test.com"
         labelText="Email:"
         name={LOGIN_INPUT_NAME}
-        value={emailValue}
-        onChange={(e) => setEmailValue(e.target.value)}
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
         error={emailError}
       />
       <LoginInput
@@ -77,16 +81,18 @@ export const LoginForm = () => {
         placeholder="*********"
         labelText="Hasło:"
         name={PASSWORD_INPUT_NAME}
-        value={pwdValue}
-        onChange={(e) => setPwdValue(e.target.value)}
-        error={pwdError}
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        error={passwordError}
       />
 
       <div className="form-control mt-6">
-        <Btn className={`btn-wide btn ${btnStyles} ${toggleLoadingClass} `}>Zaloguj</Btn>
+        <Btn className={`btn-wide btn ${buttonStyles} ${loadingClass}`}>
+          Zaloguj
+        </Btn>
       </div>
       {data.show ? (
-        <ErrorAlert onClick={hideError} message={data.message} />
+        <CustomErrorAlert handleClick={hideError} errorMessage={data.message} />
       ) : null}
     </form>
   );

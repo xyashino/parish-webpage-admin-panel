@@ -6,7 +6,7 @@ export const UpdateData = async (path: string, body: unknown) => {
     await checkAuth();
     await AxiosBase.patch(path, body);
   } catch (e) {
-    console.log((e as Error).message);
+    console.error((e as Error).message);
   }
   return true;
 };

@@ -1,5 +1,5 @@
 export interface ConfirmConfig {
-  infoText: string;
-  confirmClicked: () => void;
-  denyClicked: () => void;
+  infoMessage: string;
+  handleConfirmClick: () => void;
+  handleDenyClick: () => void;
 }

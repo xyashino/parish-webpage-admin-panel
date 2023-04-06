@@ -1,19 +1,19 @@
 import React, { HTMLAttributes } from "react";
 
 interface Props extends Omit<HTMLAttributes<HTMLDivElement>, "className"> {
-  horizontal?: true;
-  value?: string;
+  horizontal?: boolean;
+  text?: string;
   className?: string;
 }
 
-export const Divider = ({ horizontal, value, className, ...props }: Props) => {
+export const Divider = ({ horizontal, text, className, ...props }: Props) => {
   const horizontalStyle = horizontal ? "divider-horizontal" : "";
-  const ownClasses = className ? className : "";
-  const tailwindStyles = `divider mx-2 ${horizontalStyle} ${ownClasses}`;
+  const customClasses = className ?? "";
+  const tailwindClasses = `divider mx-2 ${horizontalStyle} ${customClasses}`;
 
   return (
-    <div className={tailwindStyles} {...props}>
-      {value && ""}
-    </div>
+      <div className={tailwindClasses} {...props}>
+        {text && ""}
+      </div>
   );
 };

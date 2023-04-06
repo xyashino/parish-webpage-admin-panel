@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { AxiosRequestConfig, AxiosResponse, isAxiosError } from "axios";
 import { AxiosBase } from "@utils/network/axios-base";
-import {useErrorAlert} from "@hooks/useErrorAlert";
+import {useCustomErrorAlert} from "@hooks/useCustomErrorAlert";
 export const useAxios = () => {
   const [loading, setLoading] = useState(false);
-  const {showError,hideError,errorData} = useErrorAlert();
+  const {showError,hideError,errorData} = useCustomErrorAlert();
 
   const requestLogic = async (
     requestMethod: () => Promise<AxiosResponse<any, any>>,

@@ -35,7 +35,7 @@ export const AddGallery = ({ hideModal }: Props) => {
       <h2 className="w-full py-4 text-center text-2xl font-medium uppercase">
         Dodaj nowy Album
       </h2>
-      <AddGalleryForm inputs={inputsValue} hideModal={hideModal}>
+          <AddGalleryForm inputs={inputsValue} hideModal={hideModal}>
         <div className="w-1/2">
           <InputLabel
             labelName="Tytuł albumu : "

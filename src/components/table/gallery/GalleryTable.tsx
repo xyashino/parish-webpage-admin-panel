@@ -6,11 +6,19 @@ interface Props {
   data: Album[];
 }
 
+const EmptyRow = <tr>
+  <td colSpan={100}>
+    Brak żadnych albumów
+  </td>
+</tr>
+
 export const GalleryTable = ({ data }: Props) => {
   const thColumns = ["id", "title", "typ"];
   return (
     <BaseTable thColumns={thColumns}>
-      {data.map(({ title, id,type }, index) => (
+      {
+        data.length !== 0 ?
+        data.map(({ title, id,type }, index) => (
         <GalleryTableRow
           index={index}
           title={title}
@@ -18,7 +26,7 @@ export const GalleryTable = ({ data }: Props) => {
           key={id}
           name={type?.name}
         />
-      ))}
+      )): EmptyRow}
     </BaseTable>
   );
 };

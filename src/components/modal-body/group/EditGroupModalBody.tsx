@@ -4,7 +4,8 @@ import { useRevalidator } from "react-router-dom";
 import { AlbumTypeResponse, CreateAlbumType } from "@backendTypes";
 import { InputLabel } from "@components/ui/InputLabel";
 import { Btn } from "@components/ui/Btn";
-import { ErrorAlert } from "@components/alerts/ErrorAlert";
+import { CustomErrorAlert } from "@components/alerts/CustomErrorAlert";
+import {PageRouter} from "@enums/page-router.enum";
 
 enum InputName {
   name = "name",
@@ -34,7 +35,7 @@ export const EditGroupModalBody = ({ hideModal, data }: Props) => {
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
     await fetchDataUsingAxios(
-      `albums/types/${id}`,
+      `${PageRouter.AlbumTypes}${id}`,
       {
         method: "PATCH",
         data: {
@@ -56,7 +57,7 @@ export const EditGroupModalBody = ({ hideModal, data }: Props) => {
   };
 
   const errorElement = errorData.show ? (
-    <ErrorAlert onClick={hideError} message={errorData.message} />
+    <CustomErrorAlert handleClick={hideError} errorMessage={errorData.message} />
   ) : null;
 
   return (

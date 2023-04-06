@@ -2,12 +2,12 @@ import React, {ChangeEvent} from "react";
 
 interface Props {
     text:string;
-    toggleMethod: (active:boolean) => void
+    onToggleActive: (active:boolean) => void
 }
 
-export const CheckBox = ({text, toggleMethod}:Props) => {
+export const CheckBox = ({text, onToggleActive}:Props) => {
     const handleCheckbox = (e:ChangeEvent<HTMLInputElement>)=>{
-        toggleMethod(e.target.checked);
+        onToggleActive(e.target.checked);
     }
   return (
     <label className="label cursor-pointer">

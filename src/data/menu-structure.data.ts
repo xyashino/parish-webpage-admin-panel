@@ -5,12 +5,12 @@ export type MenuItem = {
   path: PageRouter;
 };
 
-export type MenuType =
-  | {
+export type MenuType = {id:string} &
+  ( {
       name: string;
       items: MenuItem[];
     }
-  | MenuItem;
+  | MenuItem);
 
 export const MENU_STRUCTURE: MenuType[] = [
   {
@@ -51,4 +51,4 @@ export const MENU_STRUCTURE: MenuType[] = [
     text: "Konto",
     path: PageRouter.UserCurrent,
   },
-];
+].map((data) => ({ ...data, id: crypto.randomUUID()}))

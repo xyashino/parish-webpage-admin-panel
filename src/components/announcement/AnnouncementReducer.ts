@@ -1,9 +1,8 @@
-import {AnnouncementsItem} from "@backendTypes";
-import {AnnouncementsActionData} from "@frontendTypes/announcements-action-data";
-import {AnnouncementsAction} from "@enums/announcements-action.enum";
+import { AnnouncementsItem } from "@backendTypes";
+import { AnnouncementsActionData } from "@frontendTypes/announcements-action-data";
+import { AnnouncementsAction } from "@enums/announcements-action.enum";
 
-
-const updateItem = (
+const updateAnnouncementItem = (
     copyState: AnnouncementsItem[],
     data: Partial<AnnouncementsItem>
 ) => {
@@ -15,7 +14,7 @@ const updateItem = (
     return [...copyState];
 };
 
-const addItem = (
+const addAnnouncementItem = (
     copyState: AnnouncementsItem[],
     data: Partial<AnnouncementsItem>
 ) => {
@@ -28,6 +27,7 @@ const addItem = (
     });
     return [...copyState];
 };
+
 export const announcementsReducer = (
     state: AnnouncementsItem[],
     action: AnnouncementsActionData
@@ -37,10 +37,10 @@ export const announcementsReducer = (
             return state.filter(({ id }) => action.payload.id !== id);
         }
         case AnnouncementsAction.ADD: {
-            return addItem([...state], {  ...action.payload });
+            return addAnnouncementItem([...state], { ...action.payload });
         }
         case AnnouncementsAction.UPDATE: {
-            return updateItem([...state], {  ...action.payload });
+            return updateAnnouncementItem([...state], { ...action.payload });
         }
         case AnnouncementsAction.CLEAR: {
             return [];

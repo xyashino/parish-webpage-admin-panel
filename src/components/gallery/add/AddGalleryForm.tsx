@@ -8,7 +8,7 @@ import { AxiosRequestConfig } from "axios";
 import { CreateAlbumRequestInterface } from "@backendTypes";
 import { PageRouter } from "@enums/page-router.enum";
 import { useRevalidator } from "react-router-dom";
-import { ErrorAlert } from "@components/alerts/ErrorAlert";
+import { CustomErrorAlert } from "@components/alerts/CustomErrorAlert";
 interface Props extends PropsWithChildren {
   inputs: { title: string; subtitle: string; type: string };
   hideModal: (e?: any) => void;
@@ -42,12 +42,12 @@ export const AddGalleryForm = ({ inputs, children, hideModal }: Props) => {
         ...(subtitle.length === 0 ? {} : { subtitle }),
       } as CreateAlbumRequestInterface,
     };
-    await fetchDataUsingAxios(`${PageRouter.Albums}/`, config, runAfterSuccess);
+    await fetchDataUsingAxios(`${PageRouter.Albums}`, config, runAfterSuccess);
   };
   const toggleLoadingClass = loading ? "loading" : "";
 
   const errorElement = data.show ? (
-    <ErrorAlert onClick={hideError} message={data.message} />
+    <CustomErrorAlert handleClick={hideError} errorMessage={data.message} />
   ) : null;
 
   return (

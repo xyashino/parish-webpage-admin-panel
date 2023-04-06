@@ -4,7 +4,7 @@ import { LoginInput } from "@components/login/LoginInput";
 import { Btn } from "@components/ui/Btn";
 import { useValidationButton } from "@hooks/useValidationButton";
 
-import { ErrorAlert } from "@components/alerts/ErrorAlert";
+import { CustomErrorAlert } from "@components/alerts/CustomErrorAlert";
 import { useRevalidator } from "react-router-dom";
 import { useAxios } from "@hooks/useAxios";
 import {AxiosRequestConfig} from "axios";
@@ -29,7 +29,7 @@ export const RegisterAdministrator = ({ hideModal }: Props) => {
     setValue: setEmailValue,
     isValid: isEmailValid,
   } = useValidationState("Email", {
-    min: 3,
+    minLength: 3,
     specialChars: ["@"],
   });
   const {
@@ -38,7 +38,7 @@ export const RegisterAdministrator = ({ hideModal }: Props) => {
     setValue: setPwdValue,
     isValid: isPwdValid,
   } = useValidationState("Hasło", {
-    min: 8,
+    minLength: 8,
   });
   const {
     value: confirmPwdValue,
@@ -46,7 +46,7 @@ export const RegisterAdministrator = ({ hideModal }: Props) => {
     setValue: setConfirmPwdValue,
     isValid: isConfirmPwdValid,
   } = useValidationState("Hasło", {
-    min: 8,
+    minLength: 8,
     sameAs: pwdValue,
   });
 
@@ -114,7 +114,7 @@ export const RegisterAdministrator = ({ hideModal }: Props) => {
           Zarejestruj
         </Btn>
         {data.show ? (
-          <ErrorAlert onClick={hideError} message={data.message} />
+          <CustomErrorAlert handleClick={hideError} errorMessage={data.message} />
         ) : null}
       </form>
     </div>

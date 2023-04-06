@@ -1,7 +1,7 @@
 import React, { HTMLAttributes } from "react";
 import { PageRouter } from "@enums/page-router.enum";
 import { AlbumType } from "@backendTypes";
-import { useDataFrom } from "@hooks/useDataFrom";
+import {useFetchData} from "@hooks/useFetchData";
 
 interface Props extends HTMLAttributes<HTMLSelectElement> {
   name: string;
@@ -10,7 +10,7 @@ interface Props extends HTMLAttributes<HTMLSelectElement> {
 }
 
 export const GalleryTypeSelect = ({ ...props }: Props) => {
-  const { data, loading } = useDataFrom<AlbumType[]>(PageRouter.AlbumTypes);
+  const { data, loading } = useFetchData<AlbumType[]>(PageRouter.AlbumTypes);
   const loadingElement = (
     <select className="select  select-md w-full" {...props}>
       <option disabled selected>

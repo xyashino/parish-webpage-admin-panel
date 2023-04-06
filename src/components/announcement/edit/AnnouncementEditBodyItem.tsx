@@ -14,19 +14,22 @@ interface Props {
   item: AnnouncementsItem;
 }
 
+const updateOrderValue = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    setOrder: React.Dispatch<React.SetStateAction<number>>
+) => {
+  const { value } = e.target;
+  if (+value < 0 || +value > 100) return;
+  setOrder(+value);
+};
+
+
 export const AnnouncementEditBodyItem = ({ item }: Props) => {
   const { id, body, order: orderItem } = item;
   const { dispatchAnnouncements } = useContext(AnnouncementContext);
   const { hideModal, showModal, displayModal } = useModal();
   const [order, setOrder] = useState(orderItem);
 
-  const updateValue = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const {value} = e.target;
-    if( +value < 0 || +value > 100)return;
-    setOrder(+value);
-  };
   const updateDataInContext = (body:string) => {
     dispatchAnnouncements({
       type: AnnouncementsAction.UPDATE,
@@ -48,7 +51,7 @@ export const AnnouncementEditBodyItem = ({ item }: Props) => {
             value={order}
             className="ghost input mx-2.5 w-1/12 h-full text-center text-xl"
             name="order"
-            onChange={(e) => updateValue(e)}
+            onChange={(e) => updateOrderValue(e,setOrder)}
             onBlur={()=>updateDataInContext(body)}
           />
           <div className="w-4/5 border-l-2 px-2 my-2">{parse(body)}</div>

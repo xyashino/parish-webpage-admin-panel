@@ -30,8 +30,8 @@ export const IntentionsEditPage = () => {
       active: !index,
     }))
   );
-  //handling states
-  const changeActiveMenuItem = (clickedType: string) => {
+
+  const updateActiveMenuItem = (clickedType: string) => {
     setMenu((prevState) =>
       prevState.map(({ type, active, ...rest }) => ({
         type,
@@ -61,7 +61,7 @@ export const IntentionsEditPage = () => {
         />
         <IntentionsEditWeek />
         <IntentionsButtonSection />
-        <Menu items={menu} onClick={changeActiveMenuItem} />
+        <Menu items={menu} onClick={updateActiveMenuItem} />
         <IntentionsEditTable table={activeTable} />
       </section>
     </IntentionContext.Provider>

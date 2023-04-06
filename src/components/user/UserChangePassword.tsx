@@ -4,10 +4,10 @@ import React, { SyntheticEvent } from "react";
 
 import { useValidationState } from "@hooks/useValidationState";
 import { LoginInput } from "@components/login/LoginInput";
-import { useConfirmAlert } from "@hooks/useConfirmAlert";
-import { ConfirmAlert } from "@components/alerts/ConfirmAlert";
+import { useCustomConfirmAlert } from "@hooks/useCustomConfirmAlert";
+import { CustomConfirmAlert } from "@components/alerts/CustomConfirmAlert";
 import { useValidationButton } from "@hooks/useValidationButton";
-import { ErrorAlert } from "@components/alerts/ErrorAlert";
+import { CustomErrorAlert } from "@components/alerts/CustomErrorAlert";
 import { useAxios } from "@hooks/useAxios";
 import { PageRouter } from "@enums/page-router.enum";
 import { AxiosRequestConfig } from "axios";
@@ -18,7 +18,7 @@ const INPUT_NAMES = {
   confirmPassword: "confirmPassword",
 };
 export const UserChangePassword = () => {
-  const { alertData, setConfig } = useConfirmAlert();
+  const { alertData, configureAlert } = useCustomConfirmAlert();
   const {
     err: { hideError, data },
     loading,
@@ -32,8 +32,8 @@ export const UserChangePassword = () => {
     isValid: isOldPwdValid,
     error: oldPwdError,
   } = useValidationState("Hasło", {
-    min: 8,
-    max: 255,
+    minLength: 8,
+    maxLength: 255,
   });
 
   const {
@@ -42,8 +42,8 @@ export const UserChangePassword = () => {
     isValid: isNewPwdValid,
     error: newPwdError,
   } = useValidationState("Hasło", {
-    min: 8,
-    max: 255,
+    minLength: 8,
+    maxLength: 255,
   });
 
   const {
@@ -52,8 +52,8 @@ export const UserChangePassword = () => {
     isValid: isConfirmPwdValid,
     error: confirmPwdError,
   } = useValidationState("Hasło", {
-    min: 8,
-    max: 255,
+    minLength: 8,
+    maxLength: 255,
     sameAs: newPwdValue,
   });
   const { result: btnStyles } = useValidationButton(
@@ -75,7 +75,7 @@ export const UserChangePassword = () => {
 
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
-    setConfig("Czy napewno chcesz zmienic hasło?", updatePassword);
+    configureAlert("Czy napewno chcesz zmienic hasło?", updatePassword);
   };
 
   const toggleLoadingClass = loading ? 'loading' : '';
@@ -117,9 +117,9 @@ export const UserChangePassword = () => {
         />
 
         <Btn className={`btn-wide  btn ${btnStyles} ${toggleLoadingClass}`}>Zmień hasło</Btn>
-        {alertData.show ? <ConfirmAlert config={alertData.config} /> : null}
+        {alertData.isVisible ? <CustomConfirmAlert confirmConfig={alertData.config} /> : null}
         {data.show ? (
-          <ErrorAlert onClick={hideError} message={data.message} />
+          <CustomErrorAlert errorMessage={data.message} handleClick={hideError}/>
         ) : null}
       </form>
     </ExpandableContent>

@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export const useSuccessAlert = () => {
+export const useCustomSuccessAlert = () => {
   const [isSuccess, setIsSuccess] = useState(false);
   const showSuccess = () => setIsSuccess(true);
   const hideSuccess = () => setIsSuccess(false);

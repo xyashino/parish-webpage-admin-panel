@@ -2,14 +2,14 @@ import React, { SyntheticEvent, useState } from "react";
 import { useLoaderData, useRevalidator } from "react-router-dom";
 import { Album } from "@backendTypes";
 import { MainContainer } from "@components/ui/MainContainer";
-import { Header } from "@components/ui/Header";
 import { GalleryEditForm } from "@components/gallery/GalleryEditForm";
 import { Btn } from "@components/ui/Btn";
 import { useModal } from "@hooks/useModal";
 import { Modal } from "@components/ui/Modal/Modal";
-import {UploadImageModalBody} from "@components/modal-body/image/UploadImageModalBody";
-import {RemoveImageModalBody} from "@components/modal-body/image/RemoveImageModalBody";
-import {ChangeImageModalBody} from "@components/modal-body/image/ChangeImageModalBody";
+import { UploadImageModalBody } from "@components/modal-body/image/UploadImageModalBody";
+import { RemoveImageModalBody } from "@components/modal-body/image/RemoveImageModalBody";
+import { ChangeImageModalBody } from "@components/modal-body/image/ChangeImageModalBody";
+import {HeaderWithPreviousArrow} from "@components/ui/HeaderWithPreviousArrow";
 
 enum ModalBody {
   uploadImg,
@@ -35,43 +35,48 @@ export const GalleryEditPage = () => {
     revalidate();
   };
 
+  const renderModalBody = () => {
+    switch (body) {
+      case ModalBody.uploadImg:
+        return <UploadImageModalBody id={data.id} />;
+      case ModalBody.deleteImg:
+        return <RemoveImageModalBody data={data} />;
+      case ModalBody.changeImg:
+        return <ChangeImageModalBody data={data} />;
+      default:
+        return null;
+    }
+  };
+
   return (
-    <>
-      <MainContainer>
-        <Header title="Zarządzaj albumem" />
-        <GalleryEditForm data={data} />
-        <div className="m-4 flex w-full flex-wrap justify-around">
-          <Btn
-            className="btn-wide btn"
-            onClick={(e) => handleClick(e, ModalBody.changeImg)}
-          >
-            Zarządzaj okładką
-          </Btn>
-          <Btn
-            className="btn-wide btn"
-            onClick={(e) => handleClick(e, ModalBody.uploadImg)}
-          >
-            Dodaj zdjęcia
-          </Btn>
-          <Btn
-            className={`btn-wide btn ${toggleDisableBtn}`}
-            onClick={(e) => handleClick(e, ModalBody.deleteImg)}
-          >
-            Usuń zdjęcia
-          </Btn>
-        </div>
-      </MainContainer>
-      <Modal hideModal={hideModalWithRevalidation} showModal={showModal}>
-        {body === ModalBody.uploadImg ? (
-          <UploadImageModalBody id={data.id} />
-        ) : null}
-        {body === ModalBody.deleteImg ? (
-          <RemoveImageModalBody data={data} />
-        ) : null}
-        {body === ModalBody.changeImg ? (
-          <ChangeImageModalBody data={data} />
-        ) : null}
-      </Modal>
-    </>
+      <>
+        <MainContainer>
+          <HeaderWithPreviousArrow title="Zarządzaj albumem" />
+          <GalleryEditForm data={data} />
+          <div className="m-4 flex w-full flex-wrap justify-around">
+            <Btn
+                className="btn-wide btn"
+                onClick={(e) => handleClick(e, ModalBody.changeImg)}
+            >
+              Zarządzaj okładką
+            </Btn>
+            <Btn
+                className="btn-wide btn"
+                onClick={(e) => handleClick(e, ModalBody.uploadImg)}
+            >
+              Dodaj zdjęcia
+            </Btn>
+            <Btn
+                className={`btn-wide btn ${toggleDisableBtn}`}
+                onClick={(e) => handleClick(e, ModalBody.deleteImg)}
+            >
+              Usuń zdjęcia
+            </Btn>
+          </div>
+        </MainContainer>
+        <Modal hideModal={hideModalWithRevalidation} showModal={showModal}>
+          {renderModalBody()}
+        </Modal>
+      </>
   );
 };

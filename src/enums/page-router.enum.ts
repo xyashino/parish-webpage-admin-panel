@@ -1,10 +1,9 @@
 export const enum PageRouter {
     Home = "/",
-    Current = "/users/current/",
     Login = "/login/",
     Contact = "/contact/",
-    // intentions = "/intentions",
     Announcement = "/announcements/",
+    AnnouncementCreate = "/announcements/create",
     AnnouncementPreview = "/announcements/preview/",
     AnnouncementEdit = "/announcements/edit/",
 
@@ -12,24 +11,16 @@ export const enum PageRouter {
     IntentionsEdit = "/intentions/edit/",
     IntentionsPreview = "/intentions/preview/",
 
-    UserCurrent = "/users/current/",
     Users = "/users/",
+    UserCurrent = "/users/current/",
     Article = "/articles/",
     ArticlePreview = "/articles/preview/",
     ArticleEdit = "/article/edit/",
     ArticleCreate = "/article/create/",
 
     Albums= '/albums/',
-
     AlbumTypes= '/albums/types/',
     Gallery = "/gallery/",
-    GalleryTypes = "/gallery/types/",
+    GalleryTypes =  "/gallery/types/",
     GalleryAlbums = "/gallery/albums/",
-    Parish = "/parish/",
-    ParishCouncil = "/parish/council/",
-    ParishOffice = "/parish/office/",
-    ParishPriests = "/parish/priests-history/",
-    Ministry = "/ministry/",
-    MinistrySacrament = "/ministry/sacrament/",
-    MinistryGroups = "/ministry/groups/",
 }

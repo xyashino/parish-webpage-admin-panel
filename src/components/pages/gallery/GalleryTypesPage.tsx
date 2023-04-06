@@ -3,7 +3,7 @@ import { Header } from "@components/ui/Header";
 import { MainContainer } from "@components/ui/MainContainer";
 import { useLoaderData } from "react-router-dom";
 import { AlbumTypeResponse } from "@backendTypes";
-import { InfoAlert } from "@components/alerts/InfoAlert";
+import { CustomInfoAlert } from "@components/alerts/CustomInfoAlert";
 import { Btn } from "@components/ui/Btn";
 import { BorderContainer } from "@components/ui/BorderContainer";
 import { Modal } from "@components/ui/Modal/Modal";
@@ -19,7 +19,7 @@ export const GalleryTypesPage = () => {
     <>
       <MainContainer>
         <Header title="Zarządzaj Typami Galeri" />
-        <InfoAlert message="Po tych typach będa grupowane albumy na stronie" />
+        <CustomInfoAlert message="Po tych typach będa grupowane albumy na stronie" />
         <BorderContainer className="m-4 w-5/6 border-y-2">
           <Btn className="btn-wide  btn m-2" onClick={displayModal}>Dodaj nową grupe</Btn>
         </BorderContainer>

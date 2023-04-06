@@ -1,4 +1,4 @@
-import React, { InputHTMLAttributes, useState } from "react";
+import React, {InputHTMLAttributes, Ref, useState} from "react";
 import { CheckBox } from "@components/ui/CheckBox";
 
 type InputType =
@@ -11,16 +11,16 @@ type InputType =
   | "radio"
   | "file";
 
-type Props = InputHTMLAttributes<HTMLInputElement> & {
+interface Props extends InputHTMLAttributes<HTMLInputElement> {
   labelText: string;
   value: string;
-  ref?: React.Ref<HTMLInputElement>;
+  ref?: Ref<HTMLInputElement>;
   error?: {
     show: boolean;
     message: string;
   };
   typeCheckbox?: [InputType, InputType];
-};
+}
 
 export const LoginInput = ({
   labelText,
@@ -39,35 +39,27 @@ export const LoginInput = ({
     <p className="pt-1 text-sm text-error">{error?.message}</p>
   );
 
-  let label = (
-    <>
-      <label className="mb-2 block text-left font-bold">{labelText}</label>
-      <input
-        className={`${defaultInputClasses} ${optionalInputClasses} ${errorInputClass}`}
-        {...props}
-      />
-    </>
+  const inputElement = (
+    <input
+      className={`${defaultInputClasses} ${optionalInputClasses} ${errorInputClass}`}
+      type={toggleType && typeCheckbox ? typeCheckbox[1] : props.type}
+      {...props}
+    />
   );
 
-  if (typeCheckbox) {
-    label = (
-      <>
-        <label className="mb-2 block text-left font-bold">{labelText}</label>
-        <input
-          className={`${defaultInputClasses} ${optionalInputClasses} ${errorInputClass}`}
-          type={toggleType ? typeCheckbox.at(-1) : typeCheckbox.at(0)}
-          {...props}
-        />
-      </>
-    );
-  }
+  const labelElement = (
+    <label className="mb-2 block text-left font-bold">{labelText}</label>
+  );
 
   return (
     <div className="mb-4 flex w-full flex-col items-center">
-      <div className="form-control mr-4">{label}</div>
+      <div className="form-control mr-4">
+        {labelElement}
+        {inputElement}
+      </div>
       {error?.show ? errorElement : null}
       {typeCheckbox ? (
-        <CheckBox text="Pokaż" toggleMethod={setToggleType} />
+        <CheckBox text="Pokaż" onToggleActive={setToggleType} />
       ) : null}
     </div>
   );

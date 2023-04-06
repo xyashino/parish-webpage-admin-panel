@@ -3,20 +3,20 @@ import { Btn } from "@components/ui/Btn";
 import { PageRouter } from "@enums/page-router.enum";
 import { AnnouncementContext } from "@context/AnnouncementContext";
 import { AnnouncementsItem, AnnouncementsResponse } from "@backendTypes";
-import { useConfirmAlert } from "@hooks/useConfirmAlert";
-import { ConfirmAlert } from "@components/alerts/ConfirmAlert";
+import { useCustomConfirmAlert } from "@hooks/useCustomConfirmAlert";
+import { CustomConfirmAlert } from "@components/alerts/CustomConfirmAlert";
 import { useAxios } from "@hooks/useAxios";
-import { ErrorAlert } from "@components/alerts/ErrorAlert";
+import { CustomErrorAlert } from "@components/alerts/CustomErrorAlert";
 import { BorderContainer } from "@components/ui/BorderContainer";
 import { useRevalidator } from "react-router-dom";
 import { AnnouncementsAction } from "@enums/announcements-action.enum";
-import { SuccessAlert } from "@components/alerts/SuccessAlert";
-import { useSuccessAlert } from "@hooks/useSuccessAlert";
+import { CustomSuccessAlert } from "@components/alerts/CustomSuccessAlert";
+import { useCustomSuccessAlert } from "@hooks/useCustomSuccessAlert";
 
 type RestAnnouncement = Omit<AnnouncementsResponse, "announcements" | "id"> & {
   id?: string;
 };
-const createConfig = (
+const createRequestConfig = (
   data: RestAnnouncement,
   announcements: AnnouncementsItem[]
 ) => {
@@ -41,8 +41,8 @@ export const AnnouncementEditButtonsSection = () => {
     setRestAnnouncement,
     dispatchAnnouncements,
   } = useContext(AnnouncementContext);
-  const { setConfig, alertData } = useConfirmAlert();
-  const { showSuccess, isSuccess, hideSuccess } = useSuccessAlert();
+  const { configureAlert, alertData } = useCustomConfirmAlert();
+  const { showSuccess, isSuccess, hideSuccess } = useCustomSuccessAlert();
   const { revalidate } = useRevalidator();
   const {
     err: { data, hideError },
@@ -57,17 +57,17 @@ export const AnnouncementEditButtonsSection = () => {
 
     await fetchDataUsingAxios(
       url,
-      createConfig(restAnnouncement, announcements),
+        createRequestConfig(restAnnouncement, announcements),
       showSuccess
     );
   };
 
   const refreshData = async () =>
-    setConfig("Czy na pewno chcesz odświeżyć dane?", () => revalidate());
+      configureAlert("Czy na pewno chcesz odświeżyć dane?", () => revalidate());
   const updateData = async () =>
-    setConfig("Czy na pewno chcesz zapisac zamiany ?", modifyAnnouncements);
+      configureAlert("Czy na pewno chcesz zapisac zamiany ?", modifyAnnouncements);
   const clearData = async () => {
-    setConfig("Czy na pewno chcesz wyczyścić dane?", () => {
+    configureAlert("Czy na pewno chcesz wyczyścić dane?", () => {
       dispatchAnnouncements({ type: AnnouncementsAction.CLEAR, payload: {} });
       setRestAnnouncement(({ id }) => ({ id, subtitle: "", title: "" }));
     });
@@ -88,14 +88,14 @@ export const AnnouncementEditButtonsSection = () => {
           </Btn>
         ) : null}
       </BorderContainer>
-      {alertData.show ? <ConfirmAlert config={alertData.config} /> : null}
+      {alertData.isVisible ? <CustomConfirmAlert confirmConfig={alertData.config} /> : null}
       {data.show ? (
-        <ErrorAlert onClick={hideError} message={data.message} />
+        <CustomErrorAlert handleClick={hideError} errorMessage={data.message} />
       ) : null}
       {isSuccess ? (
-        <SuccessAlert
-          text="Sukces! Zmiany zostały zapisane"
-          hideMethod={hideSuccess}
+        <CustomSuccessAlert
+          message="Sukces! Zmiany zostały zapisane"
+          onHide={hideSuccess}
           hideAfterMs={1500}
         />
       ) : null}

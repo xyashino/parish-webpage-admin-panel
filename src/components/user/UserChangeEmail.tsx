@@ -4,11 +4,11 @@ import { Btn } from "@components/ui/Btn";
 import { PageRouter } from "@enums/page-router.enum";
 import { useValidationState } from "@hooks/useValidationState";
 import { LoginInput } from "@components/login/LoginInput";
-import { useConfirmAlert } from "@hooks/useConfirmAlert";
-import { ConfirmAlert } from "@components/alerts/ConfirmAlert";
+import { useCustomConfirmAlert } from "@hooks/useCustomConfirmAlert";
+import { CustomConfirmAlert } from "@components/alerts/CustomConfirmAlert";
 import { useValidationButton } from "@hooks/useValidationButton";
 import { useAxios } from "@hooks/useAxios";
-import { ErrorAlert } from "@components/alerts/ErrorAlert";
+import { CustomErrorAlert } from "@components/alerts/CustomErrorAlert";
 import {AxiosRequestConfig} from "axios";
 import {useRevalidator} from "react-router-dom";
 
@@ -16,7 +16,7 @@ const NEW_EMAIL_NAME = "email";
 const PASSWORD_NAME = "password";
 
 export const UserChangeEmail = () => {
-  const { alertData, setConfig } = useConfirmAlert();
+  const { alertData, configureAlert } = useCustomConfirmAlert();
   const {revalidate} = useRevalidator()
 
   const {
@@ -31,8 +31,8 @@ export const UserChangeEmail = () => {
     isValid: isEmailValid,
     error: emailError,
   } = useValidationState("Email", {
-    min: 3,
-    max: 255,
+    minLength: 3,
+    maxLength: 255,
     specialChars: ["@"],
   });
 
@@ -42,8 +42,8 @@ export const UserChangeEmail = () => {
     isValid: isPwdValid,
     error: pwdError,
   } = useValidationState("Hasło", {
-    min: 8,
-    max: 255,
+    minLength: 8,
+    maxLength: 255,
   });
 
   const { result: btnStyles } = useValidationButton(
@@ -67,7 +67,7 @@ export const UserChangeEmail = () => {
   const toggleLoadingClass = loading ? "loading" : "";
   const handleSubmit = (event: SyntheticEvent) => {
     event.preventDefault();
-    setConfig("Czy napewno chcesz zmienic e-mail?", changeEmail);
+    configureAlert("Czy napewno chcesz zmienic e-mail?", changeEmail);
   };
 
   return (
@@ -97,9 +97,9 @@ export const UserChangeEmail = () => {
         />
         <Btn className={`btn-wide btn ${btnStyles} ${toggleLoadingClass}`}>Zmień E-mail</Btn>
 
-        {alertData.show ? <ConfirmAlert config={alertData.config} /> : null}
+        {alertData.isVisible ? <CustomConfirmAlert confirmConfig={alertData.config} /> : null}
         {data.show ? (
-          <ErrorAlert onClick={hideError} message={data.message} />
+          <CustomErrorAlert handleClick={hideError} errorMessage={data.message} />
         ) : null}
       </form>
     </ExpandableContent>

@@ -1,20 +1,21 @@
 import { HTMLAttributes, PropsWithChildren } from "react";
+
 interface Props extends PropsWithChildren, HTMLAttributes<HTMLElement> {
-  article?: true;
+  useArticle?: boolean;
 }
+
 export const MainContainer = ({
   children,
   className,
-  article,
-  ...props
+  useArticle,
+  ...containerProps
 }: Props) => {
-  let baseStyles =
-    "flex h-full w-5/6 flex-col items-center bg-base-100 ";
-  if(article) baseStyles +='prose';
-  if(className) baseStyles+=className;
+  let containerClass = "flex h-full w-5/6 flex-col items-center bg-base-100 ";
+  if (useArticle) containerClass += "prose ";
+  if (className) containerClass += className;
 
   return (
-    <section className={baseStyles} {...props}>
+    <section className={containerClass} {...containerProps}>
       {children}
     </section>
   );

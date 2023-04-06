@@ -1,6 +1,6 @@
 import { Btn } from "@components/ui/Btn";
 import React, { ReactNode, SyntheticEvent, useState } from "react";
-import { ErrorAlert } from "@components/alerts/ErrorAlert";
+import { CustomErrorAlert } from "@components/alerts/CustomErrorAlert";
 import { ModalBoxRemoveLabel } from "@components/ui/Modal/ModalBoxRemove/ModalBoxRemoveLabel";
 
 interface Props {
@@ -29,7 +29,7 @@ export const ModalBoxRemove = ({
   const handleLoadingStyles = loading ? "loading" : "";
 
   const ErrorElement = isError ? (
-    <ErrorAlert onClick={hideError} message={errorMessage} />
+    <CustomErrorAlert handleClick={hideError} errorMessage={errorMessage} />
   ) : null;
 
   const mustType = mustTypeToDelete.trim().replaceAll(" ", "-");
