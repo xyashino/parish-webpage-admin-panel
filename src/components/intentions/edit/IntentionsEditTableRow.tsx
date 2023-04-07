@@ -37,7 +37,7 @@ export const IntentionsEditTableRow = ({ intention, parentId }: Props) => {
       <tr className="p-4 text-xl">
         <td className="border-r-1 text-center font-bold">{hour}</td>
         <td className="flex items-center justify-around">
-          <div className="prose w-3/4 p-4">{parse(value)}</div>
+          <div className="prose w-3/4 p-4 whitespace-normal">{parse(value)}</div>
           <Edit
             className="mr-10 text-3xl hover:scale-150"
             onClick={displayModal}

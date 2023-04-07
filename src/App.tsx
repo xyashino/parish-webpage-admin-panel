@@ -19,6 +19,10 @@ import { GalleryPage } from "@components/pages/gallery/GalleryPage";
 import { GalleryEditPage } from "@components/pages/gallery/GalleryEditPage";
 import { AnnouncementPage } from "@components/pages/announcement/AnnouncementPage";
 import { AnnouncementsResponse } from "@backendTypes";
+import { createRoot } from "react-dom/client";
+
+const loaderElement = document.getElementById("loader");
+const rootElement = createRoot(loaderElement as HTMLElement);
 
 const routers = createBrowserRouter([
   {
@@ -40,13 +44,13 @@ const routers = createBrowserRouter([
           {
             path: PageRouter.IntentionsPreview,
             element: <IntentionsPreviewPage />,
-            loader: () => getDataFrom(PageRouter.Intentions),
+            loader: () => getDataFrom(PageRouter.Intentions, rootElement),
             errorElement: <ErrorPage />,
           },
           {
             path: PageRouter.IntentionsEdit,
             element: <IntentionsEditPage />,
-            loader: () => getDataFrom(PageRouter.Intentions),
+            loader: () => getDataFrom(PageRouter.Intentions, rootElement),
             errorElement: <ErrorPage />,
           },
         ],
@@ -57,7 +61,7 @@ const routers = createBrowserRouter([
           {
             index: true,
             element: <AnnouncementPage />,
-            loader: () => getDataFrom(PageRouter.Announcement),
+            loader: () => getDataFrom(PageRouter.Announcement, rootElement),
             errorElement: <ErrorPage />,
           },
           {
@@ -67,21 +71,27 @@ const routers = createBrowserRouter([
               announcements: [],
               title: "",
               subtitle: "",
-              status:null
+              status: null,
             }),
           },
           {
             path: `${PageRouter.Announcement}:id`,
             element: <AnnouncementModifyPage />,
             loader: ({ params }) =>
-              getDataFrom(`${PageRouter.Announcement}${params.id}`),
+              getDataFrom(
+                `${PageRouter.Announcement}${params.id}`,
+                rootElement
+              ),
             errorElement: <ErrorPage />,
           },
           {
             path: `${PageRouter.Announcement}/:id/preview`,
             element: <AnnouncementPreviewPage />,
             loader: ({ params }) =>
-              getDataFrom(`${PageRouter.Announcement}${params.id}`),
+              getDataFrom(
+                `${PageRouter.Announcement}${params.id}`,
+                rootElement
+              ),
             errorElement: <ErrorPage />,
           },
         ],
@@ -93,13 +103,13 @@ const routers = createBrowserRouter([
           {
             index: true,
             element: <UserListPage />,
-            loader: () => getDataFrom(PageRouter.Users),
+            loader: () => getDataFrom(PageRouter.Users, rootElement),
             errorElement: <ErrorPage />,
           },
           {
             path: PageRouter.UserCurrent,
             element: <UserCurrentPage />,
-            loader: () => getDataFrom(PageRouter.UserCurrent),
+            loader: () => getDataFrom(PageRouter.UserCurrent, rootElement),
             errorElement: <ErrorPage />,
           },
         ],
@@ -110,13 +120,13 @@ const routers = createBrowserRouter([
           {
             path: PageRouter.GalleryTypes,
             element: <GalleryTypesPage />,
-            loader: () => getDataFrom(PageRouter.AlbumTypes),
+            loader: () => getDataFrom(PageRouter.AlbumTypes, rootElement),
             errorElement: <ErrorPage />,
           },
           {
             path: PageRouter.GalleryAlbums,
             element: <GalleryPage />,
-            loader: () => getDataFrom(PageRouter.Albums),
+            loader: () => getDataFrom(PageRouter.Albums, rootElement),
             errorElement: <ErrorPage />,
           },
         ],
@@ -125,7 +135,8 @@ const routers = createBrowserRouter([
       {
         path: `${PageRouter.Albums}/:id`,
         element: <GalleryEditPage />,
-        loader: ({ params }) => getDataFrom(`${PageRouter.Albums}${params.id}`),
+        loader: ({ params }) =>
+          getDataFrom(`${PageRouter.Albums}${params.id}`, rootElement),
         errorElement: <ErrorPage />,
       },
     ],
