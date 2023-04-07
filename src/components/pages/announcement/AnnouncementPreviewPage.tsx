@@ -6,8 +6,8 @@ import { AnnouncementPreviewList } from "@components/announcement/preview/Announ
 import {AnnouncementPreviewHeader} from "@components/announcement/preview/AnnouncementPreviewHeader";
 
 export const AnnouncementPreviewPage = () => {
-  const [{ announcements, title, subtitle }] =
-    useLoaderData() as AnnouncementsResponse[];
+  const { announcements, title, subtitle } =
+    useLoaderData() as AnnouncementsResponse;
 
   return (
     <MainContainer>

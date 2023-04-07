@@ -38,7 +38,6 @@ export const AnnouncementEditHeader = () => {
         <span className="mr-8 text-2xl">Status :</span>
         <SelectStatus
           name="status"
-          defaultValue={restAnnouncement.status ?? ""}
           onChange={updateData}
           value={restAnnouncement.status ?? ""}
         />

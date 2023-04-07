@@ -27,7 +27,7 @@ export const HeaderWithPreviousArrow = ({
         className="text-5xl transition-transform hover:scale-125"
         onClick={handleNavigation}
       />
-      <h1 {...props} className="grow self-center px-8  text-lg lg:text-3xl">
+      <h1 {...props} className="grow self-center px-8  text-lg lg:text-3xl text-base-100">
         {title}
       </h1>
     </header>

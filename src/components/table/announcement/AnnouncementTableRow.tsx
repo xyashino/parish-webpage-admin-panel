@@ -22,12 +22,13 @@ export const AnnouncementTableRow = ({ data, index }: Props) => {
       navigate(`${PageRouter.Announcement}${id}`)
   }
 
+  const tdStyles =`font-bold ${status === "ACTIVE" ? 'text-success' : status==='UPCOMING' ?'text-error' : ''}`
   return (
     <>
       <BaseTableRow index={index} iconClick={displayModal} onClick={handleClick}>
         <td>{title}</td>
         <td>{subtitle ?? "NULL"}</td>
-        <td>{status ?? "NULL"}</td>
+        <td className={tdStyles}>{status ?? "NULL"}</td>
       </BaseTableRow>
       <Modal
         hideModal={hideModal}
