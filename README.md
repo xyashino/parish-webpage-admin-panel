@@ -1,6 +1,7 @@
 <p align="center">
   <img src="https://github-readme-tech-stack.vercel.app/api/cards?title=Tech%20Stack&titleAlign=center&fontSize=24&lineCount=2&theme=react&gap=13&line1=react,react,61DAFB;typescript,typescript,3178C6;reactrouter,react%20router,CA4245;&line2=daisyui,daisyui,5A0EF8;tailwindcss,tailwind%20css,06B6D4" alt="tech stack"/>
 </p> 
+
 # PARISH-WEBPAGE-ADMIN-PANEL
 
 **PARISH-WEBPAGE -** is a full-stack application that aims to present a simple parish website with the ability to edit certain things like intentions and announcements, in the style of a simple "Wordpress". The project consists of three repositories:
