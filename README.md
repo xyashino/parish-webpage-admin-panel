@@ -1,4 +1,6 @@
-[![My Tech Stack](https://github-readme-tech-stack.vercel.app/api/cards?title=Tech%20Stack&titleAlign=center&fontSize=24&lineCount=2&theme=react&gap=13&line1=react,react,61DAFB;typescript,typescript,3178C6;reactrouter,react%20router,CA4245;&line2=daisyui,daisyui,5A0EF8;tailwindcss,tailwind%20css,06B6D4;)](https://github-readme-tech-stack.vercel.app/api/cards?title=Tech%20Stack&titleAlign=center&fontSize=24&lineCount=2&theme=react&gap=13&line1=react,react,61DAFB;typescript,typescript,3178C6;reactrouter,react%20router,CA4245;&line2=daisyui,daisyui,5A0EF8;tailwindcss,tailwind%20css,06B6D4;)
+<p style="text-align: center">
+  <img src="https://github-readme-tech-stack.vercel.app/api/cards?title=Tech%20Stack&titleAlign=center&fontSize=24&lineCount=2&theme=react&gap=13&line1=react,react,61DAFB;typescript,typescript,3178C6;reactrouter,react%20router,CA4245;&line2=daisyui,daisyui,5A0EF8;tailwindcss,tailwind%20css,06B6D4" alt="tech stack"/>
+</p> 
 # PARISH-WEBPAGE-ADMIN-PANEL
 
 **PARISH-WEBPAGE -** is a full-stack application that aims to present a simple parish website with the ability to edit certain things like intentions and announcements, in the style of a simple "Wordpress". The project consists of three repositories:
@@ -26,8 +28,9 @@ In addition, draft-js has been implemented to use a rich text editor when adding
   LOGIN:test@wp.pl
   PASSWORD:test1234
 ``
-
-![DEMO](./demo/pannel.gif)
+<p style="text-align: center">
+  <img src="demo/pannel.gif" alt="demo">
+</p> 
 
 ## HOW TO DOWNLOAD THE REPOSITORY
 1. Clone the `PARISH-WEBPAGE-ADMIN-PANEL` repository to your computer.
@@ -49,4 +52,5 @@ yarn dev
 # WARNING !!!
 ## THIS APPLICATION REQUIRES A [BACKEND](https://github.com/xyashino/parish-webpage-backend) SO IF YOU WANT TO RUN IT, YOU NEED TO RUN THE BACKEND OTHERWISE YOU WILL ONLY SEE THE LOGIN PAGE
 If you don't change the default settings, everything should work right away.
+
 You **need** to rename the file from `.env.example` to `.env` and set the `VITE_API_URL` variable to the running server's URL.
