@@ -29,7 +29,7 @@ export const IntentionsEditTableHead = ({ day, date, parentId }: Props) => {
       <tr className="bg-neutral text-center">
         <th className="bg-primary">
           <input
-            className="h-full bg-transparent text-xl text-base-100"
+            className="bg-transparent text-xl text-base-100"
             type="date"
             value={date + ""}
             onChange={(e) => updateDay(e)}
