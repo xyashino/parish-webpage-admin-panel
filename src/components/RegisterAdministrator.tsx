@@ -8,6 +8,7 @@ import { CustomErrorAlert } from "@components/alerts/CustomErrorAlert";
 import { useRevalidator } from "react-router-dom";
 import { useAxios } from "@hooks/useAxios";
 import {AxiosRequestConfig} from "axios";
+import {RequestPath} from "@enums/request-path.enum";
 
 interface Props {
   hideModal: (e?: SyntheticEvent) => void;
@@ -71,7 +72,7 @@ export const RegisterAdministrator = ({ hideModal }: Props) => {
         password: pwdValue,
       },
     };
-    await fetchDataUsingAxios("/users/register", config , runAfterSuccess);
+    await fetchDataUsingAxios(RequestPath.Register, config , runAfterSuccess);
   };
   const toggleLoadingStyles = loading ? "loading" : "";
 

@@ -12,13 +12,14 @@ import { UsersResponse } from "@backendTypes";
 import { useCustomConfirmAlert } from "@hooks/useCustomConfirmAlert";
 import { UserInfo } from "@components/user/UserInfo";
 import { CustomConfirmAlert } from "@components/alerts/CustomConfirmAlert";
+import {RequestPath} from "@enums/request-path.enum";
 export const UserCurrentPage = () => {
   const navigate = useNavigate();
   const data = useLoaderData() as UsersResponse;
   const { alertData, configureAlert } = useCustomConfirmAlert();
 
   const logoutUser = async () => {
-    await AxiosBase.get("/auth/logout");
+    await AxiosBase.get(RequestPath.Logout);
     navigate(PageRouter.Login);
   };
 

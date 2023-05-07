@@ -47,7 +47,7 @@ export const LoginForm = () => {
   );
 
   const navigateToHomePage = () => {
-    navigate(PageRouter.Home);
+    navigate(PageRouter.Main);
   };
   const handleLogin = async (e: SyntheticEvent) => {
     e.preventDefault();

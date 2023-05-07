@@ -13,7 +13,7 @@ export const ErrorPage = () => {
           poźniej.
         </p>
         <Link
-          to={PageRouter.Home}
+          to={PageRouter.Main}
           className="btn-primary btn m-8 rounded  p-2 px-8 py-3 font-semibold  uppercase"
         >
           Strona główna

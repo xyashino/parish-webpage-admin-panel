@@ -1,10 +1,12 @@
 export const enum PageRouter {
-    Home = "/",
+    Main = "/",
+    Everything = "*",
     Login = "/login/",
     Contact = "/contact/",
     Announcement = "/announcements/",
-    AnnouncementCreate = "/announcements/create",
-    AnnouncementPreview = "/announcements/preview/",
+    OneAnnouncement = "/announcements/:id/",
+    AnnouncementCreate = "/announcements/create/",
+    AnnouncementPreview = "/announcements/:id/preview/",
     AnnouncementEdit = "/announcements/edit/",
 
     Intentions = "/intentions/",
@@ -19,6 +21,7 @@ export const enum PageRouter {
     ArticleCreate = "/article/create/",
 
     Albums= '/albums/',
+    OneAlbum= '/albums/:id',
     AlbumTypes= '/albums/types/',
     Gallery = "/gallery/",
     GalleryTypes =  "/gallery/types/",

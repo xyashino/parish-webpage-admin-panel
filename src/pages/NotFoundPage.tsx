@@ -13,7 +13,7 @@ export const NotFoundPage = () => {
       </div>
       <button className="mt-5">
         <Link
-          to={PageRouter.Home}
+          to={PageRouter.Main}
           className="group relative inline-block text-sm font-medium text-primary-content focus:outline-none focus:ring active:text-orange-500"
         >
           <span className="absolute inset-0 translate-x-0.5 translate-y-0.5 bg-primary-content  transition-transform group-hover:translate-y-0 group-hover:translate-x-0"></span>
