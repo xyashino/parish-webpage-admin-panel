@@ -19,7 +19,7 @@ export const GalleryTableRow = ({ index, id, title, name }: Props) => {
 
   const handleClick = (e: SyntheticEvent) => {
     e.preventDefault();
-    navigate(`${PageRouter.Albums}/${id}`);
+    navigate(`${PageRouter.Albums}${id}`);
   };
 
   return (
