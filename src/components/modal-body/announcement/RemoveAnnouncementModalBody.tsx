@@ -4,8 +4,8 @@ import { PageRouter } from "@enums/page-router.enum";
 import { useRevalidator } from "react-router-dom";
 import { ModalBoxRemove } from "@components/ui/Modal/ModalBoxRemove/ModalBoxRemove";
 import { AxiosRequestConfig } from "axios";
-
 const BASE_DELETE_GROUP = "delete-announcement/";
+
 interface Props {
   hideModal: (e?: any) => void;
   title: string;

@@ -47,7 +47,7 @@ export const IntentionsEditTableFoot = ({
         </td>
       </tr>
       </tfoot>
-      <Modal hideModal={hideModal} showModal={showModal}>
+      <Modal hideModal={hideModal} showModal={showModal} boxModalClasses='w-3/5'>
          <IntentionModalBody addField={addItemEmptyItem} hideModal={hideModal} title='Dodaj Intecje:' btnValue='Dodaj'/>
       </Modal>
     </>

@@ -25,6 +25,7 @@ export const useAxios = () => {
           error.response?.data.error ??
           error.message;
       }
+      if( Array.isArray(message) && message.length > 0) message = message.join('\t')
       setLoading(false);
        showError(message);
     }

@@ -63,8 +63,8 @@ export const AnnouncementEditBodyItem = ({ item }: Props) => {
         </li>
         <Divider />
       </div>
-      <Modal hideModal={hideModal} showModal={showModal}>
-        <EditAnnouncementModalBody hideModal={hideModal} body={body} addField={updateDataInContext}/>
+      <Modal hideModal={hideModal} showModal={showModal} boxModalClasses='w-3/4'>
+        <EditAnnouncementModalBody hideModal={hideModal} body={body} addField={updateDataInContext} />
       </Modal>
     </>
   );

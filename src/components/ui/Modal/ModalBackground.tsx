@@ -13,9 +13,10 @@ export const ModalBackGround = ({ children, hideModal }: Props) => {
   };
   return (
     <div
-      className="fixed inset-0 z-40 flex flex-col items-center bg-neutral/40 transition-all  overflow-y-scroll"
+      className="fixed inset-0 z-40 flex justify-center items-center bg-neutral/90 transition-all  overflow-y-scroll"
       onClick={handleClick}
       ref={modalRef}
+      tabIndex={0}
     >
       {children}
     </div>

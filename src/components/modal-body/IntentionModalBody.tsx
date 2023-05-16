@@ -39,11 +39,11 @@ export const IntentionModalBody = ({ addField, hideModal,title,baseValue ,btnVal
   return (
     <div className="flex flex-col items-center justify-center p-6">
       <h2 className="mx-4 text-3xl font-bold uppercase">{title}</h2>
-            <label className='bg-accent p-8 rounded-box m-4 w-4/5 flex items-center'>
+            <label className='bg-accent p-4 rounded-box m-4 w-full flex items-center'>
                 <p className='text-xl uppercase font-bold text-accent-content mx-4'  >Godzina:</p>
                 <input type="text" className='input input-md' value={hour} onChange={changeHour} placeholder='HH:MM' autoComplete='hour'/>
             </label>
-      <div className="w-4/5 bg-accent p-8 rounded-box flex items-center justify-center">
+      <div className="bg-accent p-2 rounded-box flex items-center justify-center w-full">
         <RichTextEditor ref={editorRef} defaultValue={baseValue?.defaultEditorValue} />
       </div>
       <Btn className="btn-primary btn-wide btn m-4" onClick={(e)=>handleClick(e)}>

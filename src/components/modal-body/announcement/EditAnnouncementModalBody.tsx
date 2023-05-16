@@ -18,9 +18,9 @@ export const EditAnnouncementModalBody = ({ addField, hideModal,body }: Props) =
     hideModal(e);
   };
   return (
-    <div className="flex flex-col items-center justify-center p-6">
+    <div className="flex flex-col items-center justify-center p-2">
       <h2 className="mx-4 text-3xl font-bold uppercase">Edytuj Ogłoszenie :</h2>
-      <div className='w-4/5'>
+      <div className='p-2 rounded-box flex items-center justify-center  w-full'>
         <RichTextEditor ref={editorRef} defaultValue={body}/>
       </div>
       <Btn className="btn-wide btn" onClick={handleClick}>

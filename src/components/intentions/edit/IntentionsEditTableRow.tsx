@@ -48,7 +48,7 @@ export const IntentionsEditTableRow = ({ intention, parentId }: Props) => {
           />
         </td>
       </tr>
-      <Modal hideModal={hideModal} showModal={showModal}>
+      <Modal hideModal={hideModal} showModal={showModal} boxModalClasses='w-3/5'>
         <IntentionModalBody
           addField={updateValue}
           hideModal={hideModal}
