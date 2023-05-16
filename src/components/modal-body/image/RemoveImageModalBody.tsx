@@ -9,7 +9,7 @@ export const RemoveImageModalBody = ({ data }: Props) => {
   const [images, setImages] = useState(data.images);
   return (
     <div className="flex w-full flex-col items-center justify-center p-4">
-      <h2 className="text-3xl uppercase">
+      <h2 className="text-2xl uppercase">
         {" "}
         <span className="font-bold text-error">UWAGA !!!</span> tutaj USUWASZ{" "}
         <span className="font-bold text-error">TRWALE </span> zdjęcia z albumu "
