@@ -75,7 +75,7 @@ export const GalleryEditPage = () => {
             </Btn>
           </div>
         </MainContainer>
-        <Modal hideModal={hideModalWithRevalidation} showModal={showModal} boxModalClasses='w-4/5 h-5/6 overflow-y-scroll'>
+        <Modal hideModal={hideModalWithRevalidation} showModal={showModal} boxModalClasses='w-4/5  overflow-y-scroll'>
           {renderModalBody()}
         </Modal>
       </>
